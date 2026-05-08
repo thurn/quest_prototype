@@ -173,9 +173,14 @@ export interface ShopSiteRuntime {
 export interface RewardSiteRuntime {
   kind: "reward";
   reward:
-    | { itemType: "card"; cardNumber: number }
-    | { itemType: "dreamsign"; dreamsign: Dreamsign }
-    | { itemType: "essence"; amount: number };
+    | { rewardType: "card"; cardNumber: number; cardName: string }
+    | {
+        rewardType: "dreamsign";
+        dreamsignId: string;
+        dreamsignName: string;
+        dreamsignEffect: string;
+      }
+    | { rewardType: "essence"; essenceAmount: number };
   remainingDreamsignPoolIds: string[];
   accepted: boolean;
 }
