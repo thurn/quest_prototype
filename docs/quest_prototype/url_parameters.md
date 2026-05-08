@@ -37,11 +37,11 @@ session, so toggling it requires a page reload.
 
 ## `game`
 
-Identifies the Firebase multiplayer room to join. The value is normalized to
-lowercase and must be 4 to 24 lowercase letters or digits after normalization.
-Invalid values are treated as an absent room id.
+Parses a Firebase multiplayer room id into `runtimeConfig.gameId`. The value is
+normalized to lowercase and must be 4 to 24 lowercase letters or digits after
+normalization. Invalid values are treated as an absent room id.
 
-When `game` is absent, the multiplayer shell shows the create-game screen.
+The parsed room id is available to the multiplayer shell.
 
 Example:
 
@@ -56,7 +56,7 @@ http://localhost:5173/                          # default
 http://localhost:5173/?seed=42                  # fixed seed
 http://localhost:5173/?startInBattle=1          # boot straight into battle
 http://localhost:5173/?enableAi=1               # heuristic opponent enabled
-http://localhost:5173/?game=quest42             # join multiplayer room
+http://localhost:5173/?game=quest42             # parsed multiplayer room id
 http://localhost:5173/?startInBattle=1&enableAi=1
 http://localhost:5173/?seed=7&startInBattle=1
 ```
