@@ -138,6 +138,94 @@ export interface QuestFailureSummary {
   enemyScore: number;
 }
 
+/** Runtime state for one purchasable slot in a shop site. */
+export type RuntimeShopSlot =
+  | {
+      itemType: "card";
+      cardNumber: number;
+      basePrice: number;
+      discountPercent: number;
+      purchased: boolean;
+    }
+  | {
+      itemType: "dreamsign";
+      dreamsign: Dreamsign;
+      basePrice: number;
+      discountPercent: number;
+      purchased: boolean;
+    }
+  | {
+      itemType: "reroll";
+      basePrice: number;
+      discountPercent: number;
+      purchased: boolean;
+    };
+
+/** Runtime state for a shop site. */
+export interface ShopSiteRuntime {
+  kind: "shop";
+  slots: RuntimeShopSlot[];
+  rerollCount: number;
+  remainingDreamsignPoolIds: string[];
+}
+
+/** Runtime state for a reward site. */
+export interface RewardSiteRuntime {
+  kind: "reward";
+  reward:
+    | { itemType: "card"; cardNumber: number }
+    | { itemType: "dreamsign"; dreamsign: Dreamsign }
+    | { itemType: "essence"; amount: number };
+  remainingDreamsignPoolIds: string[];
+  accepted: boolean;
+}
+
+/** Runtime state for a Dreamsign offer site. */
+export interface DreamsignOfferSiteRuntime {
+  kind: "dreamsignOffer";
+  offeredDreamsigns: Dreamsign[];
+  remainingDreamsignPool: string[];
+  accepted: boolean;
+}
+
+/** Runtime state for an Essence site. */
+export interface EssenceSiteRuntime {
+  kind: "essence";
+  amount: number;
+  accepted: boolean;
+}
+
+/** Runtime state for a card choice site. */
+export interface CardChoiceSiteRuntime {
+  kind: "cardChoice";
+  entryIds: string[];
+  acceptedEntryIds: string[];
+}
+
+/** Runtime state for a Dream Journey site. */
+export interface DreamJourneySiteRuntime {
+  kind: "dreamJourney";
+  optionIds: string[];
+  completed: boolean;
+}
+
+/** Runtime state for a Tempting Offer site. */
+export interface TemptingOfferSiteRuntime {
+  kind: "temptingOffer";
+  optionIds: string[];
+  completed: boolean;
+}
+
+/** Serialized runtime state keyed by site id. */
+export type SiteRuntimeState =
+  | ShopSiteRuntime
+  | RewardSiteRuntime
+  | DreamsignOfferSiteRuntime
+  | EssenceSiteRuntime
+  | CardChoiceSiteRuntime
+  | DreamJourneySiteRuntime
+  | TemptingOfferSiteRuntime;
+
 /** Discriminated union for the current screen. */
 export type Screen =
   | { type: "questStart" }
@@ -160,6 +248,7 @@ export interface QuestState {
   atlas: DreamAtlas;
   currentDreamscape: string | null;
   visitedSites: string[];
+  siteRuntime: Record<string, SiteRuntimeState>;
   draftState: DraftState | null;
   screen: Screen;
   activeSiteId: string | null;

@@ -131,6 +131,7 @@ function makeState(): QuestState {
     },
     currentDreamscape: null,
     visitedSites: [],
+    siteRuntime: {},
     draftState: null,
     screen: { type: "dreamscape" },
     activeSiteId: null,

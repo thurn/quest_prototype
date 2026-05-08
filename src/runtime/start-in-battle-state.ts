@@ -55,6 +55,7 @@ export function createStartInBattleState(
     atlas,
     currentDreamscape: dreamscapeWithBattle.id,
     visitedSites: [],
+    siteRuntime: {},
     draftState: initializeDraftState(questContent.cardDatabase, resolvedPackage),
     screen: { type: "site", siteId: battleSite.id },
     activeSiteId: battleSite.id,

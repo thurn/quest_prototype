@@ -278,6 +278,7 @@ function setQuestState({
       },
       currentDreamscape,
       visitedSites,
+      siteRuntime: {},
       draftState: null,
       screen,
       activeSiteId: "site-7",

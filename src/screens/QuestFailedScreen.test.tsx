@@ -149,6 +149,7 @@ function makeState(
     },
     currentDreamscape: null,
     visitedSites: [],
+    siteRuntime: {},
     draftState: null,
     screen: { type: "questFailed" },
     activeSiteId: null,

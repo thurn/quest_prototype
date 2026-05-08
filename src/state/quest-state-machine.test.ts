@@ -160,6 +160,7 @@ describe("QuestProvider default state contract", () => {
     expect(state.resolvedPackage).toBeNull();
     expect(state.cardSourceDebug).toBeNull();
     expect(state.remainingDreamsignPool).toEqual([]);
+    expect(state.siteRuntime).toEqual({});
     expect(state.draftState).toBeNull();
   });
 
@@ -276,9 +277,11 @@ describe("Task 02 state transitions", () => {
       atlas: { nodes: {}, edges: [], nexusId: "" },
       currentDreamscape: null,
       visitedSites: [],
+      siteRuntime: {},
       draftState: null,
       screen: { type: "questStart" },
       activeSiteId: null,
+      failureSummary: null,
     });
     expect(populated.resolvedPackage).not.toBeNull();
   });

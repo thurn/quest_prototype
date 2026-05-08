@@ -334,6 +334,7 @@ function makeState(overrides: Partial<QuestState> = {}): QuestState {
     },
     currentDreamscape: null,
     visitedSites: [],
+    siteRuntime: {},
     draftState: makeDraftState(),
     screen: { type: "site", siteId: "site-1" },
     activeSiteId: "site-1",
