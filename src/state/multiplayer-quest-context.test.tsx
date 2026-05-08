@@ -25,6 +25,10 @@ const bridgeMocks = vi.hoisted(() => ({
   resetBattleCompletionBridge: vi.fn(),
 }));
 
+const loggingMocks = vi.hoisted(() => ({
+  resetLog: vi.fn(),
+}));
+
 vi.mock("../multiplayer/room-service", () => ({
   writeRoomUpdate: roomServiceMocks.writeRoomUpdate,
 }));
@@ -38,6 +42,10 @@ vi.mock("../components/playable-battle-cache", () => ({
 
 vi.mock("../battle/integration/battle-completion-bridge", () => ({
   resetBattleCompletionBridge: bridgeMocks.resetBattleCompletionBridge,
+}));
+
+vi.mock("../logging", () => ({
+  resetLog: loggingMocks.resetLog,
 }));
 
 const database = { app: { name: "test-app" } } as Database;
@@ -260,6 +268,7 @@ describe("MultiplayerQuestProvider", () => {
 
     captured[captured.length - 1]?.mutations.resetQuest();
 
+    expect(loggingMocks.resetLog).toHaveBeenCalledTimes(1);
     expect(bridgeMocks.resetBattleCompletionBridge).toHaveBeenCalledTimes(1);
     expect(playableBattleCacheMocks.reset).toHaveBeenCalledTimes(1);
     expect(roomServiceMocks.writeRoomUpdate).toHaveBeenCalledWith(

@@ -7,6 +7,7 @@ import {
 } from "../components/playable-battle-cache";
 import { resetBattleCompletionBridge } from "../battle/integration/battle-completion-bridge";
 import type { QuestContent } from "../data/quest-content";
+import { resetLog } from "../logging";
 import { writeRoomUpdate } from "../multiplayer/room-service";
 import {
   buildQuestFieldUpdate,
@@ -329,6 +330,7 @@ export function MultiplayerQuestProvider({
 
   const resetQuest = useCallback(() => {
     const current = currentRef.current;
+    resetLog();
     resetBattleCompletionBridge();
     current.playableBattleCache.reset();
     writeWholeQuestState({
