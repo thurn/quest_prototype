@@ -1,6 +1,6 @@
 import type { QuestState } from "../types/quest";
 
-const FIREBASE_FORBIDDEN_KEY_CHARS = /[.#$[\]/\u0000-\u001F\u007F]/u;
+const FIREBASE_FORBIDDEN_KEY_CHARS = /[.#$[\]/]/u;
 const MAX_FIREBASE_KEY_BYTES = 768;
 
 export type FirebaseUpdateMap = Record<string, unknown>;
@@ -9,10 +9,18 @@ function utf8ByteLength(value: string): number {
   return new TextEncoder().encode(value).length;
 }
 
+function hasFirebaseForbiddenControlCharacter(value: string): boolean {
+  return Array.from(value).some((character) => {
+    const codePoint = character.codePointAt(0);
+    return codePoint !== undefined && (codePoint <= 0x1f || codePoint === 0x7f);
+  });
+}
+
 export function assertFirebasePathSegment(segment: string, label: string): string {
   if (
     segment === "" ||
     FIREBASE_FORBIDDEN_KEY_CHARS.test(segment) ||
+    hasFirebaseForbiddenControlCharacter(segment) ||
     utf8ByteLength(segment) > MAX_FIREBASE_KEY_BYTES
   ) {
     throw new Error(`${label} must be a non-empty Firebase path segment.`);
