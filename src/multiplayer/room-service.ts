@@ -21,6 +21,15 @@ export type RoomSubscriptionSnapshot =
   | { status: "missing" }
   | { status: "error"; message: string };
 
+function normalizeRoomSnapshot(room: MultiplayerRoom): MultiplayerRoom {
+  return {
+    ...room,
+    questState: room.questState ?? null,
+    presence: room.presence ?? {},
+    actionLog: room.actionLog ?? {},
+  };
+}
+
 export function createRoomRecord(nowIso: string = new Date().toISOString()): MultiplayerRoom {
   const metadata: RoomMetadata = {
     schemaVersion: ROOM_SCHEMA_VERSION,
@@ -57,7 +66,7 @@ export function subscribeToRoom(
         return;
       }
 
-      listener({ status: "ready", room: snapshot.val() as MultiplayerRoom });
+      listener({ status: "ready", room: normalizeRoomSnapshot(snapshot.val() as MultiplayerRoom) });
     },
     (error) => {
       listener({ status: "error", message: error.message });
@@ -92,6 +101,6 @@ export async function writePresence(
   const entryRef = ref(database, presencePath(roomId, clientId));
   const entry: PresenceEntry = { connected: true, lastSeenAt: nowIso };
 
-  await set(entryRef, entry);
   await onDisconnect(entryRef).remove();
+  await set(entryRef, entry);
 }

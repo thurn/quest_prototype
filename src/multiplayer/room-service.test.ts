@@ -91,6 +91,33 @@ describe("room service", () => {
     expect(listener).toHaveBeenCalledWith({ status: "ready", room });
   });
 
+  it("normalizes room snapshots with RTDB-omitted empty values", () => {
+    const listener = vi.fn();
+    const room = {
+      metadata: {
+        schemaVersion: 1,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      },
+    };
+    firebaseMocks.onValue.mockImplementation((_entryRef, next: SnapshotListener) => {
+      next({ exists: () => true, val: () => room });
+      return vi.fn();
+    });
+
+    subscribeToRoom(database, "ab12", listener);
+
+    expect(listener).toHaveBeenCalledWith({
+      status: "ready",
+      room: {
+        metadata: room.metadata,
+        questState: null,
+        presence: {},
+        actionLog: {},
+      },
+    });
+  });
+
   it("emits missing when the room snapshot does not exist", () => {
     const listener = vi.fn();
     firebaseMocks.onValue.mockImplementation((_entryRef, next: SnapshotListener) => {
@@ -130,14 +157,18 @@ describe("room service", () => {
       path: "rooms/ab12/presence/client-1",
     });
     expect(firebaseMocks.remove).toHaveBeenCalledOnce();
+    expect(firebaseMocks.remove.mock.invocationCallOrder[0]).toBeLessThan(
+      firebaseMocks.set.mock.invocationCallOrder[0],
+    );
   });
 
   it("runs room transactions and preserves current data when updater returns undefined", async () => {
     const current = createRoomRecord(timestamp);
     const updater = vi.fn(() => undefined);
     firebaseMocks.runTransaction.mockImplementation(
-      async (_entryRef, transactionUpdater: TransactionUpdater) => {
+      (_entryRef, transactionUpdater: TransactionUpdater) => {
         expect(transactionUpdater(current)).toBe(current);
+        return Promise.resolve({ committed: true, snapshot: null });
       },
     );
 
@@ -161,8 +192,9 @@ describe("room service", () => {
   it("allows transaction updaters to write null", async () => {
     const current: MultiplayerRoom = createRoomRecord(timestamp);
     firebaseMocks.runTransaction.mockImplementation(
-      async (_entryRef, transactionUpdater: TransactionUpdater) => {
+      (_entryRef, transactionUpdater: TransactionUpdater) => {
         expect(transactionUpdater(current)).toBeNull();
+        return Promise.resolve({ committed: true, snapshot: null });
       },
     );
 
