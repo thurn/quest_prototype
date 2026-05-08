@@ -7,27 +7,31 @@ state is in memory and resets on page load.
 
 ## Quick Start
 
+One command — installs deps, kills any stale dev server, regenerates assets,
+starts Vite, and pops the app open in your default browser:
+
 ```bash
-cd ~/quest_prototype
-npm install            # first time only
-npm start              # runs setup-assets, kills any stale dev server, opens on :5173
+cd ~/quest_prototype && npm run launch
 ```
 
-`npm start` will:
+If deps are already installed and you don't need a new browser tab, use:
 
-1. Kill anything currently bound to port 5173 so you can re-run it freely.
-2. Refresh `public/card-data.json`, `public/dreamcaller-data.json`,
+```bash
+npm start              # kills stale server, refreshes assets, starts Vite on :5173
+```
+
+What `npm start` does:
+
+1. Kills anything currently bound to port 5173 so you can re-run it freely.
+2. Refreshes `public/card-data.json`, `public/dreamcaller-data.json`,
    `public/dreamsign-data.json`, the symlinks under `public/cards/`,
    `public/dreamcallers/`, `public/dreamsigns/`, and the copied tide icons
    under `public/tides/`.
-3. Start Vite on `http://localhost:5173/` with `--strictPort` so a port
+3. Starts Vite on `http://localhost:5173/` with `--strictPort` so a port
    collision fails loudly instead of drifting to 5174.
 
-Open `http://localhost:5173/` in your browser. macOS shortcut:
-
-```bash
-open http://localhost:5173/
-```
+`npm run launch` is just `npm install && npm start -- --open`, so Vite opens
+the URL once the server is actually ready.
 
 ## Prerequisites
 
@@ -47,6 +51,7 @@ under `data/` in this repo, so no sibling dreamtides checkout is required.
 ## Other Commands
 
 ```bash
+npm run launch          # install + start + open browser (the all-in-one command)
 npm run dev             # same as start, but does NOT kill an existing server
 npm run setup-assets    # regenerate JSON + symlinks without starting Vite
 npm run typecheck       # tsc --noEmit
