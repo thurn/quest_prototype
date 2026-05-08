@@ -41,7 +41,7 @@ Parses a Firebase multiplayer room id into `runtimeConfig.gameId`. The value is
 normalized to lowercase and must be 4 to 24 lowercase letters or digits after
 normalization. Invalid values are treated as an absent room id.
 
-The parsed room id is available to the multiplayer shell.
+The parsed room id is stored on `runtimeConfig.gameId`.
 
 Example:
 
