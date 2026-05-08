@@ -39,8 +39,11 @@ import {
   loadQuestState,
   saveQuestState,
 } from "./quest-state-storage";
+import { deriveEntryIdCounter } from "./deck-entry-ids";
 import type { RuntimeConfig } from "../runtime/runtime-config";
 import { createStartInBattleState } from "../runtime/start-in-battle-state";
+
+export { deriveEntryIdCounter };
 
 const MAX_DREAMSIGNS = 12;
 
@@ -175,25 +178,6 @@ export function applyDraftState(
     ...prev,
     draftState,
   };
-}
-
-/**
- * Recovers the high-water mark for the `deck-N` entry id sequence from a
- * (possibly restored) deck. Without this, hydrating from `sessionStorage`
- * would reset the counter to `0` and the first newly-added card after
- * reload would collide with `deck-1` from the original session.
- */
-export function deriveEntryIdCounter(deck: readonly DeckEntry[]): number {
-  let max = 0;
-  for (const entry of deck) {
-    const match = /^deck-(\d+)$/.exec(entry.entryId);
-    if (match === null) continue;
-    const value = Number(match[1]);
-    if (Number.isFinite(value) && value > max) {
-      max = value;
-    }
-  }
-  return max;
 }
 
 /** Provides quest state and mutation functions to the component tree. */

@@ -175,8 +175,7 @@ export function countRemainingUniqueCards(
   return Object.keys(remainingCopiesByCard).length;
 }
 
-/** Create initial DraftState from the resolved Dreamcaller package. */
-export function initializeDraftState(
+export function createInitialDraftState(
   cardDatabase: Map<number, CardData>,
   resolvedPackage: ResolvedDreamcallerPackage,
 ): DraftState {
@@ -184,15 +183,6 @@ export function initializeDraftState(
     cardDatabase,
     resolvedPackage.draftPoolCopiesByCard,
   );
-  const expandedPool = expandRemainingCopies(remainingCopiesByCard);
-
-  logEvent("draft_pool_initialized", {
-    poolSize: countRemainingCards(remainingCopiesByCard),
-    uniqueCardCount: countRemainingUniqueCards(remainingCopiesByCard),
-    dreamcallerId: resolvedPackage.dreamcaller.id,
-    selectedPackageTides: resolvedPackage.selectedTides,
-    cardCountByTide: countByTide(expandedPool, cardDatabase),
-  });
 
   return {
     remainingCopiesByCard,
@@ -201,6 +191,25 @@ export function initializeDraftState(
     pickNumber: 1,
     sitePicksCompleted: 0,
   };
+}
+
+/** Create initial DraftState from the resolved Dreamcaller package. */
+export function initializeDraftState(
+  cardDatabase: Map<number, CardData>,
+  resolvedPackage: ResolvedDreamcallerPackage,
+): DraftState {
+  const draftState = createInitialDraftState(cardDatabase, resolvedPackage);
+  const expandedPool = expandRemainingCopies(draftState.remainingCopiesByCard);
+
+  logEvent("draft_pool_initialized", {
+    poolSize: countRemainingCards(draftState.remainingCopiesByCard),
+    uniqueCardCount: countRemainingUniqueCards(draftState.remainingCopiesByCard),
+    dreamcallerId: resolvedPackage.dreamcaller.id,
+    selectedPackageTides: resolvedPackage.selectedTides,
+    cardCountByTide: countByTide(expandedPool, cardDatabase),
+  });
+
+  return draftState;
 }
 
 /** Prepare the state for a draft site visit. Draws the first pack. */

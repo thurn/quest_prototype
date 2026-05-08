@@ -2,7 +2,7 @@ import { generateInitialAtlas } from "../atlas/atlas-generator";
 import { toQuestDreamcaller } from "../data/dreamcaller-selection";
 import type { QuestContent } from "../data/quest-content";
 import { STARTER_CARD_NUMBERS } from "../data/starter-cards";
-import { initializeDraftState } from "../draft/draft-engine";
+import { createInitialDraftState } from "../draft/draft-engine";
 import type { DreamcallerContent } from "../types/content";
 import type {
   DeckEntry,
@@ -10,7 +10,7 @@ import type {
   QuestState,
   Screen,
 } from "../types/quest";
-import { deriveEntryIdCounter } from "./quest-context";
+import { deriveEntryIdCounter } from "./deck-entry-ids";
 
 export function nextDeckEntryId(deck: readonly DeckEntry[]): string {
   return `deck-${String(deriveEntryIdCounter(deck) + 1)}`;
@@ -134,7 +134,11 @@ export function startQuestFromDreamcaller({
   const playerHasBanes =
     deck.some((entry) => entry.isBane) ||
     prev.dreamsigns.some((dreamsign) => dreamsign.isBane);
-  const atlas = generateInitialAtlas(prev.completionLevel, { playerHasBanes });
+  const atlas = generateInitialAtlas(
+    prev.completionLevel,
+    { playerHasBanes },
+    { logEvents: false },
+  );
   const firstNode = Object.values(atlas.nodes).find(
     (node) => node.status === "available",
   );
@@ -145,7 +149,7 @@ export function startQuestFromDreamcaller({
     dreamcaller: toQuestDreamcaller(dreamcaller),
     resolvedPackage,
     remainingDreamsignPool: [...resolvedPackage.dreamsignPoolIds],
-    draftState: initializeDraftState(
+    draftState: createInitialDraftState(
       questContent.cardDatabase,
       resolvedPackage,
     ),

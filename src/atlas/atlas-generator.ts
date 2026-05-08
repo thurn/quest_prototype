@@ -12,6 +12,10 @@ export interface SiteGenerationContext {
   playerHasBanes: boolean;
 }
 
+export interface AtlasGenerationOptions {
+  logEvents?: boolean;
+}
+
 const BASE_RADIUS = 200;
 const RADIUS_INCREMENT = 160;
 
@@ -207,24 +211,29 @@ function createNode(
   connections: string[],
   context: SiteGenerationContext,
   usedBiomeNames: ReadonlySet<string>,
+  options: AtlasGenerationOptions = {},
 ): DreamscapeNode {
   const id = nextNodeId();
   const biome = assignBiome(usedBiomeNames);
   const sites = generateSiteComposition(completionLevel, isFirstDreamscape, context);
   const enhancedSiteType = applyBiomeEnhancement(sites, biome);
 
-  logEvent("atlas_node_generated", {
-    nodeId: id,
-    connections,
-    position: { x: position.x, y: position.y },
-  });
+  if (options.logEvents !== false) {
+    logEvent("atlas_node_generated", {
+      nodeId: id,
+      connections,
+      position: { x: position.x, y: position.y },
+    });
+  }
 
-  logEvent("dreamscape_generated", {
-    dreamscapeId: id,
-    biomeName: biome.name,
-    siteTypes: sites.map((s) => s.type),
-    enhancedSiteType,
-  });
+  if (options.logEvents !== false) {
+    logEvent("dreamscape_generated", {
+      dreamscapeId: id,
+      biomeName: biome.name,
+      siteTypes: sites.map((s) => s.type),
+      enhancedSiteType,
+    });
+  }
 
   return {
     id,
@@ -241,6 +250,7 @@ function createNode(
 export function generateInitialAtlas(
   completionLevel: number,
   context: SiteGenerationContext,
+  options: AtlasGenerationOptions = {},
 ): DreamAtlas {
   resetAtlasGenerator();
 
@@ -278,6 +288,7 @@ export function generateInitialAtlas(
       [nexusId],
       context,
       usedBiomeNames,
+      options,
     );
     usedBiomeNames.add(node.biomeName);
     nodes[node.id] = node;

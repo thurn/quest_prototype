@@ -13,7 +13,10 @@ import {
   addCardToQuestState,
   changeQuestEssence,
   completeQuestSite,
+  nextDeckEntryId,
+  setQuestScreen,
   startQuestFromDreamcaller,
+  updateQuestAtlas,
 } from "./quest-state-actions";
 
 function makeCard(
@@ -139,6 +142,31 @@ beforeEach(() => {
 });
 
 describe("quest state actions", () => {
+  it("derives the next deck entry id from the high-water deck id", () => {
+    expect(
+      nextDeckEntryId([
+        {
+          entryId: "deck-2",
+          cardNumber: 101,
+          transfiguration: null,
+          isBane: false,
+        },
+        {
+          entryId: "starter-99",
+          cardNumber: 202,
+          transfiguration: null,
+          isBane: false,
+        },
+        {
+          entryId: "deck-15",
+          cardNumber: 303,
+          transfiguration: null,
+          isBane: true,
+        },
+      ]),
+    ).toBe("deck-16");
+  });
+
   it("changes quest essence without replacing the deck", () => {
     const prev = createDefaultState();
     const next = changeQuestEssence(prev, 25);
@@ -175,6 +203,7 @@ describe("quest state actions", () => {
   });
 
   it("starts a quest from a Dreamcaller in one state transition", () => {
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
     const dreamcaller = makeDreamcaller();
     const resolvedPackage = makeResolvedPackage(dreamcaller);
     const questContent = makeQuestContent(resolvedPackage);
@@ -218,6 +247,27 @@ describe("quest state actions", () => {
     expect(next.visitedSites).toEqual([]);
     expect(next.screen).toEqual({ type: "dreamscape" });
     expect(next.activeSiteId).toBeNull();
+    expect(logSpy).not.toHaveBeenCalled();
+  });
+
+  it("sets the quest screen and active site together", () => {
+    const prev = createDefaultState();
+    const siteScreen = setQuestScreen(prev, { type: "site", siteId: "site-1" });
+    const atlasScreen = setQuestScreen(siteScreen, { type: "atlas" });
+
+    expect(siteScreen.screen).toEqual({ type: "site", siteId: "site-1" });
+    expect(siteScreen.activeSiteId).toBe("site-1");
+    expect(atlasScreen.screen).toEqual({ type: "atlas" });
+    expect(atlasScreen.activeSiteId).toBeNull();
+  });
+
+  it("updates the quest atlas by reference", () => {
+    const prev = createDefaultState();
+    const atlas = makeAtlas();
+    const next = updateQuestAtlas(prev, atlas);
+
+    expect(next.atlas).toBe(atlas);
+    expect(prev.atlas).toEqual({ nodes: {}, edges: [], nexusId: "" });
   });
 
   it("completes a site while preserving unrelated site runtime", () => {
