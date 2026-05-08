@@ -13,7 +13,7 @@ function makeDreamcaller(id: string): DreamcallerContent {
     awakening: 3,
     renderedText: `Rules text for ${id}.`,
     imageNumber: `00${id}`,
-    mandatoryTides: ["Bloom"],
+    mandatoryTides: ["tide_alpha"],
     optionalTides: ["support-a", "support-b", "support-c", "support-d"],
   };
 }
@@ -53,7 +53,7 @@ describe("selectDreamcallerOffer", () => {
 });
 
 describe("toQuestDreamcaller", () => {
-  it("keeps package choice display data without legacy tide-crystal fields", () => {
+  it("returns the player-facing Dreamcaller display fields", () => {
     expect(toQuestDreamcaller(makeDreamcaller("a"))).toEqual({
       id: "a",
       name: "Dreamcaller a",
@@ -61,7 +61,6 @@ describe("toQuestDreamcaller", () => {
       awakening: 3,
       renderedText: "Rules text for a.",
       imageNumber: "00a",
-      accentTide: "Bloom",
     });
   });
 });

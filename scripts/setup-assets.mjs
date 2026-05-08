@@ -1,4 +1,4 @@
-import { readFileSync, mkdirSync, rmSync, symlinkSync, copyFileSync, readdirSync, existsSync } from "node:fs";
+import { readFileSync, mkdirSync, rmSync, symlinkSync, existsSync } from "node:fs";
 import { writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve, join } from "node:path";
@@ -131,7 +131,6 @@ export function setupAssets({
   cardTomlPath = join(DATA_DIR, "tabula", "rendered-cards.toml"),
   dreamcallerTomlPath = join(DATA_DIR, "tabula", "dreamcallers.toml"),
   dreamsignTomlPath = join(DATA_DIR, "tabula", "dreamsigns.toml"),
-  tideIconsDir = join(DATA_DIR, "tides"),
   publicDir = PUBLIC_DIR,
   imageCacheDir = IMAGE_CACHE_DIR,
   dreamcallerArtDir = defaultDreamcallerArtDir(),
@@ -140,7 +139,6 @@ export function setupAssets({
   const cardsDir = join(publicDir, "cards");
   const dreamcallersDir = join(publicDir, "dreamcallers");
   const dreamsignsDir = join(publicDir, "dreamsigns");
-  const tidesDir = join(publicDir, "tides");
   const cardJsonPath = join(publicDir, "card-data.json");
   const dreamcallerJsonPath = join(publicDir, "dreamcaller-data.json");
   const dreamsignJsonPath = join(publicDir, "dreamsign-data.json");
@@ -274,23 +272,6 @@ export function setupAssets({
   console.log(
     `Linked ${linkedDreamsignArt} of ${jsonDreamsigns.length} dreamsign images (${missingDreamsignArt} missing)`,
   );
-
-  // Copy tide icon PNGs
-  recreateDir(tidesDir);
-
-  if (!existsSync(tideIconsDir)) {
-    console.warn("Warning: tide icons directory not found, skipping tide icon copy");
-  } else {
-    const tideFiles = readdirSync(tideIconsDir).filter(
-      (f) => f.endsWith(".png") && !f.endsWith(".meta")
-    );
-
-    for (const file of tideFiles) {
-      copyFileSync(join(tideIconsDir, file), join(tidesDir, file));
-    }
-
-    console.log(`Copied ${tideFiles.length} tide icons to public/tides/`);
-  }
 
   console.log("Asset setup complete.");
 }

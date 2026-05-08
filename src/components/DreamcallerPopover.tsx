@@ -1,7 +1,8 @@
 import type { ResolvedDreamcallerPackage } from "../types/content";
 import type { Dreamcaller } from "../types/quest";
-import { TIDE_COLORS } from "../data/card-database";
 import { DreamcallerPortrait } from "./DreamcallerPortrait";
+
+const ACCENT_COLOR = "#a855f7";
 
 interface DreamcallerPopoverProps {
   dreamcaller: Dreamcaller;
@@ -12,7 +13,7 @@ export function DreamcallerPopover({
   dreamcaller,
   resolvedPackage,
 }: DreamcallerPopoverProps) {
-  const accentColor = TIDE_COLORS[dreamcaller.accentTide];
+  const accentColor = ACCENT_COLOR;
   const tideBadges = resolvedPackage?.selectedTides.slice(0, 3) ?? [];
 
   return (

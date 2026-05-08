@@ -222,7 +222,7 @@ function CardInspector({
         <div className="meta">
           <div className="n">{card.definition.name}</div>
           <div className="t">
-            {card.definition.battleCardKind} · {card.definition.subtype} · {(card.definition.tides[0] ?? "Neutral").toUpperCase()}
+            {card.definition.battleCardKind} · {card.definition.subtype} · {(card.definition.tides[0] ?? "—").toUpperCase()}
           </div>
           <div className="text">{card.definition.renderedText.replace(/<[^>]+>/g, "")}</div>
           <div className="badges">

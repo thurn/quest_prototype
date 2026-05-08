@@ -10,21 +10,18 @@ const DREAMSIGN_TEMPLATES: DreamsignTemplate[] = [
   {
     id: "embers-whisper",
     name: "Ember's Whisper",
-    displayTide: "Ignite",
     packageTides: ["alpha"],
     effectDescription: "Fire.",
   },
   {
     id: "glacial-insight",
     name: "Glacial Insight",
-    displayTide: "Rime",
     packageTides: ["beta"],
     effectDescription: "Ice.",
   },
   {
     id: "verdant-accord",
     name: "Verdant Accord",
-    displayTide: "Bloom",
     packageTides: ["gamma"],
     effectDescription: "Growth.",
   },

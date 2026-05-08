@@ -121,10 +121,8 @@ For quests, the important consequences are:
   paid for with **energy**, and energy production comes from the shared
   **Dreamwell** rather than from tide-specific resources.
 
-Cards and Dreamsigns may still expose one of the seven display tides
-(Bloom/Arc/Ignite/Pact/Umbra/Rime/Surge, plus Neutral) for iconography and card
-chrome, but quest generation should treat those as presentation. The underlying
-package tides are what drive run identity.
+Cards and Dreamsigns are tagged exclusively with package tides. Card and
+Dreamsign iconography is driven by rarity and structural-tide metadata.
 
 ## Draft Pool Construction
 

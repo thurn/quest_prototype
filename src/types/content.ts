@@ -1,5 +1,3 @@
-import type { Tide } from "./cards";
-
 export type PackageTideId = string;
 
 export interface DreamcallerContent {
@@ -17,7 +15,6 @@ export interface DreamsignTemplate {
   id: string;
   name: string;
   effectDescription: string;
-  displayTide: Tide;
   packageTides: PackageTideId[];
   imageName?: string;
   imageAlt?: string;

@@ -13,15 +13,12 @@ Read these first:
 ## Current Runtime Model
 
 - The prototype is this repository (`~/quest_prototype/`).
-- Quest start is now a **Dreamcaller selection** screen, not a `"Begin Quest"`
-  landing page. The player chooses 1 of 3 Dreamcallers, then
-  `src/screens/quest-start-bootstrap.ts` resolves a fixed package, initializes
-  the starter deck, draft state, and atlas, and enters the first dreamscape
-  directly.
-- The live flow does **not** use the legacy tide-pick step or a
-  `DreamcallerDraft` surface.
+- Quest start is a **Dreamcaller selection** screen. The player chooses 1 of
+  3 Dreamcallers, then `src/screens/quest-start-bootstrap.ts` resolves a fixed
+  package, initializes the starter deck, draft state, and atlas, and enters
+  the first dreamscape directly.
 - Top-level state is `QuestState` in `src/types/quest.ts`. Routing is driven by
-  `state.screen`, not `currentScreen`.
+  `state.screen`.
 - Use `useQuest()` from `src/state/quest-context.tsx`, not
   `useQuestContext()`.
 - Logging goes through `logEvent()` in `src/logging.ts`. In dev it:
@@ -44,7 +41,6 @@ script is idempotent and refreshes:
 - `public/card-data.json`
 - `public/dreamcaller-data.json`
 - `public/cards/` symlinks into the local image cache
-- `public/tides/` copied tide icons
 
 Useful one-offs:
 
@@ -140,9 +136,7 @@ Use this flow unless the change targets something narrower:
    3 choices.
 2. Pick a Dreamcaller.
 3. Confirm the starter-deck overlay opens, then click **Begin Quest**.
-4. Confirm the run is already in quest play with no legacy tide-pick step and
-   no `DreamcallerDraft` surface.
-5. Enter a dreamscape site. Battle should stay locked until the non-battle
+4. Enter a dreamscape site. Battle should stay locked until the non-battle
    sites are visited.
 6. Reach a draft site and confirm the offer shows 4 unique cards when enough
    unique cards remain.
@@ -169,7 +163,7 @@ Inspect screenshots visually after capture. Verify:
 - layout spacing is stable
 - battle/site buttons are not clipped or overlapped
 - HUD values make sense for the current state
-- normal screens do not expose package internals or legacy tide-crystal UI
+- normal screens do not expose package internals
 
 ### Logs And Errors
 

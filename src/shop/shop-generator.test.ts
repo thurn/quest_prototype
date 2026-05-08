@@ -20,7 +20,7 @@ function makeCard(overrides: Partial<CardData> = {}): CardData {
     energyCost: 2,
     spark: 1,
     isFast: false,
-    tides: ["Bloom"],
+    tides: ["tide_alpha"],
     renderedText: "Test text",
     imageNumber: 1,
     artOwned: false,
@@ -49,14 +49,12 @@ const DREAMSIGN_TEMPLATES: DreamsignTemplate[] = [
   {
     id: "dreamsign-1",
     name: "Dreamsign One",
-    displayTide: "Bloom",
     packageTides: ["alpha"],
     effectDescription: "First effect.",
   },
   {
     id: "dreamsign-2",
     name: "Dreamsign Two",
-    displayTide: "Arc",
     packageTides: ["beta"],
     effectDescription: "Second effect.",
   },
@@ -119,9 +117,9 @@ describe("rerollCost", () => {
 
 describe("generateShopInventory", () => {
   const cards = [
-    makeCard({ cardNumber: 1, tides: ["Bloom"] }),
-    makeCard({ cardNumber: 2, tides: ["Arc"] }),
-    makeCard({ cardNumber: 3, tides: ["Ignite"] }),
+    makeCard({ cardNumber: 1, tides: ["tide_alpha"] }),
+    makeCard({ cardNumber: 2, tides: ["tide_beta"] }),
+    makeCard({ cardNumber: 3, tides: ["tide_gamma"] }),
   ];
   const db = makeDatabase(cards);
 
@@ -199,21 +197,21 @@ describe("generateShopInventory", () => {
 
   it("filters cards to the selected package when adjacent cards exist", () => {
     const adjacentDb = makeDatabase([
-      makeCard({ cardNumber: 1, tides: ["Arc"] }),
-      makeCard({ cardNumber: 2, tides: ["Arc"] }),
-      makeCard({ cardNumber: 3, tides: ["Arc"] }),
-      makeCard({ cardNumber: 4, tides: ["Arc"] }),
-      makeCard({ cardNumber: 5, tides: ["Arc"] }),
-      makeCard({ cardNumber: 6, tides: ["Arc"] }),
-      makeCard({ cardNumber: 7, tides: ["Bloom"] }),
+      makeCard({ cardNumber: 1, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 2, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 3, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 4, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 5, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 6, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 7, tides: ["tide_alpha"] }),
     ]);
     const result = generateShopInventory(adjacentDb, [], {
-      selectedPackageTides: ["Arc"],
+      selectedPackageTides: ["tide_beta"],
     });
 
     for (const slot of result.slots) {
       if (slot.itemType === "card" && slot.card !== null) {
-        expect(slot.card.tides).toContain("Arc");
+        expect(slot.card.tides).toContain("tide_beta");
       }
     }
   });
@@ -223,22 +221,22 @@ describe("generateShopInventory", () => {
       Array.from({ length: 6 }, (_, index) =>
         makeCard({
           cardNumber: index + 1,
-          tides: ["Arc", "Bloom"],
+          tides: ["tide_beta", "tide_alpha"],
         }),
       ).concat([
-        makeCard({ cardNumber: 11, tides: ["Arc"] }),
-        makeCard({ cardNumber: 12, tides: ["Bloom"] }),
+        makeCard({ cardNumber: 11, tides: ["tide_beta"] }),
+        makeCard({ cardNumber: 12, tides: ["tide_alpha"] }),
       ]),
     );
 
     const result = generateShopInventory(overlapDb, [], {
-      selectedPackageTides: ["Arc", "Bloom"],
+      selectedPackageTides: ["tide_beta", "tide_alpha"],
     });
 
     for (const slot of result.slots) {
       if (slot.itemType === "card" && slot.card !== null) {
-        expect(slot.card.tides).toContain("Arc");
-        expect(slot.card.tides).toContain("Bloom");
+        expect(slot.card.tides).toContain("tide_beta");
+        expect(slot.card.tides).toContain("tide_alpha");
       }
     }
   });
@@ -248,13 +246,13 @@ describe("generateShopInventory", () => {
       Array.from({ length: 8 }, (_, index) =>
         makeCard({
           cardNumber: index + 1,
-          tides: ["Arc"],
+          tides: ["tide_beta"],
         }),
       ),
     );
 
     const result = generateShopInventory(uniqueDb, [], {
-      selectedPackageTides: ["Arc"],
+      selectedPackageTides: ["tide_beta"],
     });
 
     const cardNumbers = result.slots
@@ -266,8 +264,8 @@ describe("generateShopInventory", () => {
 
   it("never offers starter cards in normal shop inventory", () => {
     const starterDb = makeDatabase([
-      makeCard({ cardNumber: 1, isStarter: true, tides: ["Bloom"] }),
-      makeCard({ cardNumber: 2, tides: ["Arc"] }),
+      makeCard({ cardNumber: 1, isStarter: true, tides: ["tide_alpha"] }),
+      makeCard({ cardNumber: 2, tides: ["tide_beta"] }),
     ]);
 
     for (let i = 0; i < 10; i += 1) {
@@ -304,10 +302,10 @@ describe("generateShopInventory with empty database", () => {
 
 describe("generateSpecialtyShopInventory", () => {
   const cards = [
-    makeCard({ cardNumber: 1, tides: ["Bloom"] }),
-    makeCard({ cardNumber: 2, tides: ["Arc"] }),
-    makeCard({ cardNumber: 3, tides: ["Ignite"] }),
-    makeCard({ cardNumber: 4, tides: ["Rime"] }),
+    makeCard({ cardNumber: 1, tides: ["tide_alpha"] }),
+    makeCard({ cardNumber: 2, tides: ["tide_beta"] }),
+    makeCard({ cardNumber: 3, tides: ["tide_gamma"] }),
+    makeCard({ cardNumber: 4, tides: ["tide_zeta"] }),
   ];
   const db = makeDatabase(cards);
 
@@ -347,7 +345,7 @@ describe("generateSpecialtyShopInventory", () => {
 
   it("returns empty slots when no non-starter cards exist", () => {
     const noEligibleDb = makeDatabase([
-      makeCard({ cardNumber: 10, isStarter: true, tides: ["Bloom"] }),
+      makeCard({ cardNumber: 10, isStarter: true, tides: ["tide_alpha"] }),
     ]);
     const slots = generateSpecialtyShopInventory(noEligibleDb, []);
     expect(slots).toHaveLength(0);
@@ -362,25 +360,25 @@ describe("generateSpecialtyShopInventory", () => {
 
   it("uses package-adjacent cards when available", () => {
     const adjacentDb = makeDatabase([
-      makeCard({ cardNumber: 1, tides: ["Arc"] }),
-      makeCard({ cardNumber: 2, tides: ["Arc"] }),
-      makeCard({ cardNumber: 3, tides: ["Arc"] }),
-      makeCard({ cardNumber: 4, tides: ["Arc"] }),
-      makeCard({ cardNumber: 5, tides: ["Rime"] }),
+      makeCard({ cardNumber: 1, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 2, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 3, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 4, tides: ["tide_beta"] }),
+      makeCard({ cardNumber: 5, tides: ["tide_zeta"] }),
     ]);
-    const slots = generateSpecialtyShopInventory(adjacentDb, [], ["Arc"]);
+    const slots = generateSpecialtyShopInventory(adjacentDb, [], ["tide_beta"]);
     expect(slots).toHaveLength(4);
     for (const slot of slots) {
-      expect(slot.card?.tides).toContain("Arc");
+      expect(slot.card?.tides).toContain("tide_beta");
     }
   });
 
   it("falls back to the broader pool when no package-adjacent cards exist", () => {
     vi.spyOn(Math, "random").mockReturnValue(0);
-    const slots = generateSpecialtyShopInventory(db, [], ["Umbra"]);
+    const slots = generateSpecialtyShopInventory(db, [], ["tide_epsilon"]);
     expect(slots).toHaveLength(4);
     expect(
-      slots.some((slot) => slot.card?.tides.includes("Arc") ?? false),
+      slots.some((slot) => slot.card?.tides.includes("tide_beta") ?? false),
     ).toBe(true);
   });
 });

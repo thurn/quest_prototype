@@ -333,7 +333,7 @@ afterEach(() => {
 });
 
 describe("QuestStartScreen", () => {
-  it("shows exactly 3 Dreamcaller choices without legacy tide-step UI", () => {
+  it("shows exactly 3 Dreamcaller choices", () => {
     const { container, root } = mount(<QuestStartScreen />);
 
     expect(container.textContent).toContain("Mira of Lanterns");
@@ -342,12 +342,6 @@ describe("QuestStartScreen", () => {
     expect(container.textContent).toContain("Choose Your Dreamcaller");
     expect(container.textContent).toContain("Tides:");
     expect(container.textContent).not.toContain("Structural Tides");
-    expect(container.textContent).not.toContain("Bloom");
-    expect(container.textContent).not.toContain("Ignite");
-    expect(container.textContent).not.toContain("DreamcallerDraft");
-    expect(container.textContent).not.toContain("Choose Your Tide");
-    expect(container.querySelector('img[alt="Bloom"]')).toBeNull();
-    expect(container.querySelector('img[alt="Ignite"]')).toBeNull();
     expect(container.querySelectorAll("button")).toHaveLength(3);
     expect(
       container.querySelectorAll("[data-structural-tides-label]"),

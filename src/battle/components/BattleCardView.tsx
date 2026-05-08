@@ -211,7 +211,7 @@ function BattleCardArt({ data }: { data: BattleCardVisualData }) {
 }
 
 function createArtStyle(tides: readonly string[]): CSSProperties {
-  const hue = tideHueForName(tides[0] ?? "Neutral");
+  const hue = tideHueForName(tides[0] ?? "");
 
   return {
     background: [
@@ -224,25 +224,14 @@ function createArtStyle(tides: readonly string[]): CSSProperties {
 }
 
 function tideHueForName(tide: string): number {
-  switch (tide) {
-    case "Bloom":
-    case "Verdant":
-      return 145;
-    case "Arc":
-    case "Surge":
-      return 215;
-    case "Ignite":
-    case "Flame":
-      return 35;
-    case "Pact":
-      return 10;
-    case "Umbra":
-      return 305;
-    case "Rime":
-      return 240;
-    default:
-      return 190;
+  if (tide === "") {
+    return 190;
   }
+  let hash = 0;
+  for (const char of tide) {
+    hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+  }
+  return hash % 360;
 }
 
 function normalizeSubtype(subtype: string, kind: "character" | "event"): string {

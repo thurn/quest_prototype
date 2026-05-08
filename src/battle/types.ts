@@ -1,4 +1,5 @@
-import type { FrozenCardData, Tide } from "../types/cards";
+import type { FrozenCardData } from "../types/cards";
+import type { PackageTideId } from "../types/content";
 import type { DreamAtlas, Dreamcaller, Dreamsign, TransfigurationType } from "../types/quest";
 import type { BattleDebugEdit } from "./debug/commands";
 
@@ -146,7 +147,7 @@ export interface BattleEnemyDescriptor {
   name: string;
   subtitle: string;
   portraitSeed: number;
-  tide: Tide;
+  packageTides: readonly PackageTideId[];
   abilityText: string;
   dreamsignCount: number;
 }
@@ -158,12 +159,10 @@ export interface BattleDreamcallerSummary {
   awakening: Dreamcaller["awakening"];
   renderedText: Dreamcaller["renderedText"];
   imageNumber: Dreamcaller["imageNumber"];
-  accentTide: Dreamcaller["accentTide"];
 }
 
 export interface BattleDreamsignSummary {
   name: Dreamsign["name"];
-  tide: Dreamsign["tide"];
   effectDescription: Dreamsign["effectDescription"];
   isBane: Dreamsign["isBane"];
 }

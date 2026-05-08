@@ -1,4 +1,3 @@
-import { dreamcallerAccentTide } from "./quest-content";
 import type { DreamcallerContent } from "../types/content";
 import type { Dreamcaller } from "../types/quest";
 
@@ -34,6 +33,5 @@ export function toQuestDreamcaller(
     awakening: dreamcaller.awakening,
     renderedText: dreamcaller.renderedText,
     imageNumber: dreamcaller.imageNumber,
-    accentTide: dreamcallerAccentTide(dreamcaller),
   };
 }

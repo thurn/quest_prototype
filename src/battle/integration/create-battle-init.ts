@@ -1,8 +1,6 @@
-import { cardAccentTide } from "../../data/card-database";
-import { dreamcallerAccentTide } from "../../data/quest-content";
 import { selectBattleRewards } from "../../data/tide-weights";
-import type { CardData, FrozenCardData, Tide } from "../../types/cards";
-import type { DreamcallerContent } from "../../types/content";
+import type { CardData, FrozenCardData } from "../../types/cards";
+import type { DreamcallerContent, PackageTideId } from "../../types/content";
 import type { QuestState, SiteState } from "../../types/quest";
 import { createBattleRngStreams, deriveBattleSeed } from "../random";
 import type { BattleRng } from "../random";
@@ -91,7 +89,7 @@ export function createBattleInit(input: CreateBattleInitInput): BattleInit {
   );
   const enemyDeckDefinition = createEnemyDeckDefinition(
     cardDatabase,
-    enemyDescriptor.tide,
+    enemyDescriptor.packageTides,
     streams.enemyDeckOrder,
   ).map(freezeBattleDeckCardDefinition);
   const dreamcallerSummary = freezeBattleDreamcallerSummary(state.dreamcaller);
@@ -174,7 +172,7 @@ export function createEnemyDescriptor(
       name: "Spectral Rival",
       subtitle: "Battlefield Projection",
       portraitSeed: 0,
-      tide: "Neutral",
+      packageTides: Object.freeze([]),
       abilityText: "A synthetic opponent assembled for prototype combat.",
       dreamsignCount: 1,
     };
@@ -185,7 +183,6 @@ export function createEnemyDescriptor(
   const subtitleSeed = pickRandom(ENEMY_SUBTITLES, random);
   const dreamsignCount = Math.floor(random() * 5) + 1;
   const portraitSeed = Math.floor(random() * 1_000_000);
-  const tide = dreamcallerAccentTide(template);
   const baseName = template.name.split(",")[0].split(" the ")[0];
 
   return {
@@ -193,7 +190,7 @@ export function createEnemyDescriptor(
     name: `${prefix} ${baseName}`,
     subtitle: `${subtitleSeed} • ${template.title}`,
     portraitSeed,
-    tide,
+    packageTides: Object.freeze([...template.mandatoryTides]),
     abilityText: template.renderedText,
     dreamsignCount,
   };
@@ -201,7 +198,7 @@ export function createEnemyDescriptor(
 
 function createEnemyDeckDefinition(
   cardDatabase: ReadonlyMap<number, CardData>,
-  accentTide: Tide,
+  enemyPackageTides: readonly PackageTideId[],
   rng: BattleRng,
 ): BattleDeckCardDefinition[] {
   const numericCards = Array.from(cardDatabase.values()).filter(
@@ -213,7 +210,7 @@ function createEnemyDeckDefinition(
 
   addEnemyCards(
     chosen,
-    filterByCostBand(filterByAccent(characters, accentTide), "cheap"),
+    filterByCostBand(filterByPackage(characters, enemyPackageTides), "cheap"),
     filterByCostBand(characters, "cheap"),
     numericCards,
     3,
@@ -221,7 +218,7 @@ function createEnemyDeckDefinition(
   );
   addEnemyCards(
     chosen,
-    filterByCostBand(filterByAccent(characters, accentTide), "mid"),
+    filterByCostBand(filterByPackage(characters, enemyPackageTides), "mid"),
     filterByCostBand(characters, "mid"),
     numericCards,
     3,
@@ -229,7 +226,7 @@ function createEnemyDeckDefinition(
   );
   addEnemyCards(
     chosen,
-    filterByCostBand(filterByAccent(characters, accentTide), "expensive"),
+    filterByCostBand(filterByPackage(characters, enemyPackageTides), "expensive"),
     filterByCostBand(characters, "expensive"),
     numericCards,
     2,
@@ -237,7 +234,7 @@ function createEnemyDeckDefinition(
   );
   addEnemyCards(
     chosen,
-    filterByCostBand(filterByAccent(events, accentTide), "cheapOrMid"),
+    filterByCostBand(filterByPackage(events, enemyPackageTides), "cheapOrMid"),
     filterByCostBand(events, "cheapOrMid"),
     numericCards,
     2,
@@ -245,7 +242,7 @@ function createEnemyDeckDefinition(
   );
   addEnemyCards(
     chosen,
-    filterByAccent(events, accentTide),
+    filterByPackage(events, enemyPackageTides),
     events,
     numericCards,
     2,
@@ -255,7 +252,7 @@ function createEnemyDeckDefinition(
   if (chosen.length < ENEMY_DECK_SIZE) {
     addEnemyCards(
       chosen,
-      filterByAccent(numericCards, accentTide),
+      filterByPackage(numericCards, enemyPackageTides),
       numericCards,
       numericCards,
       ENEMY_DECK_SIZE - chosen.length,
@@ -272,34 +269,34 @@ function createEnemyDeckDefinition(
 /**
  * Fills a bucket with up to `count` cards, walking three distinct layers in the
  * order required by spec §B-19:
- *   1. matching-accent candidates for the requested kind/cost slice
+ *   1. package-matching candidates for the requested kind/cost slice
  *   2. any non-starter numeric-cost card (widening past the kind/cost slice)
  *   3. duplicates of cards already chosen for this bucket
  *
- * Layer 1 and layer 2 are kept strictly separate so that an empty accent pool
+ * Layer 1 and layer 2 are kept strictly separate so that an empty package pool
  * falls through to the broader non-starter pool rather than collapsing into it
  * (bug-009). `widePool` is typically the full non-starter numeric-cost roster.
  */
 function addEnemyCards(
   chosen: BattleDeckCardDefinition[],
-  accentPool: readonly CardData[],
+  primaryPool: readonly CardData[],
   fallbackPool: readonly CardData[],
   widePool: readonly CardData[],
   count: number,
   rng: BattleRng,
 ): void {
-  const orderedAccentPool = rng.shuffle(accentPool);
+  const orderedPrimaryPool = rng.shuffle(primaryPool);
   const orderedFallbackPool = rng.shuffle(fallbackPool);
   const bucket: BattleDeckCardDefinition[] = [];
   const usedCardNumbers = new Set<number>();
 
-  fillLayer(bucket, usedCardNumbers, orderedAccentPool, count);
+  fillLayer(bucket, usedCardNumbers, orderedPrimaryPool, count);
   fillLayer(bucket, usedCardNumbers, orderedFallbackPool, count);
 
-  // Only shuffle the broader non-starter numeric-cost pool when accent and
+  // Only shuffle the broader non-starter numeric-cost pool when the primary and
   // kind+cost layers cannot satisfy the bucket. Keeping this shuffle lazy
-  // preserves upstream RNG consumption for the normal case where accent and
-  // fallback already fill the bucket.
+  // preserves upstream RNG consumption for the normal case where the primary
+  // and fallback layers already fill the bucket.
   let orderedWidePool: readonly CardData[] | null = null;
   if (bucket.length < count) {
     orderedWidePool = rng.shuffle(widePool);
@@ -345,17 +342,23 @@ function cloneBattleDeckCardDefinition(
 }
 
 /**
- * Returns only cards whose accent tide matches `accentTide` (empty array when
- * there is no match). The caller is responsible for providing a separate,
+ * Returns only cards that share at least one package tide with the enemy's
+ * package (empty array when there is no overlap, or when the enemy has no
+ * declared package tides). The caller is responsible for providing a separate,
  * broader fallback pool — this function must not silently widen on empty
- * (bug-009). For the Neutral sentinel tide, every card is treated as matching
- * because "Neutral" is a display accent only per spec §B-14.
+ * (bug-009).
  */
-function filterByAccent(cards: readonly CardData[], accentTide: Tide): CardData[] {
-  if (accentTide === "Neutral") {
-    return [...cards];
+function filterByPackage(
+  cards: readonly CardData[],
+  enemyPackageTides: readonly PackageTideId[],
+): CardData[] {
+  if (enemyPackageTides.length === 0) {
+    return [];
   }
-  return cards.filter((card) => cardAccentTide(card) === accentTide);
+  const enemyTideSet = new Set(enemyPackageTides);
+  return cards.filter((card) =>
+    card.tides.some((tide) => enemyTideSet.has(tide)),
+  );
 }
 
 function filterByCostBand(
@@ -437,7 +440,10 @@ function freezeCardData(card: CardData): FrozenCardData {
 function freezeBattleEnemyDescriptor(
   descriptor: BattleEnemyDescriptor,
 ): BattleEnemyDescriptor {
-  return Object.freeze({ ...descriptor });
+  return Object.freeze({
+    ...descriptor,
+    packageTides: Object.freeze([...descriptor.packageTides]),
+  });
 }
 
 function freezeBattleDreamcallerSummary(
@@ -454,7 +460,6 @@ function freezeBattleDreamcallerSummary(
     awakening: dreamcaller.awakening,
     renderedText: dreamcaller.renderedText,
     imageNumber: dreamcaller.imageNumber,
-    accentTide: dreamcaller.accentTide,
   });
 }
 
@@ -463,7 +468,6 @@ function freezeBattleDreamsignSummary(
 ): BattleDreamsignSummary {
   return Object.freeze({
     name: dreamsign.name,
-    tide: dreamsign.tide,
     effectDescription: dreamsign.effectDescription,
     isBane: dreamsign.isBane,
   });

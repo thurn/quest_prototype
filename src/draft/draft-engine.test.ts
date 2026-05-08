@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getLogEntries, resetLog } from "../logging";
-import type { CardData, Tide } from "../types/cards";
+import type { CardData } from "../types/cards";
 import type { DraftState } from "../types/draft";
 import type { ResolvedDreamcallerPackage } from "../types/content";
 import {
@@ -14,7 +14,7 @@ import {
 
 function makeCard(
   cardNumber: number,
-  tide: Tide = "Bloom",
+  tide: string = "tide_alpha",
 ): CardData {
   return {
     name: `TestCard${String(cardNumber)}`,
@@ -53,7 +53,7 @@ function buildResolvedPackage(
     },
     mandatoryTides: ["core"],
     optionalSubset: ["support-a", "support-b", "support-c"],
-    selectedTides: ["accent:Bloom", "support-a", "support-b", "support-c"],
+    selectedTides: ["core", "support-a", "support-b", "support-c"],
     draftPoolCopiesByCard: Object.fromEntries(
       Object.entries(copiesByCard).map(([cardNumber, copies]) => [
         cardNumber,

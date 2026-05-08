@@ -2,11 +2,9 @@
 
 ## Purpose
 
-`scripts/quest_prototype` is now the hidden-tides quest baseline. The prototype
-no longer uses the legacy single-visible-tide model, tide crystals, or a mid-
-run Dreamcaller draft site. Run identity comes from the selected Dreamcaller
-package, which is resolved once at quest start and then reused for the rest of
-the run.
+`scripts/quest_prototype` is the hidden-tides quest baseline. Run identity
+comes from the selected Dreamcaller package, which is resolved once at quest
+start and reused for the rest of the run.
 
 ## Current Flow
 
@@ -27,11 +25,9 @@ the run.
 
 ## Runtime Invariants
 
-- `QuestState` now persists `resolvedPackage` and `remainingDreamsignPool`.
-- The live flow does not use `chosenTide`, `excludedTides`, `tideCrystals`, or
-  `DreamcallerDraft`.
-- Player-facing card chrome is neutral and rarity-driven; hidden package
-  membership is only exposed in debug surfaces.
+- `QuestState` persists `resolvedPackage` and `remainingDreamsignPool`.
+- Player-facing card chrome is rarity-driven; hidden package membership is
+  exposed only in debug surfaces.
 - Shops, battle rare rewards, and other package-adjacent generators prefer
   overlapping content but fall back to the broader pool when needed.
 - Draft offers are reveal-and-spend. If fewer than 4 unique cards remain, the

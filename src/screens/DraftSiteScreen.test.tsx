@@ -169,8 +169,8 @@ function makeCardDatabase(): Map<number, CardData> {
     [
       102,
       {
-        name: "Bloom Warden",
-        id: "bloom-warden",
+        name: "Alpha Warden",
+        id: "alpha-warden",
         cardNumber: 102,
         cardType: "Character",
         subtype: "",
@@ -187,8 +187,8 @@ function makeCardDatabase(): Map<number, CardData> {
     [
       103,
       {
-        name: "Pact Ledger",
-        id: "pact-ledger",
+        name: "Beta Ledger",
+        id: "beta-ledger",
         cardNumber: 103,
         cardType: "Event",
         subtype: "",
@@ -205,8 +205,8 @@ function makeCardDatabase(): Map<number, CardData> {
     [
       104,
       {
-        name: "Rime Echo",
-        id: "rime-echo",
+        name: "Gamma Echo",
+        id: "gamma-echo",
         cardNumber: 104,
         cardType: "Event",
         subtype: "",

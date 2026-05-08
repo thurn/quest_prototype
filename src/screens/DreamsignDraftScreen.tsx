@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import type { Dreamsign, SiteState } from "../types/quest";
 import { useQuest } from "../state/quest-context";
 import { logEvent } from "../logging";
-import { TIDE_COLORS, tideIconUrl } from "../data/card-database";
 import { drawDreamsignOptions } from "../dreamsign/dreamsign-pool";
 
 const MAX_DREAMSIGNS = 12;
@@ -121,38 +120,21 @@ export function DreamsignDraftScreen({ site }: DreamsignDraftScreenProps) {
           Select one to remove
         </p>
         <div className="grid max-w-3xl grid-cols-3 gap-3 md:grid-cols-4">
-          {currentDreamsigns.map((sign, index) => {
-            const signTide = sign.tide ?? "Neutral";
-
-            return (
-              <button
-                key={`purge-${sign.name}-${String(index)}`}
-                className="cursor-pointer rounded-lg p-2 text-left transition-colors"
-                style={{
-                  background: "rgba(239, 68, 68, 0.05)",
-                  border: "1px solid rgba(239, 68, 68, 0.2)",
-                }}
-                onClick={() => handlePurge(index)}
-              >
-                <div className="flex items-center gap-2">
-                  <img
-                    src={tideIconUrl(signTide)}
-                    alt={signTide}
-                    className="h-6 w-6 rounded-full object-contain"
-                    style={{
-                      border: `1px solid ${TIDE_COLORS[signTide]}`,
-                    }}
-                  />
-                  <span
-                    className="text-xs font-bold"
-                    style={{ color: TIDE_COLORS[signTide] }}
-                  >
-                    {sign.name}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+          {currentDreamsigns.map((sign, index) => (
+            <button
+              key={`purge-${sign.name}-${String(index)}`}
+              className="cursor-pointer rounded-lg p-2 text-left transition-colors"
+              style={{
+                background: "rgba(239, 68, 68, 0.05)",
+                border: "1px solid rgba(239, 68, 68, 0.2)",
+              }}
+              onClick={() => handlePurge(index)}
+            >
+              <span className="text-xs font-bold text-slate-200">
+                {sign.name}
+              </span>
+            </button>
+          ))}
         </div>
 
         <button
@@ -251,40 +233,31 @@ export function DreamsignDraftScreen({ site }: DreamsignDraftScreenProps) {
   );
 }
 
-/** Renders a dreamsign card with tide icon, name, and effect description. */
+/** Renders a dreamsign card with name and effect description. */
 function DreamsignCard({ dreamsign }: { dreamsign: Dreamsign }) {
-  const dreamsignTide = dreamsign.tide ?? "Neutral";
-  const tideColor = TIDE_COLORS[dreamsignTide];
-
   return (
     <div
       className="flex w-52 flex-1 flex-col items-center gap-2 rounded-lg p-4"
       style={{
         background:
           "linear-gradient(145deg, #1a1025 0%, #0f0a18 60%, #0d0814 100%)",
-        border: `1px solid ${tideColor}60`,
-        boxShadow: `0 0 12px ${tideColor}20`,
+        border: "1px solid rgba(168, 85, 247, 0.35)",
+        boxShadow: "0 0 12px rgba(168, 85, 247, 0.16)",
       }}
     >
-      <img
-        src={tideIconUrl(dreamsignTide)}
-        alt={dreamsignTide}
-        className="h-12 w-12 rounded-full object-contain"
-        style={{ border: `2px solid ${tideColor}` }}
-      />
       <span
         className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
         style={{
-          background: `${tideColor}20`,
-          color: tideColor,
-          border: `1px solid ${tideColor}40`,
+          background: "rgba(168, 85, 247, 0.16)",
+          color: "#c4b5fd",
+          border: "1px solid rgba(168, 85, 247, 0.35)",
         }}
       >
-        {dreamsignTide}
+        Dreamsign
       </span>
       <h3
         className="text-center text-sm font-bold"
-        style={{ color: tideColor }}
+        style={{ color: "#f8fafc" }}
       >
         {dreamsign.name}
       </h3>

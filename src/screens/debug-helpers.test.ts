@@ -70,21 +70,18 @@ const DREAMSIGN_TEMPLATES: readonly DreamsignTemplate[] = [
   {
     id: "sign-1",
     name: "First Sign",
-    displayTide: "Bloom",
     packageTides: ["core"],
     effectDescription: "Test",
   },
   {
     id: "sign-2",
     name: "Second Sign",
-    displayTide: "Arc",
     packageTides: ["support-a"],
     effectDescription: "Test",
   },
   {
     id: "sign-3",
     name: "Third Sign",
-    displayTide: "Rime",
     packageTides: ["support-b"],
     effectDescription: "Test",
   },

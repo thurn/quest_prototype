@@ -43,10 +43,6 @@ export function BattleDreamcallerPanel({
                   <span className="value">{String(dreamcaller.awakening)}</span>
                 </div>
                 <div className="summary-stat">
-                  <span className="label">Accent Tide</span>
-                  <span className="value">{dreamcaller.accentTide}</span>
-                </div>
-                <div className="summary-stat">
                   <span className="label">Image</span>
                   <span className="value">#{String(dreamcaller.imageNumber)}</span>
                 </div>
@@ -62,14 +58,14 @@ export function BattleDreamcallerPanel({
                 <div className="dreamsign-list">
                   {dreamsigns.map((dreamsign) => (
                     <div
-                      key={`${dreamsign.name}-${dreamsign.tide}-${dreamsign.effectDescription}`}
+                      key={`${dreamsign.name}-${dreamsign.effectDescription}`}
                       className="dreamsign-card"
                     >
                       <div className="dreamsign-head">
                         <strong>{dreamsign.name}</strong>
-                        <span className={`dreamsign-badge ${dreamsign.isBane ? "bane" : ""}`}>
-                          {dreamsign.isBane ? "Bane" : dreamsign.tide}
-                        </span>
+                        {dreamsign.isBane ? (
+                          <span className="dreamsign-badge bane">Bane</span>
+                        ) : null}
                       </div>
                       <p>{dreamsign.effectDescription}</p>
                     </div>

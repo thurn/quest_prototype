@@ -135,7 +135,7 @@ There are a few things that Dreamtides journeys do NOT do:
   starting hand
 - Directly apply ongoing player benefits instead of using a dreamsign
 - Allow more than 1 dreamcaller per battle
-- Show named tides to the player to pick from, or require the player to
+- Surface package tide identifiers to the player, or require the player to
   understand what tides are good for their deck
 - Play mini games beyond sequential button clicks, such as a matching game
 
@@ -355,8 +355,8 @@ A predicate specifies a certain type of card for an effect to apply to.
 - Characters
 - Card with X, \<X or >X cost
 - Card with X, \<X or >X spark
-- Neutral card
-- Neutral dreamsign
+- Card with no package tides
+- Dreamsign with no package tides
 - Character type (warrior, spirit animal, etc)
 - Card with a given ability, e.g. with a “materialized” ability
 - Fast card

@@ -1,4 +1,3 @@
-import type { Tide } from "./cards";
 import type { PackageTideId, ResolvedDreamcallerPackage } from "./content";
 import type { DraftState } from "./draft";
 
@@ -43,7 +42,6 @@ export interface Dreamcaller {
   awakening: number;
   renderedText: string;
   imageNumber: string;
-  accentTide: Tide;
 }
 
 /** A passive effect collected during the quest. */
@@ -53,7 +51,6 @@ export interface Dreamsign {
   effectDescription: string;
   imageName?: string;
   imageAlt?: string;
-  tide?: Tide | null;
   isBane: boolean;
 }
 

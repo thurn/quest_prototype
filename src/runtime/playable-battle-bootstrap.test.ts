@@ -22,8 +22,8 @@ function makeDreamcaller(): DreamcallerContent {
     awakening: 4,
     renderedText: "Test ability.",
     imageNumber: "0002",
-    mandatoryTides: ["Bloom"],
-    optionalTides: ["Arc", "Ignite", "Pact", "Rime"],
+    mandatoryTides: ["tide_alpha"],
+    optionalTides: ["tide_beta", "tide_gamma", "tide_delta", "tide_zeta"],
   };
 }
 
@@ -31,9 +31,9 @@ function makeResolvedPackage(): ResolvedDreamcallerPackage {
   const dreamcaller = makeDreamcaller();
   return {
     dreamcaller,
-    mandatoryTides: ["Bloom"],
-    optionalSubset: ["Arc", "Ignite", "Pact"],
-    selectedTides: ["Bloom", "Arc", "Ignite", "Pact"],
+    mandatoryTides: ["tide_alpha"],
+    optionalSubset: ["tide_beta", "tide_gamma", "tide_delta"],
+    selectedTides: ["tide_alpha", "tide_beta", "tide_gamma", "tide_delta"],
     draftPoolCopiesByCard: { "101": 2 },
     dreamsignPoolIds: ["dreamsign-1"],
     mandatoryOnlyPoolSize: 12,
@@ -53,10 +53,9 @@ function makeQuestContent(): QuestContent {
     dreamsignTemplates: [
       {
         id: "dreamsign-1",
-        name: "Bloom Echo",
+        name: "Echo Sign",
         effectDescription: "Gain a bloom effect.",
-        displayTide: "Bloom",
-        packageTides: ["Bloom"],
+        packageTides: ["tide_alpha"],
       },
     ],
     resolvedPackagesByDreamcallerId: new Map([
@@ -202,7 +201,6 @@ describe("runPlayableBattleBootstrapStep", () => {
           awakening: 1,
           renderedText: "",
           imageNumber: "0001",
-          accentTide: "Bloom",
         },
         atlas: makeAtlasWithBattleSite(),
         currentDreamscape: null,
@@ -227,7 +225,6 @@ describe("runPlayableBattleBootstrapStep", () => {
           awakening: 1,
           renderedText: "",
           imageNumber: "0001",
-          accentTide: "Bloom",
         },
         atlas: makeAtlasWithBattleSite(),
         currentDreamscape: "dreamscape-1",
@@ -257,7 +254,6 @@ describe("runPlayableBattleBootstrapStep", () => {
           awakening: 1,
           renderedText: "",
           imageNumber: "0001",
-          accentTide: "Bloom",
         },
         atlas: makeAtlasWithBattleSite(),
         currentDreamscape: "dreamscape-1",
@@ -284,7 +280,6 @@ describe("runPlayableBattleBootstrapStep", () => {
           awakening: 1,
           renderedText: "",
           imageNumber: "0001",
-          accentTide: "Bloom",
         },
         atlas: makeAtlasWithoutBattleSite(),
         currentDreamscape: "dreamscape-1",
@@ -329,7 +324,6 @@ describe("runPlayableBattleBootstrapStep", () => {
           awakening: 1,
           renderedText: "",
           imageNumber: "0001",
-          accentTide: "Bloom",
         },
         atlas: makeAtlasWithBattleSite(),
         currentDreamscape: "dreamscape-1",
@@ -380,7 +374,6 @@ describe("runPlayableBattleBootstrapStep", () => {
             awakening: resolvedPackage.dreamcaller.awakening,
             renderedText: resolvedPackage.dreamcaller.renderedText,
             imageNumber: resolvedPackage.dreamcaller.imageNumber,
-            accentTide: "Bloom",
           },
         };
       };
@@ -451,7 +444,6 @@ describe("createPlayableBattleBootstrapController", () => {
         awakening: 1,
         renderedText: "",
         imageNumber: "0001",
-        accentTide: "Bloom",
       },
       atlas: makeAtlasWithBattleSite(),
       currentDreamscape: "dreamscape-1",
@@ -488,7 +480,6 @@ describe("createPlayableBattleBootstrapController", () => {
         awakening: 1,
         renderedText: "",
         imageNumber: "0001",
-        accentTide: "Bloom",
       },
       atlas: makeAtlasWithBattleSite(),
       currentDreamscape: "dreamscape-1",

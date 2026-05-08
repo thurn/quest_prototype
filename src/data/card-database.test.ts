@@ -1,13 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import {
-  cardAccentTide,
-  cardImageUrl,
-  tideIconUrl,
-  loadCardDatabase,
-  NAMED_TIDES,
-  TIDE_COLORS,
-} from "./card-database";
-import type { Tide, CardData } from "../types/cards";
+import { cardImageUrl, loadCardDatabase } from "./card-database";
+import type { CardData } from "../types/cards";
 
 const SAMPLE_CARD: CardData = {
   name: "Test Card",
@@ -19,7 +12,7 @@ const SAMPLE_CARD: CardData = {
   energyCost: 3,
   spark: 2,
   isFast: false,
-  tides: ["Bloom"],
+  tides: ["tide_alpha"],
   renderedText: "Sample text",
   imageNumber: 12345,
   artOwned: true,
@@ -72,69 +65,6 @@ describe("cardImageUrl", () => {
 
   it("works for large card numbers", () => {
     expect(cardImageUrl(503)).toBe("/cards/503.webp");
-  });
-});
-
-describe("tideIconUrl", () => {
-  it("returns the png path for a named tide", () => {
-    expect(tideIconUrl("Bloom")).toBe("/tides/Bloom.png");
-  });
-
-  it("returns png paths for all named tides", () => {
-    const named: Tide[] = [
-      "Bloom",
-      "Arc",
-      "Ignite",
-      "Pact",
-      "Umbra",
-      "Rime",
-      "Surge",
-    ];
-    for (const tide of named) {
-      expect(tideIconUrl(tide)).toBe(`/tides/${tide}.png`);
-    }
-  });
-
-  it("returns a fallback for Neutral tide", () => {
-    const url = tideIconUrl("Neutral");
-    expect(url).not.toBe("/tides/Neutral.png");
-    expect(url.length).toBeGreaterThan(0);
-    expect(url).toContain("data:");
-  });
-});
-
-describe("NAMED_TIDES", () => {
-  it("contains exactly 7 tides excluding Neutral", () => {
-    expect(NAMED_TIDES).toHaveLength(7);
-    expect(NAMED_TIDES).not.toContain("Neutral");
-  });
-
-  it("contains all named tide values", () => {
-    expect(NAMED_TIDES).toContain("Bloom");
-    expect(NAMED_TIDES).toContain("Arc");
-    expect(NAMED_TIDES).toContain("Ignite");
-    expect(NAMED_TIDES).toContain("Pact");
-    expect(NAMED_TIDES).toContain("Umbra");
-    expect(NAMED_TIDES).toContain("Rime");
-    expect(NAMED_TIDES).toContain("Surge");
-  });
-});
-
-describe("TIDE_COLORS", () => {
-  it("maps all 8 tides to hex colors", () => {
-    const expected: Record<Tide, string> = {
-      Bloom: "#10b981",
-      Arc: "#f59e0b",
-      Ignite: "#ef4444",
-      Pact: "#ec4899",
-      Umbra: "#8b5cf6",
-      Rime: "#3b82f6",
-      Surge: "#06b6d4",
-      Neutral: "#9ca3af",
-    };
-    for (const [tide, color] of Object.entries(expected)) {
-      expect(TIDE_COLORS[tide as Tide]).toBe(color);
-    }
   });
 });
 
@@ -237,6 +167,6 @@ describe("loadCardDatabase integration (real card-data.json)", () => {
     expect(card).toBeDefined();
     expect(card?.cardNumber).toBe(1);
     expect(card?.name.length).toBeGreaterThan(0);
-    expect(card ? cardAccentTide(card) : null).not.toBeNull();
+    expect(card?.tides.length).toBeGreaterThan(0);
   });
 });

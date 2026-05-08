@@ -16,15 +16,15 @@ function makeBaseInput(): CreateBattleInitInput {
   };
 }
 
-function makeAccentCard(
+function makePackageCard(
   cardNumber: number,
   cardType: CardData["cardType"],
   energyCost: number,
-  accentTide: string,
+  packageTide: string,
 ): CardData {
   return {
-    name: `Accent ${accentTide} ${String(cardNumber)}`,
-    id: `accent-${accentTide.toLowerCase()}-${String(cardNumber)}`,
+    name: `${packageTide} ${String(cardNumber)}`,
+    id: `${packageTide}-${String(cardNumber)}`,
     cardNumber,
     cardType,
     subtype: cardType === "Character" ? "Echo" : "Spell",
@@ -32,7 +32,7 @@ function makeAccentCard(
     energyCost,
     spark: cardType === "Character" ? energyCost : null,
     isFast: false,
-    tides: [accentTide],
+    tides: [packageTide],
     renderedText: "",
     imageNumber: cardNumber,
     artOwned: true,
@@ -326,7 +326,7 @@ describe("createBattleInit", () => {
       });
 
       expect(init.enemyDescriptor.id).toBe("enemy:fallback");
-      expect(init.enemyDescriptor.tide).toBe("Neutral");
+      expect(init.enemyDescriptor.packageTides).toEqual([]);
       expect(init.enemyDescriptor.dreamsignCount).toBeGreaterThanOrEqual(1);
     });
   });
@@ -448,7 +448,7 @@ describe("createBattleInit", () => {
       expect(uniqueReferences.size).toBe(tidesReferences.length);
     });
 
-    it("backfills the deck up to 12 cards even when the matching-accent pool is tiny (B-18)", () => {
+    it("backfills the deck up to 12 cards even when the matching-tide pool is tiny (B-18)", () => {
       const baseInput = makeBaseInput();
       const tinyDb = new Map<number, CardData>();
       const cards: CardData[] = [];
@@ -504,14 +504,14 @@ describe("createBattleInit", () => {
       expect(init.enemyDeckDefinition).toHaveLength(ENEMY_DECK_SIZE);
     });
 
-    it("treats a Neutral-accent enemy as accepting all candidates (cardAccentTide Neutral branch)", () => {
+    it("treats a empty-tide enemy as accepting all candidates (empty package tides accept all candidates)", () => {
       const baseInput = makeBaseInput();
       const init = createBattleInit({
         ...baseInput,
         dreamcallers: [
           {
             id: "neutral-dc",
-            name: "Neutral Echo",
+            name: "Empty Echo",
             title: "Test",
             awakening: 1,
             renderedText: "",
@@ -522,43 +522,43 @@ describe("createBattleInit", () => {
         ],
       });
 
-      expect(init.enemyDescriptor.tide).toBe("Neutral");
+      expect(init.enemyDescriptor.packageTides).toEqual([]);
       expect(init.enemyDeckDefinition).toHaveLength(ENEMY_DECK_SIZE);
     });
 
     it("strongly prefers accent-matching candidates over off-accent candidates in a mixed pool (B-14)", () => {
-      // Force an Arc-accent enemy and provide enough Arc-accent supply to
-      // fill every bucket — plus extra Bloom-accent noise as distractors.
+      // Force an tide_beta-accent enemy and provide enough tide_beta-accent supply to
+      // fill every bucket — plus extra tide_alpha-accent noise as distractors.
       const baseInput = makeBaseInput();
       const db = new Map<number, CardData>();
-      const accentNumbers = new Set<number>();
+      const packageNumbers = new Set<number>();
       for (let i = 0; i < 6; i += 1) {
-        const card = makeAccentCard(400 + i, "Character", 1 + (i % 2), "Arc");
+        const card = makePackageCard(400 + i, "Character", 1 + (i % 2), "tide_beta");
         db.set(card.cardNumber, card);
-        accentNumbers.add(card.cardNumber);
+        packageNumbers.add(card.cardNumber);
       }
       for (let i = 0; i < 4; i += 1) {
-        const card = makeAccentCard(410 + i, "Character", 3 + (i % 2), "Arc");
+        const card = makePackageCard(410 + i, "Character", 3 + (i % 2), "tide_beta");
         db.set(card.cardNumber, card);
-        accentNumbers.add(card.cardNumber);
+        packageNumbers.add(card.cardNumber);
       }
       for (let i = 0; i < 4; i += 1) {
-        const card = makeAccentCard(420 + i, "Character", 5 + (i % 2), "Arc");
+        const card = makePackageCard(420 + i, "Character", 5 + (i % 2), "tide_beta");
         db.set(card.cardNumber, card);
-        accentNumbers.add(card.cardNumber);
+        packageNumbers.add(card.cardNumber);
       }
       for (let i = 0; i < 6; i += 1) {
-        const card = makeAccentCard(430 + i, "Event", (i % 4) + 1, "Arc");
+        const card = makePackageCard(430 + i, "Event", (i % 4) + 1, "tide_beta");
         db.set(card.cardNumber, card);
-        accentNumbers.add(card.cardNumber);
+        packageNumbers.add(card.cardNumber);
       }
-      // Bloom distractors at every cost band for characters and events.
+      // tide_alpha distractors at every cost band for characters and events.
       for (let i = 0; i < 6; i += 1) {
-        const card = makeAccentCard(500 + i, "Character", 1 + (i % 6), "Bloom");
+        const card = makePackageCard(500 + i, "Character", 1 + (i % 6), "tide_alpha");
         db.set(card.cardNumber, card);
       }
       for (let i = 0; i < 4; i += 1) {
-        const card = makeAccentCard(520 + i, "Event", 2 + (i % 3), "Bloom");
+        const card = makePackageCard(520 + i, "Event", 2 + (i % 3), "tide_alpha");
         db.set(card.cardNumber, card);
       }
 
@@ -567,45 +567,45 @@ describe("createBattleInit", () => {
         cardDatabase: db,
         dreamcallers: [
           {
-            id: "arc-dc",
-            name: "Arc Sentinel",
+            id: "tide-beta-dc",
+            name: "Tide Beta Sentinel",
             title: "Accent Test",
             awakening: 1,
             renderedText: "",
             imageNumber: "001",
-            mandatoryTides: ["Arc"],
+            mandatoryTides: ["tide_beta"],
             optionalTides: [],
           },
         ],
         state: { ...baseInput.state, deck: [] },
       });
 
-      expect(init.enemyDescriptor.tide).toBe("Arc");
-      const matchingAccentCount = init.enemyDeckDefinition.filter((card) =>
-        accentNumbers.has(card.cardNumber),
+      expect(init.enemyDescriptor.packageTides).toEqual(["tide_beta"]);
+      const matchingTideCount = init.enemyDeckDefinition.filter((card) =>
+        packageNumbers.has(card.cardNumber),
       ).length;
       // With enough accent-matching supply to fill every bucket, the final
       // deck should be all-accent per spec §B-14.
-      expect(matchingAccentCount).toBe(ENEMY_DECK_SIZE);
+      expect(matchingTideCount).toBe(ENEMY_DECK_SIZE);
     });
 
     it("falls through accent -> kind+cost -> wide numeric-cost pool before duplicating (B-19)", () => {
-      // Build an Arc enemy with zero Arc-accent cards in the pool. The fallback
-      // is Bloom candidates that cover every bucket exactly, so duplicates must
+      // Build an tide_beta enemy with zero tide_beta-accent cards in the pool. The fallback
+      // is tide_alpha candidates that cover every bucket exactly, so duplicates must
       // not appear even though layer 1 (accent) is empty.
       const pool: CardData[] = [
-        makeAccentCard(600, "Character", 1, "Bloom"),
-        makeAccentCard(601, "Character", 2, "Bloom"),
-        makeAccentCard(602, "Character", 2, "Bloom"),
-        makeAccentCard(603, "Character", 3, "Bloom"),
-        makeAccentCard(604, "Character", 4, "Bloom"),
-        makeAccentCard(605, "Character", 4, "Bloom"),
-        makeAccentCard(606, "Character", 5, "Bloom"),
-        makeAccentCard(607, "Character", 6, "Bloom"),
-        makeAccentCard(608, "Event", 2, "Bloom"),
-        makeAccentCard(609, "Event", 2, "Bloom"),
-        makeAccentCard(610, "Event", 4, "Bloom"),
-        makeAccentCard(611, "Event", 5, "Bloom"),
+        makePackageCard(600, "Character", 1, "tide_alpha"),
+        makePackageCard(601, "Character", 2, "tide_alpha"),
+        makePackageCard(602, "Character", 2, "tide_alpha"),
+        makePackageCard(603, "Character", 3, "tide_alpha"),
+        makePackageCard(604, "Character", 4, "tide_alpha"),
+        makePackageCard(605, "Character", 4, "tide_alpha"),
+        makePackageCard(606, "Character", 5, "tide_alpha"),
+        makePackageCard(607, "Character", 6, "tide_alpha"),
+        makePackageCard(608, "Event", 2, "tide_alpha"),
+        makePackageCard(609, "Event", 2, "tide_alpha"),
+        makePackageCard(610, "Event", 4, "tide_alpha"),
+        makePackageCard(611, "Event", 5, "tide_alpha"),
       ];
       const db = new Map(pool.map((card) => [card.cardNumber, card]));
       const baseInput = makeBaseInput();
@@ -614,31 +614,31 @@ describe("createBattleInit", () => {
         cardDatabase: db,
         dreamcallers: [
           {
-            id: "arc-dc",
-            name: "Arc Sentinel",
+            id: "tide-beta-dc",
+            name: "Tide Beta Sentinel",
             title: "Accent Test",
             awakening: 1,
             renderedText: "",
             imageNumber: "001",
-            mandatoryTides: ["Arc"],
+            mandatoryTides: ["tide_beta"],
             optionalTides: [],
           },
         ],
         state: { ...baseInput.state, deck: [] },
       });
 
-      expect(init.enemyDescriptor.tide).toBe("Arc");
+      expect(init.enemyDescriptor.packageTides).toEqual(["tide_beta"]);
       expect(init.enemyDeckDefinition).toHaveLength(ENEMY_DECK_SIZE);
-      // Every card we emit must come from the Bloom pool — no phantom accent
-      // matches can appear because Arc pool is empty. Cross-bucket duplicates
+      // Every card we emit must come from the tide_alpha pool — no phantom accent
+      // matches can appear because tide_beta pool is empty. Cross-bucket duplicates
       // are acceptable under the current bucket model, but single-card
       // duplication from an empty layer-2 fallback is not: assert the deck
       // spans several distinct cards across both kinds, proving the fallback
       // layer actually widens past the accent-empty layer before duplicating.
-      const bloomNumbers = new Set(pool.map((c) => c.cardNumber));
+      const fallbackNumbers = new Set(pool.map((c) => c.cardNumber));
       const distinct = new Set<number>();
       for (const card of init.enemyDeckDefinition) {
-        expect(bloomNumbers.has(card.cardNumber)).toBe(true);
+        expect(fallbackNumbers.has(card.cardNumber)).toBe(true);
         distinct.add(card.cardNumber);
       }
       expect(distinct.size).toBeGreaterThanOrEqual(8);
@@ -651,7 +651,7 @@ describe("createBattleInit", () => {
       // characters) before falling back to duplicates.
       const pool: CardData[] = [];
       for (let i = 0; i < 6; i += 1) {
-        pool.push(makeAccentCard(700 + i, "Character", 1, "Bloom"));
+        pool.push(makePackageCard(700 + i, "Character", 1, "tide_alpha"));
       }
       const db = new Map(pool.map((card) => [card.cardNumber, card]));
       const baseInput = makeBaseInput();
@@ -660,19 +660,19 @@ describe("createBattleInit", () => {
         cardDatabase: db,
         dreamcallers: [
           {
-            id: "arc-dc",
-            name: "Arc Sentinel",
+            id: "tide-beta-dc",
+            name: "Tide Beta Sentinel",
             title: "",
             awakening: 1,
             renderedText: "",
             imageNumber: "001",
-            mandatoryTides: ["Arc"],
+            mandatoryTides: ["tide_beta"],
             optionalTides: [],
           },
         ],
         state: { ...baseInput.state, deck: [] },
       });
-      expect(init.enemyDescriptor.tide).toBe("Arc");
+      expect(init.enemyDescriptor.packageTides).toEqual(["tide_beta"]);
       expect(init.enemyDeckDefinition).toHaveLength(ENEMY_DECK_SIZE);
       // All cards should come from the pool — every hit is a cheap character,
       // confirming the widening layer actually ran for mid/expensive/event

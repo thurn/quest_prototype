@@ -103,7 +103,7 @@ function makeCard(overrides: Partial<CardData>): CardData {
     energyCost: 3,
     spark: 2,
     isFast: false,
-    tides: ["Bloom"],
+    tides: ["tide_alpha"],
     renderedText: "Test text.",
     imageNumber: 1,
     artOwned: true,

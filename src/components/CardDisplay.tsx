@@ -1,10 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import type { CardData, FrozenCardData } from "../types/cards";
-import {
-  cardAccentTide,
-  cardImageUrl,
-  TIDE_COLORS,
-} from "../data/card-database";
+import { cardImageUrl } from "../data/card-database";
 import { tokenizeRulesText, formatTypeLine } from "./card-text";
 
 /** Color used for each symbol type when rendering rules text. */
@@ -15,6 +11,7 @@ const SYMBOL_COLORS: Readonly<Record<string, string>> = {
   fast: "#facc15",
 };
 const EVENT_CHROME_COLOR = "#c084fc";
+const CHARACTER_CHROME_COLOR = "#a855f7";
 
 /** Props for the CardDisplay component. */
 interface CardDisplayProps {
@@ -49,7 +46,7 @@ function renderRulesText(text: string): ReactNode[] {
 }
 
 /**
- * Renders a Dreamtides card with tide-driven chrome.
+ * Renders a Dreamtides card with rarity-driven chrome.
  */
 export function CardDisplay({
   card,
@@ -66,18 +63,12 @@ export function CardDisplay({
     setImageError(false);
   }, [card.cardNumber]);
 
-  const accentTide = cardAccentTide(card);
-  const accentColor = TIDE_COLORS[accentTide];
+  const accentColor = CHARACTER_CHROME_COLOR;
   const chromeColor =
     card.cardType === "Event" ? EVENT_CHROME_COLOR : accentColor;
   const borderColor =
-    card.cardType === "Event"
-      ? chromeColor
-      : accentTide === "Neutral"
-      ? "rgba(255, 255, 255, 0.18)"
-      : `${chromeColor}55`;
-  const nameColor =
-    accentTide === "Neutral" ? "#f8fafc" : accentColor;
+    card.cardType === "Event" ? chromeColor : `${chromeColor}55`;
+  const nameColor = "#f8fafc";
   const typeLine = formatTypeLine(card);
 
   const borderStyle = selected
@@ -114,7 +105,7 @@ export function CardDisplay({
         className="pointer-events-none absolute inset-x-0 top-0 h-1"
         style={{
           background: `linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, ${chromeColor} 50%, rgba(255, 255, 255, 0.08) 100%)`,
-          opacity: card.cardType === "Event" || accentTide !== "Neutral" ? 0.8 : 0.35,
+          opacity: 0.8,
         }}
       />
 

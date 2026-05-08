@@ -1,7 +1,6 @@
 import {
   isStarterCard,
   loadCardDatabase,
-  packageTideAccent,
 } from "./card-database";
 import { loadDreamsignTemplates } from "./dreamsigns";
 import { logEvent } from "../logging";
@@ -11,7 +10,7 @@ import type {
   PackageTideId,
   ResolvedDreamcallerPackage,
 } from "../types/content";
-import type { CardData, Tide } from "../types/cards";
+import type { CardData } from "../types/cards";
 
 const DREAMCALLER_JSON_PATH = "/dreamcaller-data.json";
 const LEGAL_MIN_POOL_SIZE = 175;
@@ -123,16 +122,6 @@ export function selectPackageAdjacentWithOverlap<T>(
     packageTides,
     selectedPackageTides,
   );
-}
-
-/** Returns a stable accent tide for Dreamcaller display surfaces. */
-export function dreamcallerAccentTide(
-  dreamcaller: Pick<DreamcallerContent, "mandatoryTides">,
-): Tide {
-  if (dreamcaller.mandatoryTides.length === 0) {
-    return "Neutral";
-  }
-  return packageTideAccent(dreamcaller.mandatoryTides[0]);
 }
 
 /** Fetches normalized Dreamcaller content from the asset pipeline output. */

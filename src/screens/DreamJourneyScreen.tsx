@@ -32,12 +32,8 @@ function describeEffect(effect: JourneyEffect): string {
       return `Gained ${String(effect.essenceAmount)} essence, lost ${String(effect.removeCount)} cards`;
     case "removeCardsAndAddRandomCards":
       return `Lost ${String(effect.removeCount)} cards, gained ${String(effect.addCount)} card${effect.addCount === 1 ? "" : "s"}`;
-    case "removeCardsAndAddTideCrystal":
-      return `Lost ${String(effect.removeCount)} cards`;
     case "upgradeRandomCards":
       return `Upgraded ${String(effect.count)} cards`;
-    case "addTideCrystal":
-      return "No additional reward";
   }
 }
 
@@ -124,15 +120,6 @@ export function DreamJourneyScreen({ site }: DreamJourneyScreenProps) {
           removeRandomCards(effect.removeCount);
           addRandomCards(effect.addCount);
           break;
-        case "removeCardsAndAddTideCrystal":
-          removeRandomCards(effect.removeCount);
-          logEvent("legacy_reward_skipped", {
-            sourceSiteType: "DreamJourney",
-            legacyType: "tide_crystal",
-            tide: effect.tide,
-            count: effect.crystalCount,
-          });
-          break;
         case "upgradeRandomCards":
           // Upgrade simulated as transfiguration: pick random cards
           // and apply a random transfiguration badge.
@@ -152,14 +139,6 @@ export function DreamJourneyScreen({ site }: DreamJourneyScreenProps) {
               mutations.transfigureCard(entry.entryId, type, "Dream Journey upgrade", { source: "dreamJourney", type });
             }
           }
-          break;
-        case "addTideCrystal":
-          logEvent("legacy_reward_skipped", {
-            sourceSiteType: "DreamJourney",
-            legacyType: "tide_crystal",
-            tide: effect.tide,
-            count: effect.count,
-          });
           break;
       }
     },

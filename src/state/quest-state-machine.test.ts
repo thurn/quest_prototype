@@ -63,7 +63,6 @@ function makeDreamcaller(): Dreamcaller {
     awakening: 4,
     renderedText: "Test ability.",
     imageNumber: "0006",
-    accentTide: "Bloom",
   };
 }
 
@@ -155,29 +154,22 @@ describe("deriveEntryIdCounter", () => {
 });
 
 describe("QuestProvider default state contract", () => {
-  it("exposes package-driven default state without legacy tide fields", () => {
+  it("exposes the package-driven default state shape", () => {
     const state = createDefaultState();
 
     expect(state.resolvedPackage).toBeNull();
     expect(state.cardSourceDebug).toBeNull();
     expect(state.remainingDreamsignPool).toEqual([]);
     expect(state.draftState).toBeNull();
-    expect("tideCrystals" in (state as unknown as Record<string, unknown>)).toBe(false);
-    expect("chosenTide" in (state as unknown as Record<string, unknown>)).toBe(false);
-    expect("excludedTides" in (state as unknown as Record<string, unknown>)).toBe(false);
   });
 
-  it("omits legacy mutators and exposes explicit pool mutators", () => {
+  it("exposes the package-driven mutators", () => {
     const mutationNames = Object.keys(captureQuestContext().mutations);
 
     expect(mutationNames).toContain("setDreamcallerSelection");
     expect(mutationNames).toContain("setCardSourceDebug");
     expect(mutationNames).toContain("setRemainingDreamsignPool");
     expect(mutationNames).toContain("setDraftState");
-    expect(mutationNames).not.toContain("setDreamcaller");
-    expect(mutationNames).not.toContain("addTideCrystal");
-    expect(mutationNames).not.toContain("setChosenTide");
-    expect(mutationNames).not.toContain("setExcludedTides");
   });
 });
 

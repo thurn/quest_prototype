@@ -23,7 +23,6 @@ describe("setupAssets", () => {
     const imageCacheDir = join(tempRoot, "image-cache");
     const dreamcallerArtDir = join(tempRoot, "dreamcaller-art");
     const dreamsignArtDir = join(tempRoot, "dreamsign-art");
-    const tideIconsDir = join(tempRoot, "tides-src");
     const cardTomlPath = join(tempRoot, "rendered-cards.toml");
     const dreamcallerTomlPath = join(tempRoot, "dreamcallers.toml");
     const dreamsignTomlPath = join(tempRoot, "dreamsigns.toml");
@@ -32,7 +31,6 @@ describe("setupAssets", () => {
     mkdirSync(imageCacheDir, { recursive: true });
     mkdirSync(dreamcallerArtDir, { recursive: true });
     mkdirSync(dreamsignArtDir, { recursive: true });
-    mkdirSync(tideIconsDir, { recursive: true });
     mkdirSync(dirname(cachedImagePath), { recursive: true });
     writeFileSync(cachedImagePath, "fake-webp");
     writeFileSync(join(dreamcallerArtDir, "0007.png"), "fake-png");
@@ -41,7 +39,6 @@ describe("setupAssets", () => {
       join(dreamsignArtDir, "alt_text.txt"),
       "test-sign.png\tSmall idol with a violet glow.\n",
     );
-    writeFileSync(join(tideIconsDir, "Bloom.png"), "fake-png");
     writeFileSync(
       cardTomlPath,
       `[[cards]]
@@ -52,7 +49,7 @@ card-type = "Character"
 rarity = "Common"
 energy-cost = "*"
 is-fast = false
-tides = ["core", "accent:Bloom"]
+tides = ["core", "ally_formation"]
 rendered-text = "Rules text."
 image-number = 101
 art-owned = true
@@ -116,7 +113,6 @@ rendered-text = "Use the canonical Dreamsign text."
       cardTomlPath,
       dreamcallerTomlPath,
       dreamsignTomlPath,
-      tideIconsDir,
       publicDir,
       imageCacheDir,
       dreamcallerArtDir,
@@ -144,7 +140,7 @@ rendered-text = "Use the canonical Dreamsign text."
         energyCost: null,
         spark: null,
         isFast: false,
-        tides: ["core", "accent:Bloom"],
+        tides: ["core", "ally_formation"],
         renderedText: "Rules text.",
         imageNumber: 101,
         artOwned: true,
@@ -205,6 +201,5 @@ rendered-text = "Use the canonical Dreamsign text."
     expect(existsSync(join(publicDir, "cards", "1.webp"))).toBe(true);
     expect(existsSync(join(publicDir, "dreamcallers", "0007.png"))).toBe(true);
     expect(existsSync(join(publicDir, "dreamsigns", "test-sign.png"))).toBe(true);
-    expect(existsSync(join(publicDir, "tides", "Bloom.png"))).toBe(true);
   });
 });

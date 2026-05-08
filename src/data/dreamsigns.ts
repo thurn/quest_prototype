@@ -1,5 +1,3 @@
-import { packageTideAccent } from "./card-database";
-import type { Tide } from "../types/cards";
 import type { DreamsignTemplate } from "../types/content";
 import type { Dreamsign } from "../types/quest";
 
@@ -12,13 +10,6 @@ interface RawDreamsign {
   imageAlt: string;
   effectDescription: string;
   packageTides: string[];
-}
-
-function deriveDisplayTide(packageTides: readonly string[]): Tide {
-  if (packageTides.length === 0) {
-    return "Neutral";
-  }
-  return packageTideAccent(packageTides[0]);
 }
 
 /** Fetches canonical Dreamsign data from the asset pipeline output. */
@@ -34,7 +25,6 @@ export async function loadDreamsignTemplates(): Promise<DreamsignTemplate[]> {
     id: entry.id,
     name: entry.name,
     effectDescription: entry.effectDescription,
-    displayTide: deriveDisplayTide(entry.packageTides),
     packageTides: [...entry.packageTides],
     imageName: entry.imageName,
     imageAlt: entry.imageAlt,
@@ -49,7 +39,6 @@ export function createDreamsign(
   return {
     id: template.id,
     name: template.name,
-    tide: template.displayTide,
     effectDescription: template.effectDescription,
     imageName: template.imageName,
     imageAlt: template.imageAlt,

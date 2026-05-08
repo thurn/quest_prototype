@@ -4,7 +4,6 @@ import type { DeckEntry, Dreamsign, SiteState } from "../types/quest";
 import { useQuest } from "../state/quest-context";
 import { logEvent } from "../logging";
 import { CardDisplay } from "../components/CardDisplay";
-import { TIDE_COLORS, tideIconUrl } from "../data/card-database";
 
 /** Props for the CleanseSiteScreen component. */
 interface CleanseSiteScreenProps {
@@ -288,9 +287,6 @@ function BaneCardDisplay({ cardNumber }: { cardNumber: number }) {
 
 /** Renders a bane dreamsign with tainted visual treatment. */
 function BaneDreamsignDisplay({ dreamsign }: { dreamsign: Dreamsign }) {
-  const dreamsignTide = dreamsign.tide ?? "Neutral";
-  const tideColor = TIDE_COLORS[dreamsignTide];
-
   return (
     <div
       className="relative flex w-56 flex-col items-center gap-2 rounded-xl p-4"
@@ -310,22 +306,6 @@ function BaneDreamsignDisplay({ dreamsign }: { dreamsign: Dreamsign }) {
         }}
       >
         Bane
-      </span>
-      <img
-        src={tideIconUrl(dreamsignTide)}
-        alt={dreamsignTide}
-        className="h-12 w-12 rounded-full object-contain"
-        style={{ border: `2px solid ${tideColor}`, filter: "saturate(0.5)" }}
-      />
-      <span
-        className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
-        style={{
-          background: `${tideColor}20`,
-          color: tideColor,
-          border: `1px solid ${tideColor}40`,
-        }}
-      >
-        {dreamsignTide}
       </span>
       <h3
         className="text-center text-base font-bold"

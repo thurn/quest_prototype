@@ -64,19 +64,13 @@ vi.mock("../components/CardDisplay", () => ({
 }));
 
 vi.mock("../data/card-database", () => ({
-  TIDE_COLORS: {
-    Bloom: "#34d399",
-    Arc: "#a78bfa",
-  },
   isStarterCard: (card: { isStarter: boolean }) => card.isStarter,
-  tideIconUrl: (tide: string) => `/mock/${tide}.png`,
 }));
 
 const DREAMSIGN_TEMPLATES: DreamsignTemplate[] = [
   {
     id: "dreamsign-1",
     name: "Dreamsign One",
-    displayTide: "Bloom",
     packageTides: ["alpha"],
     effectDescription: "First effect.",
   },
@@ -224,8 +218,8 @@ describe("RewardSiteScreen", () => {
     );
 
     expect(container.textContent).toContain("Dreamsign One");
-    expect(container.textContent).not.toContain("Bloom");
-    expect(container.querySelector('img[alt="Bloom"]')).toBeNull();
+    expect(container.textContent).not.toContain("tide_alpha");
+    expect(container.querySelector('img[alt="tide_alpha"]')).toBeNull();
     expect(mutations.setRemainingDreamsignPool).toHaveBeenCalledWith(
       [],
       "reward_site_revealed",

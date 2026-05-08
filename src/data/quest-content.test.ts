@@ -65,21 +65,18 @@ const DREAMSIGN_TEMPLATES: DreamsignTemplate[] = [
     id: "adjacent-sign",
     name: "Adjacent Sign",
     effectDescription: "Adjacent effect.",
-    displayTide: "Bloom",
     packageTides: ["o4", "support"],
   },
   {
     id: "mandatory-sign",
     name: "Mandatory Sign",
     effectDescription: "Mandatory effect.",
-    displayTide: "Arc",
     packageTides: ["m2"],
   },
   {
     id: "off-package-sign",
     name: "Off Package Sign",
     effectDescription: "Off package effect.",
-    displayTide: "Rime",
     packageTides: ["unused"],
   },
 ];

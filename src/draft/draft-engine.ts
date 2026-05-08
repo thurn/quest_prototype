@@ -1,7 +1,6 @@
-import type { CardData, Tide } from "../types/cards";
+import type { CardData } from "../types/cards";
 import type { ResolvedDreamcallerPackage } from "../types/content";
 import type { DraftConfig, DraftState, PackContext } from "../types/draft";
-import { cardAccentTide, NAMED_TIDES } from "../data/card-database";
 import { logEvent } from "../logging";
 
 /** Default shared draft configuration. */
@@ -112,16 +111,12 @@ function revealOffer(
   return true;
 }
 
-/** Count cards per tide in a collection of card numbers. */
+/** Count cards per package tide in a collection of card numbers. */
 function countByTide(
   cardNumbers: number[],
   cardDatabase: Map<number, CardData>,
 ): Record<string, number> {
   const counts: Record<string, number> = {};
-
-  for (const tide of [...NAMED_TIDES, "Neutral" as Tide]) {
-    counts[tide] = 0;
-  }
 
   for (const cardNumber of cardNumbers) {
     const card = cardDatabase.get(cardNumber);
@@ -129,8 +124,9 @@ function countByTide(
       continue;
     }
 
-    const accentTide = cardAccentTide(card);
-    counts[accentTide] = (counts[accentTide] ?? 0) + 1;
+    for (const tide of card.tides) {
+      counts[tide] = (counts[tide] ?? 0) + 1;
+    }
   }
 
   return counts;
@@ -269,7 +265,7 @@ export function processPlayerPick(
     pickNumber: state.pickNumber,
     cardNumber,
     cardName: card?.name ?? "Unknown",
-    cardTide: card === undefined ? "Neutral" : cardAccentTide(card),
+    cardTides: card?.tides ?? [],
     offerCards: currentOffer,
     poolRemaining: countRemainingCards(state.remainingCopiesByCard),
     uniqueCardsRemaining: countRemainingUniqueCards(state.remainingCopiesByCard),

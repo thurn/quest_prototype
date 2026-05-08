@@ -166,7 +166,6 @@ describe("QuestApp", () => {
           awakening: 4,
           renderedText: "Pick your path.",
           imageNumber: "0004",
-          accentTide: "Bloom",
         },
         screen: { type: "dreamscape" },
       }),
@@ -201,14 +200,14 @@ describe("QuestApp", () => {
       awakening: 4,
       renderedText: "Pick.",
       imageNumber: "0001",
-      mandatoryTides: ["Bloom"],
-      optionalTides: ["Arc", "Ignite", "Pact", "Rime"],
+      mandatoryTides: ["tide_alpha"],
+      optionalTides: ["tide_beta", "tide_gamma", "tide_delta", "tide_zeta"],
     };
     const resolvedPackage = {
       dreamcaller,
-      mandatoryTides: ["Bloom"],
-      optionalSubset: ["Arc", "Ignite", "Pact"],
-      selectedTides: ["Bloom", "Arc", "Ignite", "Pact"],
+      mandatoryTides: ["tide_alpha"],
+      optionalSubset: ["tide_beta", "tide_gamma", "tide_delta"],
+      selectedTides: ["tide_alpha", "tide_beta", "tide_gamma", "tide_delta"],
       draftPoolCopiesByCard: { "101": 2 },
       dreamsignPoolIds: ["dreamsign-1"],
       mandatoryOnlyPoolSize: 12,
@@ -228,10 +227,9 @@ describe("QuestApp", () => {
         dreamsignTemplates: [
           {
             id: "dreamsign-1",
-            name: "Bloom Echo",
+            name: "Echo Sign",
             effectDescription: "Test.",
-            displayTide: "Bloom",
-            packageTides: ["Bloom"],
+            packageTides: ["tide_alpha"],
           },
         ],
         resolvedPackagesByDreamcallerId: new Map([
@@ -301,14 +299,14 @@ describe("QuestApp", () => {
       awakening: 4,
       renderedText: "Pick.",
       imageNumber: "0001",
-      mandatoryTides: ["Bloom"],
-      optionalTides: ["Arc", "Ignite", "Pact", "Rime"],
+      mandatoryTides: ["tide_alpha"],
+      optionalTides: ["tide_beta", "tide_gamma", "tide_delta", "tide_zeta"],
     };
     const resolvedPackage = {
       dreamcaller,
-      mandatoryTides: ["Bloom"],
-      optionalSubset: ["Arc", "Ignite", "Pact"],
-      selectedTides: ["Bloom", "Arc", "Ignite", "Pact"],
+      mandatoryTides: ["tide_alpha"],
+      optionalSubset: ["tide_beta", "tide_gamma", "tide_delta"],
+      selectedTides: ["tide_alpha", "tide_beta", "tide_gamma", "tide_delta"],
       draftPoolCopiesByCard: { "101": 2 },
       dreamsignPoolIds: ["dreamsign-1"],
       mandatoryOnlyPoolSize: 12,
@@ -328,10 +326,9 @@ describe("QuestApp", () => {
         dreamsignTemplates: [
           {
             id: "dreamsign-1",
-            name: "Bloom Echo",
+            name: "Echo Sign",
             effectDescription: "Test.",
-            displayTide: "Bloom",
-            packageTides: ["Bloom"],
+            packageTides: ["tide_alpha"],
           },
         ],
         resolvedPackagesByDreamcallerId: new Map([

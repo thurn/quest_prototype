@@ -20,8 +20,8 @@ function makeDreamcaller(): DreamcallerContent {
     awakening: 4,
     renderedText: "Test ability.",
     imageNumber: "0002",
-    mandatoryTides: ["Bloom"],
-    optionalTides: ["Arc", "Ignite", "Pact", "Rime"],
+    mandatoryTides: ["tide_alpha"],
+    optionalTides: ["tide_beta", "tide_gamma", "tide_delta", "tide_zeta"],
   };
 }
 
@@ -29,9 +29,9 @@ function makeResolvedPackage(): ResolvedDreamcallerPackage {
   const dreamcaller = makeDreamcaller();
   return {
     dreamcaller,
-    mandatoryTides: ["Bloom"],
-    optionalSubset: ["Arc", "Ignite", "Pact"],
-    selectedTides: ["Bloom", "Arc", "Ignite", "Pact"],
+    mandatoryTides: ["tide_alpha"],
+    optionalSubset: ["tide_beta", "tide_gamma", "tide_delta"],
+    selectedTides: ["tide_alpha", "tide_beta", "tide_gamma", "tide_delta"],
     draftPoolCopiesByCard: {
       "101": 2,
       "202": 1,
@@ -49,17 +49,15 @@ function makeDreamsignTemplates(): DreamsignTemplate[] {
   return [
     {
       id: "dreamsign-1",
-      name: "Bloom Echo",
+      name: "Echo Sign",
       effectDescription: "Gain a bloom effect.",
-      displayTide: "Bloom",
-      packageTides: ["Bloom"],
+      packageTides: ["tide_alpha"],
     },
     {
       id: "dreamsign-2",
       name: "Arc Echo",
       effectDescription: "Gain an arc effect.",
-      displayTide: "Arc",
-      packageTides: ["Arc"],
+      packageTides: ["tide_beta"],
     },
   ];
 }
@@ -135,8 +133,8 @@ describe("bootstrapQuestStart", () => {
     const state = makeState();
     const mutations = makeMutations();
     const cardDatabase = new Map<number, CardData>([
-      [101, makeCard(101, ["Bloom"])],
-      [202, makeCard(202, ["Arc"])],
+      [101, makeCard(101, ["tide_alpha"])],
+      [202, makeCard(202, ["tide_beta"])],
     ]);
 
     bootstrapQuestStart({

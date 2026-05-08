@@ -5,7 +5,7 @@ import { buildCardSourceDebugState } from "../debug/card-source-debug";
 import { useQuest } from "../state/quest-context";
 import { logEvent } from "../logging";
 import { CardDisplay } from "../components/CardDisplay";
-import type { CardData, Tide } from "../types/cards";
+import type { CardData } from "../types/cards";
 import {
   generateRewardSiteData,
   type RewardSiteData,
@@ -104,7 +104,6 @@ export function RewardSiteScreen({ site }: RewardSiteScreenProps) {
     } else if (rewardData.rewardType === "dreamsign") {
       const dreamsign: Dreamsign = {
         name: rewardData.dreamsignName,
-        tide: rewardData.dreamsignTide,
         effectDescription: rewardData.dreamsignEffect,
         isBane: false,
       };
@@ -157,7 +156,6 @@ export function RewardSiteScreen({ site }: RewardSiteScreenProps) {
         {rewardData.rewardType === "dreamsign" && (
           <DreamsignRewardDisplay
             name={rewardData.dreamsignName}
-            tide={rewardData.dreamsignTide}
             effectDescription={rewardData.dreamsignEffect}
           />
         )}
@@ -231,14 +229,12 @@ function CardRewardDisplay({ cardNumber }: { cardNumber: number }) {
   );
 }
 
-/** Renders a dreamsign reward with tide icon, name, and effect. */
+/** Renders a dreamsign reward with sigil, name, and effect. */
 function DreamsignRewardDisplay({
   name,
-  tide: _tide,
   effectDescription,
 }: {
   name: string;
-  tide: Tide;
   effectDescription: string;
 }) {
   return (

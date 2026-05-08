@@ -107,7 +107,6 @@ function makeState(): QuestState {
       awakening: 5,
       renderedText: "Dreamcaller rules.",
       imageNumber: "0005",
-      accentTide: "Bloom",
     },
     resolvedPackage: null,
     cardSourceDebug: null,
@@ -115,13 +114,11 @@ function makeState(): QuestState {
     dreamsigns: [
       {
         name: "Night's Mark",
-        tide: "Arc",
         effectDescription: "Draw deeper.",
         isBane: false,
       },
       {
         name: "Ashen Debt",
-        tide: "Ignite",
         effectDescription: "Costs later.",
         isBane: true,
       },
@@ -219,11 +216,11 @@ describe("DeckViewer", () => {
     expect(container.textContent).toContain("Awakening 5");
     expect(container.textContent).toContain("Night's Mark");
     expect(container.textContent).toContain("Ashen Debt");
-    expect(container.textContent).not.toContain("Bloom");
-    expect(container.textContent).not.toContain("Ignite");
-    expect(container.querySelector('img[alt="Bloom"]')).toBeNull();
-    expect(container.querySelector('img[alt="Arc"]')).toBeNull();
-    expect(container.querySelector('img[alt="Ignite"]')).toBeNull();
+    expect(container.textContent).not.toContain("tide_alpha");
+    expect(container.textContent).not.toContain("tide_gamma");
+    expect(container.querySelector('img[alt="tide_alpha"]')).toBeNull();
+    expect(container.querySelector('img[alt="tide_beta"]')).toBeNull();
+    expect(container.querySelector('img[alt="tide_gamma"]')).toBeNull();
 
     act(() => {
       root.unmount();

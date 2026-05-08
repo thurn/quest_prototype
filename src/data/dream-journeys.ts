@@ -1,5 +1,3 @@
-import type { Tide } from "../types/cards";
-
 /** A structured effect applied when a dream journey is chosen. */
 export type JourneyEffect =
   | { type: "addEssence"; amount: number }
@@ -16,14 +14,7 @@ export type JourneyEffect =
       removeCount: number;
       addCount: number;
     }
-  | {
-      type: "removeCardsAndAddTideCrystal";
-      removeCount: number;
-      tide: Tide;
-      crystalCount: number;
-    }
-  | { type: "upgradeRandomCards"; count: number }
-  | { type: "addTideCrystal"; tide: Tide; count: number };
+  | { type: "upgradeRandomCards"; count: number };
 
 /** A dramatic deck-altering event offered at journey sites. */
 export interface DreamJourney {

@@ -1,16 +1,5 @@
 import type { PackageTideId } from "./content";
 
-/** The 8 tide affinities in Dreamtides. */
-export type Tide =
-  | "Bloom"
-  | "Arc"
-  | "Ignite"
-  | "Pact"
-  | "Umbra"
-  | "Rime"
-  | "Surge"
-  | "Neutral";
-
 /** The two card types in Dreamtides. */
 export type CardType = "Character" | "Event";
 

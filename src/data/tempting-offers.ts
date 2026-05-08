@@ -1,11 +1,7 @@
-import type { Tide } from "../types/cards";
-
 /** A structured effect for the benefit or cost of a tempting offer. */
 export type OfferEffect =
   | { type: "addEssence"; amount: number }
   | { type: "addRandomCards"; count: number }
-  | { type: "addTideCrystal"; tide: Tide; count: number }
-  | { type: "addMultipleTideCrystals"; crystals: Array<{ tide: Tide; count: number }> }
   | { type: "addBaneCards"; count: number }
   | { type: "removeEssence"; amount: number }
   | { type: "removeDreamsign" }

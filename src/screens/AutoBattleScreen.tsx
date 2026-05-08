@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { BattleEnemyDescriptor, BattleInit } from "../battle/types";
 import type { SiteState } from "../types/quest";
 import { useQuest } from "../state/quest-context";
-import { TIDE_COLORS, tideIconUrl } from "../data/card-database";
 import { buildCardSourceDebugState } from "../debug/card-source-debug";
 import { logEvent } from "../logging";
 import { BattleRewardSurface } from "../battle/components/BattleRewardSurface";
@@ -14,7 +13,7 @@ type BattlePhase = "preBattle" | "animation" | "victory";
 
 type EnemyData = Pick<
   BattleEnemyDescriptor,
-  "name" | "abilityText" | "dreamsignCount" | "tide"
+  "name" | "abilityText" | "dreamsignCount"
 >;
 
 interface PreBattleProps {
@@ -50,8 +49,6 @@ function PreBattlePhase({
     accentBadgeClass = "border-rose-300/55 bg-rose-500/15 text-rose-100";
     accentRing = "ring-1 ring-rose-300/40";
   }
-
-  const tideColor = TIDE_COLORS[enemy.tide];
 
   return (
     <motion.div
@@ -94,17 +91,6 @@ function PreBattlePhase({
         >
           Battle {String(completionLevel + 1)} of 7
         </span>
-
-        {/* Enemy tide icon */}
-        <img
-          src={tideIconUrl(enemy.tide)}
-          alt={enemy.tide}
-          className="mb-3 h-16 w-16 rounded-full object-contain md:h-20 md:w-20"
-          style={{
-            border: `3px solid ${tideColor}`,
-            boxShadow: `0 0 18px ${tideColor}40`,
-          }}
-        />
 
         {/* Enemy name */}
         <h2 className={`mb-2 text-center ${typography.heading} text-white`}>

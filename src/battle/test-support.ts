@@ -46,7 +46,7 @@ export function makeBattleTestCardDatabase(): Map<number, CardData> {
     makeCard(106, "Ion Burst", "Event", 1, null, ["alpha"]),
     makeCard(107, "Refraction", "Event", 3, null, ["alpha"]),
     makeCard(108, "Arc Collapse", "Event", 5, null, ["alpha"]),
-    makeCard(201, "Bloom Tender", "Character", 1, 1, ["beta"]),
+    makeCard(201, "Beta Tender", "Character", 1, 1, ["beta"]),
     makeCard(202, "Garden Sentinel", "Character", 2, 2, ["beta"]),
     makeCard(203, "Canopy Ranger", "Character", 3, 3, ["beta"]),
     makeCard(204, "Verdant Colossus", "Character", 5, 5, ["beta"]),
@@ -55,7 +55,7 @@ export function makeBattleTestCardDatabase(): Map<number, CardData> {
     makeCard(301, "Null Courier", "Character", 1, 1, ["gamma"]),
     makeCard(302, "Mirror Adept", "Character", 4, 3, ["gamma"]),
     makeCard(303, "Silent Current", "Event", 2, null, ["gamma"]),
-    makeCard(304, "Late Surge", "Event", 6, null, ["gamma"]),
+    makeCard(304, "Late Pulse", "Event", 6, null, ["gamma"]),
   ];
 
   return new Map(cards.map((card) => [card.cardNumber, card]));
@@ -117,7 +117,6 @@ function makeBattleTestDreamcaller(): Dreamcaller {
     awakening: 2,
     renderedText: "Gain a fleeting advantage whenever your line bends first.",
     imageNumber: "001",
-    accentTide: "Arc",
   };
 }
 
@@ -125,13 +124,11 @@ function makeBattleTestDreamsigns(): Dreamsign[] {
   return [
     {
       name: "Bolt Script",
-      tide: "Arc",
       effectDescription: "The first event each turn costs 1 less.",
       isBane: false,
     },
     {
       name: "Wilted Crown",
-      tide: "Bloom",
       effectDescription: "A lingering drawback for regression testing.",
       isBane: true,
     },

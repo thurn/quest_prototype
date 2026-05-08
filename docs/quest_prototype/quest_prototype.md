@@ -84,15 +84,13 @@ and spent Dreamsign pools.
 ## Hidden-Tides Behavior
 
 - Dreamcaller selection is a quest-start choice, not a mid-run site.
-- Card chrome is tide-driven.
+- Card chrome is rarity-driven.
 - Draft sites reveal 4 unique cards when possible and consume the revealed cards
   from the fixed pool.
 - Dreamsign-bearing surfaces spend from a shared pool as soon as a sign is
   shown.
 - Shops, battle rewards, and similar generators prefer package-adjacent content
   but fall back to the broader pool if nothing overlaps.
-- The live flow no longer uses tide crystals, `chosenTide`, `excludedTides`, or
-  `DreamcallerDraft`.
 
 ## Card Data Normalization
 

@@ -17,7 +17,6 @@ export type RewardSiteData =
       rewardType: "dreamsign";
       dreamsignId: string;
       dreamsignName: string;
-      dreamsignTide: DreamsignTemplate["displayTide"];
       dreamsignEffect: string;
     }
   | {
@@ -77,7 +76,6 @@ export function generateRewardSiteData({
         rewardType: "dreamsign",
         dreamsignId: dreamsignTemplate.id,
         dreamsignName: dreamsignTemplate.name,
-        dreamsignTide: dreamsignTemplate.displayTide,
         dreamsignEffect: dreamsignTemplate.effectDescription,
       },
       remainingDreamsignPoolIds: availableDreamsignPool.availableIds.filter(

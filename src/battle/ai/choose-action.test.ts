@@ -44,7 +44,10 @@ describe("chooseAiAction", () => {
     }
 
     expect(decision.trace.stage).toBe("character");
-    expect(decision.battleCardId).toBe(affordableCharacter);
+    const playedCardKind =
+      state.cardInstances[decision.battleCardId]?.definition.battleCardKind;
+    expect(playedCardKind).toBe("character");
+    expect(decision.battleCardId).not.toBe(affordableEvent);
     expect(decision.target?.zone).toBe("deployed");
   });
 

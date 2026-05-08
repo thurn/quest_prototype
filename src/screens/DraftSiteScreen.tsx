@@ -14,7 +14,7 @@ import {
 } from "../draft/draft-engine";
 import type { DraftState } from "../types/draft";
 import type { CardData } from "../types/cards";
-import { cardAccentTide, cardImageUrl, TIDE_COLORS } from "../data/card-database";
+import { cardImageUrl } from "../data/card-database";
 import { logEvent } from "../logging";
 
 
@@ -167,9 +167,7 @@ function DeckSidebar({
         const showDivider = cost !== lastCost;
         lastCost = cost;
         const accentColor =
-          card.cardType === "Event"
-            ? "#c084fc"
-            : TIDE_COLORS[cardAccentTide(card)];
+          card.cardType === "Event" ? "#c084fc" : "#a855f7";
         const isHighlighted = highlightedEntryId === entryId;
 
         return (

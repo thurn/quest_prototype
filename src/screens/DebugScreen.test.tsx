@@ -80,7 +80,7 @@ function makeResolvedPackage(): ResolvedDreamcallerPackage {
     },
     mandatoryTides: ["core"],
     optionalSubset: ["support-a", "support-b", "support-c"],
-    selectedTides: ["accent:Bloom", "support-a", "support-b", "support-c"],
+    selectedTides: ["core", "support-a", "support-b", "support-c"],
     draftPoolCopiesByCard: { "1": 2, "2": 1 },
     dreamsignPoolIds: ["sign-1", "sign-2", "sign-3"],
     mandatoryOnlyPoolSize: 120,
@@ -105,21 +105,18 @@ const DREAMSIGN_TEMPLATES: readonly DreamsignTemplate[] = [
   {
     id: "sign-1",
     name: "First Sign",
-    displayTide: "Bloom",
     packageTides: ["core"],
     effectDescription: "First.",
   },
   {
     id: "sign-2",
     name: "Second Sign",
-    displayTide: "Arc",
     packageTides: ["support-a"],
     effectDescription: "Second.",
   },
   {
     id: "sign-3",
     name: "Third Sign",
-    displayTide: "Rime",
     packageTides: ["support-b"],
     effectDescription: "Third.",
   },
@@ -179,7 +176,7 @@ describe("DebugScreen", () => {
     expect(container.textContent).toContain("support-b");
     expect(container.textContent).toContain("support-c");
     expect(container.textContent).toContain("Full Draft Pool Packages");
-    expect(container.textContent).toContain("accent:Bloom");
+    expect(container.textContent).toContain("core");
     expect(container.textContent).toContain("First Sign");
     expect(container.textContent).toContain("Second Sign");
     expect(container.textContent).toContain("Lantern Sprite");

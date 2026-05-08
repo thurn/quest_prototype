@@ -18,7 +18,7 @@ function makeCard(overrides: Partial<CardData>): CardData {
     energyCost: 3,
     spark: 2,
     isFast: false,
-    tides: ["Bloom"],
+    tides: ["tide_alpha"],
     renderedText: "Test text.",
     imageNumber: 1,
     artOwned: true,
@@ -75,7 +75,7 @@ describe("CardDisplay", () => {
     });
   });
 
-  it("keeps neutral cards on subdued chrome", () => {
+  it("renders character cards with the rarity-driven character chrome accent", () => {
     const { container, root } = mount(
       <CardDisplay card={makeCard({ cardType: "Character", tides: [] })} />,
     );
@@ -85,7 +85,7 @@ describe("CardDisplay", () => {
       throw new Error("Missing card root");
     }
 
-    expect(cardRoot.style.border).toContain("rgba(255, 255, 255, 0.18)");
+    expect(cardRoot.style.border).toContain("rgba(168, 85, 247");
     expect(cardRoot.style.boxShadow).toBe("");
 
     act(() => {

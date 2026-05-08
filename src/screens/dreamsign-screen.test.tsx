@@ -40,42 +40,31 @@ vi.mock("../logging", () => ({
 }));
 
 vi.mock("../data/card-database", () => ({
-  TIDE_COLORS: {
-    Ignite: "#f97316",
-    Rime: "#60a5fa",
-    Bloom: "#34d399",
-    Arc: "#a78bfa",
-  },
   isStarterCard: (card: { isStarter: boolean }) => card.isStarter,
-  tideIconUrl: (tide: string) => `/mock/${tide}.png`,
 }));
 
 const DREAMSIGN_TEMPLATES: DreamsignTemplate[] = [
   {
     id: "embers-whisper",
     name: "Ember's Whisper",
-    displayTide: "Ignite",
     packageTides: ["alpha"],
     effectDescription: "Fire.",
   },
   {
     id: "glacial-insight",
     name: "Glacial Insight",
-    displayTide: "Rime",
     packageTides: ["beta"],
     effectDescription: "Ice.",
   },
   {
     id: "verdant-accord",
     name: "Verdant Accord",
-    displayTide: "Bloom",
     packageTides: ["gamma"],
     effectDescription: "Growth.",
   },
   {
     id: "stormthread-sigil",
     name: "Stormthread Sigil",
-    displayTide: "Arc",
     packageTides: ["delta"],
     effectDescription: "Storm.",
   },
@@ -228,7 +217,7 @@ describe("DreamsignOfferingScreen", () => {
         remainingDreamsignPool: ["embers-whisper", "glacial-insight"],
         dreamsigns: Array.from({ length: 12 }, (_, index) => ({
           name: `Held Sign ${String(index)}`,
-          tide: index % 2 === 0 ? "Bloom" : "Rime",
+          tide: index % 2 === 0 ? "tide_alpha" : "tide_zeta",
           effectDescription: "Existing.",
           isBane: false,
         })),

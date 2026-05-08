@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import {
-  additionalSiteTypesForLevel,
   generateSiteComposition,
   generateInitialAtlas,
   generateNewNodes,
@@ -109,26 +108,6 @@ describe("generateSiteComposition", () => {
           s.type !== "Draft",
       );
       expect(previewable.length).toBeGreaterThanOrEqual(2);
-    }
-  });
-
-  it("never emits legacy DreamcallerDraft sites", () => {
-    for (let level = 0; level <= 7; level += 1) {
-      expect(
-        additionalSiteTypesForLevel(
-          level,
-          defaultContext({ playerHasBanes: false }),
-        ),
-      ).not.toContain("DreamcallerDraft");
-      expect(
-        additionalSiteTypesForLevel(
-          level,
-          defaultContext({ playerHasBanes: true }),
-        ),
-      ).not.toContain("DreamcallerDraft");
-      resetAtlasGenerator();
-      const sites = generateSiteComposition(level, level === 0, defaultContext());
-      expect(sites.some((site) => String(site.type) === "DreamcallerDraft")).toBe(false);
     }
   });
 
