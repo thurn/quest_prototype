@@ -7,6 +7,7 @@ describe("parseRuntimeConfig", () => {
       seedOverride: null,
       startInBattle: false,
       enableAi: false,
+      gameId: null,
     });
   });
 
@@ -49,6 +50,18 @@ describe("parseRuntimeConfig", () => {
       expect(parseRuntimeConfig("?enableAi=0").enableAi).toBe(false);
       expect(parseRuntimeConfig("?enableAi=true").enableAi).toBe(false);
       expect(parseRuntimeConfig("?enableAi=").enableAi).toBe(false);
+    });
+  });
+
+  describe("gameId", () => {
+    it("returns a normalized game id from game", () => {
+      expect(parseRuntimeConfig("?game=QuestRoom123").gameId).toBe("questroom123");
+    });
+
+    it("returns null for invalid game ids", () => {
+      expect(parseRuntimeConfig("?game=abc").gameId).toBeNull();
+      expect(parseRuntimeConfig("?game=bad_id").gameId).toBeNull();
+      expect(parseRuntimeConfig("?game=").gameId).toBeNull();
     });
   });
 });

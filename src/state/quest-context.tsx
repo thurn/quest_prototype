@@ -204,6 +204,7 @@ export function QuestProvider({
     seedOverride: null,
     startInBattle: false,
     enableAi: false,
+    gameId: null,
   },
 }: {
   children: ReactNode;

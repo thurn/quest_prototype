@@ -143,7 +143,7 @@ describe("QuestApp", () => {
     const { root } = mount(
       <QuestApp
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false, gameId: null }}
       />,
     );
 
@@ -175,7 +175,7 @@ describe("QuestApp", () => {
       root.render(
         <QuestApp
           cardDatabase={new Map()}
-          runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
+          runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false, gameId: null }}
         />,
       );
     });
@@ -245,6 +245,7 @@ describe("QuestApp", () => {
           seedOverride: null,
           startInBattle: true,
           enableAi: false,
+          gameId: null,
         }}
       />,
     );
@@ -278,6 +279,7 @@ describe("QuestApp", () => {
           seedOverride: null,
           startInBattle: false,
           enableAi: false,
+          gameId: null,
         }}
       />,
     );
@@ -324,7 +326,7 @@ describe("QuestApp", () => {
     const { container, root } = mount(
       <QuestApp
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false, gameId: null }}
       />,
     );
 

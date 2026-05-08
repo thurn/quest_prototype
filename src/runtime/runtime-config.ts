@@ -1,7 +1,10 @@
+import { normalizeRoomId } from "../multiplayer/room-id";
+
 export interface RuntimeConfig {
   seedOverride: number | null;
   startInBattle: boolean;
   enableAi: boolean;
+  gameId: string | null;
 }
 
 export function parseRuntimeConfig(search: string): RuntimeConfig {
@@ -10,6 +13,7 @@ export function parseRuntimeConfig(search: string): RuntimeConfig {
     seedOverride: parseSeedOverride(params.get("seed")),
     startInBattle: params.get("startInBattle") === "1",
     enableAi: params.get("enableAi") === "1",
+    gameId: normalizeRoomId(params.get("game")),
   };
 }
 
