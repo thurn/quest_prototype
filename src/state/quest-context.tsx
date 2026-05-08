@@ -16,7 +16,10 @@ import {
 import type { QuestContent } from "../data/quest-content";
 import { toQuestDreamcaller } from "../data/dreamcaller-selection";
 import type { CardData } from "../types/cards";
-import type { ResolvedDreamcallerPackage } from "../types/content";
+import type {
+  DreamcallerContent,
+  ResolvedDreamcallerPackage,
+} from "../types/content";
 import type {
   CardSourceDebugState,
   DeckEntry,
@@ -42,6 +45,11 @@ import {
 import { deriveEntryIdCounter } from "./deck-entry-ids";
 import type { RuntimeConfig } from "../runtime/runtime-config";
 import { createStartInBattleState } from "../runtime/start-in-battle-state";
+import {
+  completeQuestSite,
+  setQuestScreen,
+  startQuestFromDreamcaller,
+} from "./quest-state-actions";
 
 export { deriveEntryIdCounter };
 
@@ -50,6 +58,9 @@ const MAX_DREAMSIGNS = 12;
 /** Mutation functions exposed by the quest context. */
 export interface QuestMutations {
   changeEssence: (delta: number, source: string) => void;
+  startQuest: (dreamcaller: DreamcallerContent) => void;
+  completeSite: (siteId: string, source: string) => void;
+  pickDraftCard: (siteId: string, cardNumber: number) => void;
   addCard: (cardNumber: number, source: string) => void;
   addBaneCard: (cardNumber: number, source: string) => void;
   removeCard: (entryId: string, source: string) => void;
@@ -96,7 +107,19 @@ export interface QuestContextValue {
   questContent: QuestContent;
 }
 
-const QuestContext = createContext<QuestContextValue | null>(null);
+export const QuestContext = createContext<QuestContextValue | null>(null);
+
+export function QuestContextProvider({
+  children,
+  value,
+}: {
+  children: ReactNode;
+  value: QuestContextValue;
+}) {
+  return (
+    <QuestContext.Provider value={value}>{children}</QuestContext.Provider>
+  );
+}
 
 function screenName(screen: Screen): string {
   return screen.type === "site" ? `site:${screen.siteId}` : screen.type;
@@ -251,6 +274,36 @@ export function QuestProvider({
       return { ...prev, essence: newValue };
     });
   }, []);
+
+  const startQuest = useCallback(
+    (dreamcaller: DreamcallerContent) => {
+      setState((prev) => {
+        const next = startQuestFromDreamcaller({
+          prev,
+          dreamcaller,
+          questContent,
+        });
+        entryIdCounter.current = deriveEntryIdCounter(next.deck);
+        return next;
+      });
+    },
+    [questContent],
+  );
+
+  const completeSite = useCallback((siteId: string, _source: string) => {
+    setState((prev) =>
+      setQuestScreen(completeQuestSite(prev, siteId), { type: "dreamscape" }),
+    );
+  }, []);
+
+  const pickDraftCard = useCallback(
+    (_siteId: string, _cardNumber: number) => {
+      throw new Error(
+        "pickDraftCard is provided by the multiplayer provider after draft conversion",
+      );
+    },
+    [],
+  );
 
   const addCard = useCallback(
     (cardNumber: number, source: string) => {
@@ -553,6 +606,9 @@ export function QuestProvider({
   const mutations = useMemo<QuestMutations>(
     () => ({
       changeEssence,
+      startQuest,
+      completeSite,
+      pickDraftCard,
       addCard,
       addBaneCard,
       removeCard,
@@ -573,6 +629,9 @@ export function QuestProvider({
     }),
     [
       changeEssence,
+      startQuest,
+      completeSite,
+      pickDraftCard,
       addCard,
       addBaneCard,
       removeCard,
@@ -599,11 +658,11 @@ export function QuestProvider({
   );
 
   return (
-    <QuestContext.Provider value={value}>
+    <QuestContextProvider value={value}>
       <PlayableBattleCacheProvider cache={playableBattleCache}>
         {children}
       </PlayableBattleCacheProvider>
-    </QuestContext.Provider>
+    </QuestContextProvider>
   );
 }
 

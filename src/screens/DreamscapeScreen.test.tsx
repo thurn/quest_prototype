@@ -121,6 +121,9 @@ describe("DreamscapeScreen", () => {
       state: makeState(),
       mutations: {
         changeEssence: vi.fn(),
+        startQuest: vi.fn(),
+        completeSite: vi.fn(),
+        pickDraftCard: vi.fn(),
         addCard: vi.fn(),
         addBaneCard: vi.fn(),
         removeCard: vi.fn(),
@@ -195,6 +198,9 @@ describe("DreamscapeScreen", () => {
       }),
       mutations: {
         changeEssence: vi.fn(),
+        startQuest: vi.fn(),
+        completeSite: vi.fn(),
+        pickDraftCard: vi.fn(),
         addCard: vi.fn(),
         addBaneCard: vi.fn(),
         removeCard: vi.fn(),

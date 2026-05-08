@@ -48,6 +48,9 @@ vi.mock("./screens/CardSourceOverlay", () => ({
 function makeMutations(): QuestMutations {
   return {
     changeEssence: vi.fn(),
+    startQuest: vi.fn(),
+    completeSite: vi.fn(),
+    pickDraftCard: vi.fn(),
     addCard: vi.fn(),
     addBaneCard: vi.fn(),
     removeCard: vi.fn(),
