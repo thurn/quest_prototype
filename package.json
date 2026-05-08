@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "start": "lsof -ti:5173 | xargs kill 2>/dev/null; node scripts/setup-assets.mjs && vite --port 5173 --strictPort",
     "dev": "node scripts/setup-assets.mjs && vite",
     "build": "node scripts/setup-assets.mjs && tsc && vite build",
     "preview": "vite preview",
