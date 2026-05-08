@@ -3,7 +3,7 @@ import {
   loadCardDatabase,
   packageTideAccent,
 } from "./card-database";
-import { DREAMSIGN_TEMPLATES } from "./dreamsigns";
+import { loadDreamsignTemplates } from "./dreamsigns";
 import { logEvent } from "../logging";
 import type {
   DreamcallerContent,
@@ -148,9 +148,10 @@ export async function loadDreamcallerContent(): Promise<DreamcallerContent[]> {
 
 /** Loads normalized quest content and validates Dreamcaller package data up front. */
 export async function loadQuestContent(): Promise<QuestContent> {
-  const [cardDatabase, dreamcallers] = await Promise.all([
+  const [cardDatabase, dreamcallers, dreamsignTemplates] = await Promise.all([
     loadCardDatabase(),
     loadDreamcallerContent(),
+    loadDreamsignTemplates(),
   ]);
   const draftableCards = Array.from(cardDatabase.values()).filter(
     (card) => !isStarterCard(card),
@@ -170,7 +171,7 @@ export async function loadQuestContent(): Promise<QuestContent> {
         resolveDreamcallerPackage(
           dreamcaller,
           draftableCards,
-          DREAMSIGN_TEMPLATES,
+          dreamsignTemplates,
         ),
       );
       validDreamcallers.push(dreamcaller);
@@ -197,7 +198,7 @@ export async function loadQuestContent(): Promise<QuestContent> {
     cardDatabase,
     cardsByPackageTide,
     dreamcallers: validDreamcallers,
-    dreamsignTemplates: DREAMSIGN_TEMPLATES,
+    dreamsignTemplates,
     resolvedPackagesByDreamcallerId,
   };
 }

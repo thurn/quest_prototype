@@ -250,6 +250,12 @@ describe("loadQuestContent", () => {
               Promise.resolve([makeDreamcaller(["o1", "o2", "o3", "o4"])]),
           });
         }
+        if (path === "/dreamsign-data.json") {
+          return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve([]),
+          });
+        }
         return Promise.reject(new Error(`Unexpected fetch path: ${path}`));
       }),
     );
@@ -299,6 +305,12 @@ describe("loadQuestContent", () => {
                 { ...makeDreamcaller(["o1", "o2", "o3", "o4"]), id: "bad-1", name: "Bad One" },
                 { ...makeDreamcaller(["x1", "x2", "x3", "x4"]), id: "bad-2", name: "Bad Two" },
               ]),
+          });
+        }
+        if (path === "/dreamsign-data.json") {
+          return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve([]),
           });
         }
         return Promise.reject(new Error(`Unexpected fetch path: ${path}`));
