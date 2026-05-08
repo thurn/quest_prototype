@@ -1,9 +1,11 @@
-import { useCallback, useMemo, type ReactNode } from "react";
+import { useCallback, useMemo, useRef, type ReactNode } from "react";
 import type { Database } from "firebase/database";
 import {
   createPlayableBattleCache,
   PlayableBattleCacheProvider,
+  type PlayableBattleCache,
 } from "../components/playable-battle-cache";
+import { resetBattleCompletionBridge } from "../battle/integration/battle-completion-bridge";
 import type { QuestContent } from "../data/quest-content";
 import { writeRoomUpdate } from "../multiplayer/room-service";
 import {
@@ -55,7 +57,9 @@ function writeUpdate(
   database: Database,
   updateMap: FirebaseUpdateMap,
 ): void {
-  void writeRoomUpdate(database, updateMap);
+  void writeRoomUpdate(database, updateMap).catch((error: unknown) => {
+    console.error("Failed to write multiplayer quest update", error);
+  });
 }
 
 function writeQuestField<K extends keyof QuestState>({
@@ -112,6 +116,12 @@ function writeScreenUpdate({
   });
 }
 
+function unavailableMutation(name: string): never {
+  throw new Error(
+    `${name} is not available in multiplayer until its composed Firebase action is implemented`,
+  );
+}
+
 export function MultiplayerQuestProvider({
   children,
   database,
@@ -119,224 +129,283 @@ export function MultiplayerQuestProvider({
   questContent,
 }: MultiplayerQuestProviderProps) {
   const state = session.room.questState ?? createDefaultState();
-  const roomId = session.roomId;
   const playableBattleCache = useMemo(() => createPlayableBattleCache(), []);
+  const currentRef = useRef<{
+    database: Database;
+    session: RoomSession;
+    questContent: QuestContent;
+    state: QuestState;
+    playableBattleCache: PlayableBattleCache;
+  }>({
+    database,
+    session,
+    questContent,
+    state,
+    playableBattleCache,
+  });
+  currentRef.current = {
+    database,
+    session,
+    questContent,
+    state,
+    playableBattleCache,
+  };
 
   const changeEssence = useCallback(
     (delta: number, _source: string) => {
-      const next = changeQuestEssence(state, delta);
+      const current = currentRef.current;
+      const next = changeQuestEssence(current.state, delta);
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "essence",
         value: next.essence,
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const startQuest = useCallback(
     (dreamcaller: DreamcallerContent) => {
+      const current = currentRef.current;
       const next = startQuestFromDreamcaller({
-        prev: state,
+        prev: current.state,
         dreamcaller,
-        questContent,
+        questContent: current.questContent,
       });
-      writeWholeQuestState({ database, roomId, state: next });
+      writeWholeQuestState({
+        database: current.database,
+        roomId: current.session.roomId,
+        state: next,
+      });
     },
-    [database, questContent, roomId, state],
+    [],
   );
 
   const setScreen = useCallback(
     (screen: Screen) => {
+      const current = currentRef.current;
       writeScreenUpdate({
-        database,
-        roomId,
-        state: setQuestScreen(state, screen),
+        database: current.database,
+        roomId: current.session.roomId,
+        state: setQuestScreen(current.state, screen),
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const setCardSourceDebug = useCallback(
     (cardSourceDebug: CardSourceDebugState | null, _source: string) => {
-      const next = applyCardSourceDebug(state, cardSourceDebug);
+      const current = currentRef.current;
+      const next = applyCardSourceDebug(current.state, cardSourceDebug);
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "cardSourceDebug",
         value: next.cardSourceDebug,
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const addDreamsign = useCallback(
     (dreamsign: Dreamsign, _sourceSiteType: string) => {
-      if (state.dreamsigns.length >= MAX_DREAMSIGNS) {
+      const current = currentRef.current;
+      if (current.state.dreamsigns.length >= MAX_DREAMSIGNS) {
         return;
       }
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "dreamsigns",
-        value: [...state.dreamsigns, dreamsign],
+        value: [...current.state.dreamsigns, dreamsign],
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const removeDreamsign = useCallback(
     (index: number, _reason: string) => {
-      if (state.dreamsigns[index] === undefined) {
+      const current = currentRef.current;
+      if (current.state.dreamsigns[index] === undefined) {
         return;
       }
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "dreamsigns",
-        value: state.dreamsigns.filter((_, dreamsignIndex) => dreamsignIndex !== index),
+        value: current.state.dreamsigns.filter(
+          (_, dreamsignIndex) => dreamsignIndex !== index,
+        ),
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const setRemainingDreamsignPool = useCallback(
     (remainingDreamsignPool: string[], _source: string) => {
-      const next = applyRemainingDreamsignPool(state, remainingDreamsignPool);
+      const current = currentRef.current;
+      const next = applyRemainingDreamsignPool(
+        current.state,
+        remainingDreamsignPool,
+      );
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "remainingDreamsignPool",
         value: next.remainingDreamsignPool,
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const setCurrentDreamscape = useCallback(
     (nodeId: string | null) => {
+      const current = currentRef.current;
       const next = {
-        ...state,
+        ...current.state,
         currentDreamscape: nodeId,
-        visitedSites: nodeId !== null ? [] : state.visitedSites,
+        visitedSites: nodeId !== null ? [] : current.state.visitedSites,
       };
       const updatedAt = new Date().toISOString();
-      writeUpdate(database, {
+      writeUpdate(current.database, {
         ...buildQuestFieldUpdate(
-          roomId,
+          current.session.roomId,
           "currentDreamscape",
           next.currentDreamscape,
           updatedAt,
         ),
         ...buildQuestFieldUpdate(
-          roomId,
+          current.session.roomId,
           "visitedSites",
           next.visitedSites,
           updatedAt,
         ),
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const updateAtlas = useCallback(
     (atlas: DreamAtlas) => {
-      const next = updateQuestAtlas(state, atlas);
+      const current = currentRef.current;
+      const next = updateQuestAtlas(current.state, atlas);
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "atlas",
         value: next.atlas,
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const setDraftState = useCallback(
     (draftState: DraftState, _source: string) => {
-      const next = applyDraftState(state, draftState);
+      const current = currentRef.current;
+      const next = applyDraftState(current.state, draftState);
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "draftState",
         value: next.draftState,
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const setFailureSummary = useCallback(
     (failureSummary: QuestFailureSummary | null, _source: string) => {
+      const current = currentRef.current;
       writeQuestField({
-        database,
-        roomId,
+        database: current.database,
+        roomId: current.session.roomId,
         field: "failureSummary",
         value: failureSummary === null ? null : { ...failureSummary },
       });
     },
-    [database, roomId],
+    [],
   );
 
   const resetQuest = useCallback(() => {
+    const current = currentRef.current;
+    resetBattleCompletionBridge();
+    current.playableBattleCache.reset();
     writeWholeQuestState({
-      database,
-      roomId,
+      database: current.database,
+      roomId: current.session.roomId,
       state: createDefaultState(),
     });
-  }, [database, roomId]);
+  }, []);
 
   const setDreamcallerSelection = useCallback(
     (resolvedPackage: Parameters<QuestMutations["setDreamcallerSelection"]>[0]) => {
-      const next = applyDreamcallerSelection(state, resolvedPackage);
+      const current = currentRef.current;
+      const next = applyDreamcallerSelection(current.state, resolvedPackage);
       const updatedAt = new Date().toISOString();
-      writeUpdate(database, {
+      writeUpdate(current.database, {
         ...buildQuestFieldUpdate(
-          roomId,
+          current.session.roomId,
           "dreamcaller",
           next.dreamcaller,
           updatedAt,
         ),
         ...buildQuestFieldUpdate(
-          roomId,
+          current.session.roomId,
           "resolvedPackage",
           next.resolvedPackage,
           updatedAt,
         ),
         ...buildQuestFieldUpdate(
-          roomId,
+          current.session.roomId,
           "remainingDreamsignPool",
           next.remainingDreamsignPool,
           updatedAt,
         ),
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const completeSite = useCallback(
     (siteId: string, _source: string) => {
-      const next = setQuestScreen(completeQuestSite(state, siteId), {
+      const current = currentRef.current;
+      const next = setQuestScreen(completeQuestSite(current.state, siteId), {
         type: "dreamscape",
       });
       const updatedAt = new Date().toISOString();
-      writeUpdate(database, {
-        ...buildQuestFieldUpdate(roomId, "visitedSites", next.visitedSites, updatedAt),
-        ...buildQuestFieldUpdate(roomId, "atlas", next.atlas, updatedAt),
-        ...buildQuestFieldUpdate(roomId, "screen", next.screen, updatedAt),
+      writeUpdate(current.database, {
         ...buildQuestFieldUpdate(
-          roomId,
+          current.session.roomId,
+          "visitedSites",
+          next.visitedSites,
+          updatedAt,
+        ),
+        ...buildQuestFieldUpdate(
+          current.session.roomId,
+          "atlas",
+          next.atlas,
+          updatedAt,
+        ),
+        ...buildQuestFieldUpdate(
+          current.session.roomId,
+          "screen",
+          next.screen,
+          updatedAt,
+        ),
+        ...buildQuestFieldUpdate(
+          current.session.roomId,
           "activeSiteId",
           next.activeSiteId,
           updatedAt,
         ),
       });
     },
-    [database, roomId, state],
+    [],
   );
 
   const pickDraftCard = useCallback((_siteId: string, _cardNumber: number) => {
-    throw new Error("pickDraftCard is not implemented for multiplayer yet");
+    unavailableMutation("pickDraftCard");
   }, []);
 
   const mutations = useMemo<QuestMutations>(
@@ -345,15 +414,23 @@ export function MultiplayerQuestProvider({
       startQuest,
       completeSite,
       pickDraftCard,
-      addCard: (_cardNumber: number, _source: string) => undefined,
-      addBaneCard: (_cardNumber: number, _source: string) => undefined,
-      removeCard: (_entryId: string, _source: string) => undefined,
+      addCard: (_cardNumber: number, _source: string) => {
+        unavailableMutation("addCard");
+      },
+      addBaneCard: (_cardNumber: number, _source: string) => {
+        unavailableMutation("addBaneCard");
+      },
+      removeCard: (_entryId: string, _source: string) => {
+        unavailableMutation("removeCard");
+      },
       transfigureCard: (
         _entryId: string,
         _type: TransfigurationType,
         _effectDescription: string,
         _effectDetails: Record<string, unknown>,
-      ) => undefined,
+      ) => {
+        unavailableMutation("transfigureCard");
+      },
       setDreamcallerSelection,
       setCardSourceDebug,
       addDreamsign,
@@ -364,9 +441,13 @@ export function MultiplayerQuestProvider({
         _rewardCardNumber: number | null,
         _rewardCardName: string | null,
         _isMiniboss: boolean,
-      ) => undefined,
+      ) => {
+        unavailableMutation("incrementCompletionLevel");
+      },
       setScreen,
-      markSiteVisited: (_siteId: string) => undefined,
+      markSiteVisited: (_siteId: string) => {
+        unavailableMutation("markSiteVisited");
+      },
       setCurrentDreamscape,
       updateAtlas,
       setDraftState,
@@ -374,21 +455,21 @@ export function MultiplayerQuestProvider({
       resetQuest,
     }),
     [
+      addDreamsign,
       changeEssence,
-      startQuest,
       completeSite,
       pickDraftCard,
-      setDreamcallerSelection,
-      setCardSourceDebug,
-      addDreamsign,
       removeDreamsign,
+      resetQuest,
+      setCardSourceDebug,
+      setCurrentDreamscape,
+      setDraftState,
+      setDreamcallerSelection,
+      setFailureSummary,
       setRemainingDreamsignPool,
       setScreen,
-      setCurrentDreamscape,
+      startQuest,
       updateAtlas,
-      setDraftState,
-      setFailureSummary,
-      resetQuest,
     ],
   );
 
