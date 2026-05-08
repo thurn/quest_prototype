@@ -1,0 +1,205 @@
+// @vitest-environment jsdom
+
+import { act, type ReactElement } from "react";
+import type { Database } from "firebase/database";
+import { createRoot, type Root } from "react-dom/client";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { MultiplayerRoomGate } from "./MultiplayerRoomGate";
+import type { MultiplayerRoom } from "./room-types";
+
+type RoomSubscriptionSnapshot =
+  | { status: "ready"; room: MultiplayerRoom }
+  | { status: "missing" }
+  | { status: "error"; message: string };
+
+type RoomListener = (snapshot: RoomSubscriptionSnapshot) => void;
+
+const serviceMocks = vi.hoisted(() => ({
+  createRoom: vi.fn(),
+  subscribeToRoom: vi.fn(),
+  writePresence: vi.fn(),
+}));
+
+const roomIdMocks = vi.hoisted(() => ({
+  generateRoomId: vi.fn(() => "ab12cd"),
+}));
+
+vi.mock("./room-service", () => ({
+  createRoom: serviceMocks.createRoom,
+  subscribeToRoom: serviceMocks.subscribeToRoom,
+  writePresence: serviceMocks.writePresence,
+}));
+
+vi.mock("./room-id", () => ({
+  generateRoomId: roomIdMocks.generateRoomId,
+}));
+
+const database = { app: { name: "test-app" } } as Database;
+const roots: Root[] = [];
+
+function mount(element: ReactElement): {
+  container: HTMLDivElement;
+  root: Root;
+} {
+  const container = document.createElement("div");
+  document.body.append(container);
+  const root = createRoot(container);
+  roots.push(root);
+
+  act(() => {
+    root.render(element);
+  });
+
+  return { container, root };
+}
+
+function makeRoom(overrides: Partial<MultiplayerRoom> = {}): MultiplayerRoom {
+  return {
+    metadata: {
+      schemaVersion: 1,
+      createdAt: "2026-05-08T12:00:00.000Z",
+      updatedAt: "2026-05-08T12:00:00.000Z",
+    },
+    questState: null,
+    presence: {},
+    actionLog: {},
+    ...overrides,
+  };
+}
+
+function subscribeWith(snapshot: RoomSubscriptionSnapshot): void {
+  serviceMocks.subscribeToRoom.mockImplementation(
+    (_database: Database, _roomId: string, listener: RoomListener) => {
+      listener(snapshot);
+      return vi.fn();
+    },
+  );
+}
+
+function createButton(container: HTMLElement): HTMLButtonElement {
+  const button = container.querySelector<HTMLButtonElement>("[data-create-game]");
+  if (!button) {
+    throw new Error("Missing create game button");
+  }
+
+  return button;
+}
+
+beforeEach(() => {
+  vi.clearAllMocks();
+  serviceMocks.createRoom.mockResolvedValue(undefined);
+  serviceMocks.subscribeToRoom.mockReturnValue(vi.fn());
+  serviceMocks.writePresence.mockResolvedValue(undefined);
+  roomIdMocks.generateRoomId.mockReturnValue("ab12cd");
+  window.history.replaceState(null, "", "/");
+  Object.defineProperty(globalThis, "crypto", {
+    configurable: true,
+    value: { randomUUID: vi.fn(() => "client-uuid") },
+  });
+  (
+    globalThis as typeof globalThis & {
+      IS_REACT_ACT_ENVIRONMENT?: boolean;
+    }
+  ).IS_REACT_ACT_ENVIRONMENT = true;
+});
+
+afterEach(() => {
+  for (const root of roots.splice(0)) {
+    act(() => {
+      root.unmount();
+    });
+  }
+  document.body.innerHTML = "";
+});
+
+describe("MultiplayerRoomGate", () => {
+  it("shows Create Game when no game id is present", () => {
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId={null}>
+        {() => <div>Quest App</div>}
+      </MultiplayerRoomGate>,
+    );
+
+    expect(createButton(container).textContent).toBe("Create Game");
+  });
+
+  it("creates a room and navigates to ?game=ab12cd", async () => {
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId={null}>
+        {() => <div>Quest App</div>}
+      </MultiplayerRoomGate>,
+    );
+
+    await act(async () => {
+      createButton(container).click();
+      await Promise.resolve();
+    });
+
+    expect(roomIdMocks.generateRoomId).toHaveBeenCalledOnce();
+    expect(serviceMocks.createRoom).toHaveBeenCalledWith(database, "ab12cd", expect.any(String));
+    expect(window.location.search).toBe("?game=ab12cd");
+    expect(container.textContent).toContain("Loading ab12cd");
+  });
+
+  it("renders children when subscribed room is ready and calls writePresence", () => {
+    subscribeWith({
+      status: "ready",
+      room: makeRoom({
+        presence: {
+          "client-a": { connected: true, lastSeenAt: "2026-05-08T12:00:00.000Z" },
+          "client-b": { connected: false, lastSeenAt: "2026-05-08T12:00:00.000Z" },
+        },
+      }),
+    });
+
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId="ab12cd">
+        {(session) => (
+          <div data-child-room={session.roomId} data-child-client={session.clientId}>
+            Room {session.roomId}
+          </div>
+        )}
+      </MultiplayerRoomGate>,
+    );
+
+    expect(container.textContent).toContain("1 connected");
+    expect(container.textContent).toContain("Room ab12cd");
+    expect(container.querySelector("[data-child-client]")?.getAttribute("data-child-client")).toBe(
+      "client-client-uuid",
+    );
+    expect(serviceMocks.writePresence).toHaveBeenCalledWith(
+      database,
+      "ab12cd",
+      "client-client-uuid",
+      expect.any(String),
+    );
+  });
+
+  it("shows missing room state", () => {
+    subscribeWith({ status: "missing" });
+
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId="ab12cd">
+        {() => <div>Quest App</div>}
+      </MultiplayerRoomGate>,
+    );
+
+    expect(container.textContent).toContain("Game not found");
+    expect(createButton(container).textContent).toBe("Create New Game");
+  });
+
+  it("shows Firebase errors", () => {
+    subscribeWith({ status: "error", message: "Permission denied" });
+
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId="ab12cd">
+        {() => <div>Quest App</div>}
+      </MultiplayerRoomGate>,
+    );
+
+    expect(container.textContent).toContain("Firebase setup issue");
+    expect(container.textContent).toContain("Permission denied");
+    expect(container.textContent).toContain("VITE_FIREBASE_API_KEY");
+    expect(container.textContent).toContain("VITE_FIREBASE_DATABASE_URL");
+  });
+});
