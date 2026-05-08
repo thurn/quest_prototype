@@ -21,6 +21,9 @@ describe("room path helpers", () => {
     expect(() => roomPath("bad/room")).toThrow("roomId must be a non-empty Firebase path segment.");
     expect(() => presencePath("ab12", "client.1")).toThrow("clientId must be a non-empty Firebase path segment.");
     expect(() => actionLogPath("ab12", "action#1")).toThrow("actionId must be a non-empty Firebase path segment.");
+    expect(() => presencePath("ab12", "client\n1")).toThrow("clientId must be a non-empty Firebase path segment.");
+    expect(() => actionLogPath("ab12", "action\u007f1")).toThrow("actionId must be a non-empty Firebase path segment.");
+    expect(() => roomPath("a".repeat(769))).toThrow("roomId must be a non-empty Firebase path segment.");
   });
 
   it("builds focused quest field updates", () => {
