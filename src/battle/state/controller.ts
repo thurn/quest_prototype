@@ -46,7 +46,7 @@ export function battleControllerReducer(
   action: BattleControllerAction,
   battleInit: Pick<
     BattleInit,
-    "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
+    "enableAi" | "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
   >,
 ): BattleReducerState {
   switch (action.type) {
@@ -135,7 +135,7 @@ export function useBattleController(
   initialState: BattleMutableState,
   battleInit: Pick<
     BattleInit,
-    "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
+    "enableAi" | "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
   >,
 ): readonly [BattleReducerState, Dispatch<BattleControllerAction>] {
   const loggedActivityIdRef = useRef(0);

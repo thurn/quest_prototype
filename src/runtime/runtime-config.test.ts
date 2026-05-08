@@ -6,6 +6,7 @@ describe("parseRuntimeConfig", () => {
     expect(parseRuntimeConfig("")).toEqual({
       seedOverride: null,
       startInBattle: false,
+      enableAi: false,
     });
   });
 
@@ -36,6 +37,18 @@ describe("parseRuntimeConfig", () => {
         false,
       );
       expect(parseRuntimeConfig("?startInBattle=").startInBattle).toBe(false);
+    });
+  });
+
+  describe("enableAi", () => {
+    it("returns true when enableAi=1", () => {
+      expect(parseRuntimeConfig("?enableAi=1").enableAi).toBe(true);
+    });
+
+    it("returns false for non-1 values of enableAi", () => {
+      expect(parseRuntimeConfig("?enableAi=0").enableAi).toBe(false);
+      expect(parseRuntimeConfig("?enableAi=true").enableAi).toBe(false);
+      expect(parseRuntimeConfig("?enableAi=").enableAi).toBe(false);
     });
   });
 });

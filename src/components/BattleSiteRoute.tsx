@@ -50,6 +50,7 @@ export function BattleSiteRoute({
     cardDatabase,
     questContent.dreamcallers,
     runtimeConfig.seedOverride,
+    runtimeConfig.enableAi,
   );
 
   return (
@@ -75,8 +76,9 @@ function getOrCreateBattleSession(
   cardDatabase: ReadonlyMap<number, CardData>,
   dreamcallers: ReturnType<typeof useQuest>["questContent"]["dreamcallers"],
   seedOverride: number | null,
+  enableAi: boolean,
 ): BattleSessionCacheValue {
-  const snapshotKey = createPlayableBattleCacheSnapshotKey(seedOverride);
+  const snapshotKey = createPlayableBattleCacheSnapshotKey(seedOverride, enableAi);
   const cached = cache.get(battleEntryKey);
   if (cached !== undefined && cached.snapshotKey === snapshotKey) {
     return {
@@ -92,6 +94,7 @@ function getOrCreateBattleSession(
     cardDatabase,
     dreamcallers,
     seedOverride,
+    enableAi,
   });
   const created = {
     snapshotKey,
@@ -111,11 +114,14 @@ function getOrCreateBattleSession(
 /**
  * Snapshot identity for a cached battle session. `battleEntryKey` already
  * encodes `siteId`, `completionLevel`, and `dreamscapeId`; the snapshot key
- * only needs to cover fields *orthogonal* to the cache bucket (bug-010). Today
- * that is just `seedOverride`, which re-seeds an otherwise identical entry.
+ * covers fields *orthogonal* to the cache bucket (bug-010): `seedOverride`,
+ * which re-seeds an otherwise identical entry, and `enableAi`, which alters
+ * the bound `BattleInit.enableAi` flag.
  */
 function createPlayableBattleCacheSnapshotKey(
   seedOverride: number | null,
+  enableAi: boolean,
 ): string {
-  return `seed:${seedOverride === null ? "none" : String(seedOverride)}`;
+  const seedSegment = seedOverride === null ? "none" : String(seedOverride);
+  return `seed:${seedSegment}|enableAi:${enableAi ? "1" : "0"}`;
 }

@@ -58,7 +58,7 @@ export function battleReducer(
   action: BattleReducerAction,
   battleInit: Pick<
     BattleInit,
-    "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
+    "enableAi" | "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
   >,
 ): BattleReducerState {
   switch (action.type) {
@@ -72,6 +72,15 @@ export function battleReducer(
       );
     }
     case "RUN_AI_TURN": {
+      // bug-070 / spec §H-15 still applies: the bootstrap dispatch in
+      // `use-ai-turn-driver.ts` is the only legal standalone caller, and it
+      // already short-circuits when `battleInit.enableAi` is false. The
+      // reducer-side guard here is defence-in-depth so any future caller that
+      // forgets the gate cannot resurrect heuristic moves at the reducer
+      // layer.
+      if (!battleInit.enableAi) {
+        return state;
+      }
       const metadata = createRunAiTurnHistoryMetadata();
       return commitReducerTransition(
         state,
@@ -296,7 +305,7 @@ function endTurnWithAiFollowup(
   state: BattleMutableState,
   battleInit: Pick<
     BattleInit,
-    "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
+    "enableAi" | "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
   >,
   context: BattleEngineEmissionContext,
 ): {
@@ -308,8 +317,12 @@ function endTurnWithAiFollowup(
     afterEndTurn.state === state ||
     afterEndTurn.state.result !== null ||
     afterEndTurn.state.activeSide !== "enemy" ||
-    afterEndTurn.state.phase !== "main"
+    afterEndTurn.state.phase !== "main" ||
+    !battleInit.enableAi
   ) {
+    // When `enableAi` is false the enemy's main phase is left intact for the
+    // player to drive via debug commands; a subsequent player-issued END_TURN
+    // composite will advance the flow back to the player.
     return afterEndTurn;
   }
 

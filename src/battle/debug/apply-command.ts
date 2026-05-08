@@ -13,7 +13,7 @@ export function applyBattleCommand(
   command: BattleCommand,
   battleInit: Pick<
     BattleInit,
-    "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
+    "enableAi" | "maxEnergyCap" | "playerDrawSkipsTurnOne" | "scoreToWin" | "turnLimit"
   >,
 ): BattleReducerState {
   return battleReducer(

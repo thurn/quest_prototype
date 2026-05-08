@@ -147,7 +147,7 @@ export function PlayableBattleScreen({
     isResultOverlayDismissed &&
     !isInteractionLocked;
   useAutoClearForcedResult(reducerState, battleInit, dispatch);
-  useAiTurnDriver(reducerState, dispatch);
+  useAiTurnDriver(reducerState, dispatch, battleInit.enableAi);
 
   const inspectorSelection = (
     selection?.kind === "card" &&

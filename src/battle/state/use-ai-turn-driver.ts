@@ -18,10 +18,16 @@ import type { BattleReducerState } from "../types";
  * the history (the precondition above requires `history.past.length === 0`).
  * Any future code that dispatches RUN_AI_TURN mid-battle would violate H-15;
  * fold such a dispatch into its triggering composite instead.
+ *
+ * The `enableAi` flag (sourced from `BattleInit.enableAi`, which mirrors the
+ * `?enableAi=1` URL parameter) opts out of the heuristic opponent entirely:
+ * when false the bootstrap dispatch is skipped and the opening enemy main
+ * phase is left intact for the player to drive via debug commands.
  */
 export function useAiTurnDriver(
   reducerState: BattleReducerState,
   dispatch: Dispatch<BattleControllerAction>,
+  enableAi: boolean,
 ): void {
   const hasDrainedRef = useRef(false);
 
@@ -31,6 +37,7 @@ export function useAiTurnDriver(
     }
 
     if (
+      !enableAi ||
       reducerState.mutable.result !== null ||
       reducerState.mutable.activeSide !== "enemy" ||
       reducerState.mutable.phase !== "main" ||
@@ -44,6 +51,7 @@ export function useAiTurnDriver(
     dispatch({ type: "RUN_AI_TURN" });
   }, [
     dispatch,
+    enableAi,
     reducerState.history.past.length,
     reducerState.mutable.activeSide,
     reducerState.mutable.phase,

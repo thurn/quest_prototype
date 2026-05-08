@@ -1,6 +1,7 @@
 export interface RuntimeConfig {
   seedOverride: number | null;
   startInBattle: boolean;
+  enableAi: boolean;
 }
 
 export function parseRuntimeConfig(search: string): RuntimeConfig {
@@ -8,6 +9,7 @@ export function parseRuntimeConfig(search: string): RuntimeConfig {
   return {
     seedOverride: parseSeedOverride(params.get("seed")),
     startInBattle: params.get("startInBattle") === "1",
+    enableAi: params.get("enableAi") === "1",
   };
 }
 

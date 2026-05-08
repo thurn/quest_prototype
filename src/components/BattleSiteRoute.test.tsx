@@ -52,6 +52,7 @@ vi.mock("../battle/integration/create-battle-init", () => ({
       maxEnergyCap: 10,
       startingSide: "player",
       playerDrawSkipsTurnOne: true,
+      enableAi: false,
       rewardOptions: [],
       playerDeckOrder: [],
       enemyDescriptor: {
@@ -367,7 +368,7 @@ describe("BattleSiteRoute", () => {
         <BattleSiteRoute
           site={makeSite()}
           cardDatabase={new Map()}
-          runtimeConfig={{ seedOverride: null, startInBattle: false }}
+          runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
         />,
       ),
     );
@@ -384,7 +385,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -398,7 +399,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
           />,
         ),
       );
@@ -420,7 +421,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -436,7 +437,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
           />,
         ),
       );
@@ -453,7 +454,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -473,7 +474,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -497,7 +498,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
           />,
         ),
       );
@@ -519,7 +520,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -535,7 +536,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
           />,
         ),
       );
@@ -557,7 +558,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={firstSite}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -573,7 +574,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={firstSite}
             cardDatabase={new Map()}
-            runtimeConfig={{ seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
           />,
         ),
       );
@@ -596,7 +597,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -616,7 +617,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -637,7 +638,7 @@ describe("BattleSiteRoute", () => {
         <BattleSiteRoute
           site={site}
           cardDatabase={new Map()}
-          runtimeConfig={{ seedOverride: null, startInBattle: false }}
+          runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
         />
       </StrictMode>,
     );
@@ -655,7 +656,7 @@ describe("BattleSiteRoute", () => {
             <BattleSiteRoute
               site={site}
               cardDatabase={new Map()}
-              runtimeConfig={{ seedOverride: null, startInBattle: false }}
+              runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
             />
           </StrictMode>,
         ),
@@ -678,7 +679,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 
@@ -696,7 +697,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false, enableAi: false }}
       />,
     );
 

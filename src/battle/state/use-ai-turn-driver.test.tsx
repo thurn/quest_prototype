@@ -60,7 +60,7 @@ function Harness({
   onStateChange: (value: HarnessSnapshot) => void;
 }) {
   const [state, dispatch] = useBattleController(initialState, battleInit);
-  useAiTurnDriver(state, dispatch);
+  useAiTurnDriver(state, dispatch, battleInit.enableAi);
 
   useEffect(() => {
     onStateChange({ dispatch, state });
@@ -138,6 +138,30 @@ describe("useAiTurnDriver", () => {
     });
   });
 
+  it("does not drain the opening enemy turn when enableAi is false", () => {
+    const { battleInit, initialState } = createTestBattle({ enableAi: false });
+    initialState.activeSide = "enemy";
+    initialState.phase = "main";
+
+    let latest: HarnessSnapshot | null = null;
+    const { root } = mountHarness({
+      battleInit,
+      initialState,
+      onStateChange: (value) => {
+        latest = value;
+      },
+    });
+
+    const snapshot = readLatestSnapshot(latest);
+    expect(snapshot.state.history.past).toHaveLength(0);
+    expect(snapshot.state.mutable.activeSide).toBe("enemy");
+    expect(snapshot.state.mutable.phase).toBe("main");
+
+    act(() => {
+      root.unmount();
+    });
+  });
+
   it("latches after the initial tick so redo-driven state shapes never re-fire", () => {
     const { battleInit, initialState } = createTestBattle();
     let latest: HarnessSnapshot | null = null;
@@ -177,13 +201,14 @@ describe("useAiTurnDriver", () => {
   });
 });
 
-function createTestBattle() {
+function createTestBattle({ enableAi = true }: { enableAi?: boolean } = {}) {
   const battleInit = createBattleInit({
     battleEntryKey: "site-7::2::dreamscape-2",
     site: makeBattleTestSite(),
     state: makeBattleTestState(),
     cardDatabase: makeBattleTestCardDatabase(),
     dreamcallers: makeBattleTestDreamcallers(),
+    enableAi,
   });
 
   return {
