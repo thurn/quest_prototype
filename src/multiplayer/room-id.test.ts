@@ -8,8 +8,10 @@ describe("room ids", () => {
   });
 
   it("rejects generated room id lengths outside the valid range", () => {
-    expect(() => generateRoomId(() => new Uint8Array(3), 3)).toThrow("Room id length must be between 4 and 24 characters.");
-    expect(() => generateRoomId(() => new Uint8Array(25), 25)).toThrow("Room id length must be between 4 and 24 characters.");
+    expect(() => generateRoomId(() => new Uint8Array(3), 3)).toThrow("Room id length must be an integer between 4 and 24 characters.");
+    expect(() => generateRoomId(() => new Uint8Array(25), 25)).toThrow("Room id length must be an integer between 4 and 24 characters.");
+    expect(() => generateRoomId(() => new Uint8Array(0), Number.NaN)).toThrow("Room id length must be an integer between 4 and 24 characters.");
+    expect(() => generateRoomId(() => new Uint8Array(4), 4.5)).toThrow("Room id length must be an integer between 4 and 24 characters.");
   });
 
   it("accepts only 4 to 24 lowercase letters and digits", () => {

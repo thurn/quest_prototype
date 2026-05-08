@@ -19,6 +19,9 @@ describe("room path helpers", () => {
 
   it("rejects unsafe Firebase path segments", () => {
     expect(() => roomPath("bad/room")).toThrow("roomId must be a non-empty Firebase path segment.");
+    expect(() => roomPath("bad$room")).toThrow("roomId must be a non-empty Firebase path segment.");
+    expect(() => roomPath("bad[room")).toThrow("roomId must be a non-empty Firebase path segment.");
+    expect(() => roomPath("bad]room")).toThrow("roomId must be a non-empty Firebase path segment.");
     expect(() => presencePath("ab12", "client.1")).toThrow("clientId must be a non-empty Firebase path segment.");
     expect(() => actionLogPath("ab12", "action#1")).toThrow("actionId must be a non-empty Firebase path segment.");
     expect(() => presencePath("ab12", "client\n1")).toThrow("clientId must be a non-empty Firebase path segment.");

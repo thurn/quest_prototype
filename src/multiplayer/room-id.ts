@@ -16,8 +16,12 @@ export function generateRoomId(
   randomBytes: RandomBytes = defaultRandomBytes,
   length = DEFAULT_ROOM_ID_LENGTH,
 ): string {
-  if (length < MIN_ROOM_ID_LENGTH || length > MAX_ROOM_ID_LENGTH) {
-    throw new Error("Room id length must be between 4 and 24 characters.");
+  if (
+    !Number.isInteger(length) ||
+    length < MIN_ROOM_ID_LENGTH ||
+    length > MAX_ROOM_ID_LENGTH
+  ) {
+    throw new Error("Room id length must be an integer between 4 and 24 characters.");
   }
 
   const bytes = randomBytes(length);
