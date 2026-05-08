@@ -17,6 +17,12 @@ describe("room path helpers", () => {
     expect(actionLogPath("ab12", "action-1")).toBe("rooms/ab12/actionLog/action-1");
   });
 
+  it("rejects unsafe Firebase path segments", () => {
+    expect(() => roomPath("bad/room")).toThrow("roomId must be a non-empty Firebase path segment.");
+    expect(() => presencePath("ab12", "client.1")).toThrow("clientId must be a non-empty Firebase path segment.");
+    expect(() => actionLogPath("ab12", "action#1")).toThrow("actionId must be a non-empty Firebase path segment.");
+  });
+
   it("builds focused quest field updates", () => {
     const update = buildQuestFieldUpdate("ab12", "essence", 375, "2026-05-08T12:00:00.000Z");
 
