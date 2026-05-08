@@ -118,7 +118,6 @@ function makeSummary(
 ): QuestFailureSummary {
   return {
     battleId: "battle-1",
-    battleMode: "playable",
     result: "defeat",
     reason: "score_target_reached",
     siteId: "site-7",
@@ -213,7 +212,6 @@ describe("QuestFailedScreen", () => {
     expect(container.textContent).toContain("site-7");
     expect(container.textContent).toContain("Battle");
     expect(container.textContent).toContain("dreamscape-2");
-    expect(container.textContent).toContain("Playable");
     expect(container.textContent).toContain("10");
     expect(container.textContent).toContain("13");
     expect(container.textContent).toContain("3");

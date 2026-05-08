@@ -24,7 +24,6 @@ export function QuestFailedScreen() {
     // previous hasLoggedRef approach reset on every mount.
     logEventOnce(`quest_failed_screen_shown:${summary.battleId}`, "quest_failed_screen_shown", {
       battleId: summary.battleId,
-      battleMode: summary.battleMode,
       result: summary.result,
       reason: summary.reason,
       siteId: summary.siteId,
@@ -120,7 +119,6 @@ export function QuestFailedScreen() {
         <SummaryStat label="Round" value={String(summary.turnNumber)} />
         <SummaryStat label="Player Score" value={String(summary.playerScore)} />
         <SummaryStat label="Enemy Score" value={String(summary.enemyScore)} />
-        <SummaryStat label="Mode" value={formatBattleMode(summary.battleMode)} />
       </motion.dl>
 
       <motion.div
@@ -183,10 +181,6 @@ function SummaryStat({
 
 function formatResult(result: QuestFailureSummary["result"]): string {
   return result === "defeat" ? "Defeat" : "Draw";
-}
-
-function formatBattleMode(mode: QuestFailureSummary["battleMode"]): string {
-  return mode === "playable" ? "Playable" : "Auto";
 }
 
 function formatReason(reason: QuestFailureSummary["reason"]): string {

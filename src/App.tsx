@@ -23,7 +23,7 @@ export function QuestApp({
 }) {
   const { state, mutations, questContent } = useQuest();
   const showHud = state.screen.type !== "questStart"
-    && !isPlayableBattleHudHidden(state, runtimeConfig);
+    && !isBattleSiteHudHidden(state);
   const [deckViewerOpen, setDeckViewerOpen] = useState(false);
   const [starterDeckIntroOpen, setStarterDeckIntroOpen] = useState(false);
   const [debugScreenOpen, setDebugScreenOpen] = useState(false);
@@ -33,7 +33,6 @@ export function QuestApp({
 
   useEffect(() => {
     if (
-      runtimeConfig.battleMode !== "playable" ||
       !runtimeConfig.startInBattle ||
       playableBattleBootstrapRef.current.isDone()
     ) {
@@ -47,7 +46,6 @@ export function QuestApp({
       cardDatabase,
     });
   }, [
-    runtimeConfig.battleMode,
     runtimeConfig.startInBattle,
     state,
     mutations,
@@ -148,11 +146,8 @@ export function QuestApp({
   );
 }
 
-function isPlayableBattleHudHidden(
-  state: QuestState,
-  runtimeConfig: RuntimeConfig,
-): boolean {
-  if (runtimeConfig.battleMode !== "playable" || state.screen.type !== "site") {
+function isBattleSiteHudHidden(state: QuestState): boolean {
+  if (state.screen.type !== "site") {
     return false;
   }
 

@@ -531,7 +531,6 @@ describe("PlayableBattleScreen", () => {
         siteId: battleInit.siteId,
         dreamscapeId: battleInit.dreamscapeId,
       },
-      battleMode: "playable",
       result: "defeat",
       siteLabel: "Battle",
     });

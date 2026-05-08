@@ -106,9 +106,6 @@ export interface DreamAtlas {
   nexusId: string;
 }
 
-/** Runtime mode used to resolve a battle site. */
-export type BattleModeId = "auto" | "playable";
-
 /** Terminal battle result stored on a frozen failure summary. */
 export type QuestFailureBattleResult = "defeat" | "draw";
 
@@ -131,7 +128,6 @@ export type QuestFailureReason =
  */
 export interface QuestFailureSummary {
   battleId: string;
-  battleMode: BattleModeId;
   result: QuestFailureBattleResult;
   reason: QuestFailureReason;
   siteId: string;

@@ -201,7 +201,6 @@ export function QuestProvider({
   cardDatabase,
   questContent,
   runtimeConfig = {
-    battleMode: "auto",
     seedOverride: null,
     startInBattle: false,
   },
@@ -211,8 +210,7 @@ export function QuestProvider({
   questContent: QuestContent;
   runtimeConfig?: RuntimeConfig;
 }) {
-  const isStartInBattleFixture =
-    runtimeConfig.battleMode === "playable" && runtimeConfig.startInBattle;
+  const isStartInBattleFixture = runtimeConfig.startInBattle;
   // FIND-01-2: hydrate from sessionStorage so an in-tab reload preserves the
   // dreamcaller pick and quest progress. `loadQuestState()` validates and
   // version-checks the snapshot, returning `null` (default state) on any

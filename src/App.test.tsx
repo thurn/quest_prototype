@@ -143,7 +143,7 @@ describe("QuestApp", () => {
     const { root } = mount(
       <QuestApp
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -175,7 +175,7 @@ describe("QuestApp", () => {
       root.render(
         <QuestApp
           cardDatabase={new Map()}
-          runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
+          runtimeConfig={{ seedOverride: null, startInBattle: false }}
         />,
       );
     });
@@ -191,7 +191,7 @@ describe("QuestApp", () => {
     });
   });
 
-  it("invokes the playable-battle bootstrap when startInBattle is set on playable mode", () => {
+  it("invokes the playable-battle bootstrap when startInBattle is set", () => {
     const mutations = makeMutations();
     const dreamcaller = {
       id: "caller-1",
@@ -242,7 +242,6 @@ describe("QuestApp", () => {
       <QuestApp
         cardDatabase={new Map()}
         runtimeConfig={{
-          battleMode: "playable",
           seedOverride: null,
           startInBattle: true,
         }}
@@ -275,7 +274,6 @@ describe("QuestApp", () => {
       <QuestApp
         cardDatabase={new Map()}
         runtimeConfig={{
-          battleMode: "playable",
           seedOverride: null,
           startInBattle: false,
         }}
@@ -290,73 +288,7 @@ describe("QuestApp", () => {
     });
   });
 
-  it("does not invoke the playable-battle bootstrap in auto mode regardless of startInBattle", () => {
-    const mutations = makeMutations();
-    const dreamcaller = {
-      id: "caller-1",
-      name: "Test Caller",
-      title: "Of Tests",
-      awakening: 4,
-      renderedText: "Pick.",
-      imageNumber: "0001",
-      mandatoryTides: ["tide_alpha"],
-      optionalTides: ["tide_beta", "tide_gamma", "tide_delta", "tide_zeta"],
-    };
-    const resolvedPackage = {
-      dreamcaller,
-      mandatoryTides: ["tide_alpha"],
-      optionalSubset: ["tide_beta", "tide_gamma", "tide_delta"],
-      selectedTides: ["tide_alpha", "tide_beta", "tide_gamma", "tide_delta"],
-      draftPoolCopiesByCard: { "101": 2 },
-      dreamsignPoolIds: ["dreamsign-1"],
-      mandatoryOnlyPoolSize: 12,
-      draftPoolSize: 24,
-      doubledCardCount: 1,
-      legalSubsetCount: 4,
-      preferredSubsetCount: 2,
-    };
-    vi.mocked(useQuest).mockReturnValue({
-      state: makeState(),
-      mutations,
-      cardDatabase: new Map<number, CardData>(),
-      questContent: {
-        cardDatabase: new Map(),
-        cardsByPackageTide: new Map(),
-        dreamcallers: [dreamcaller],
-        dreamsignTemplates: [
-          {
-            id: "dreamsign-1",
-            name: "Echo Sign",
-            effectDescription: "Test.",
-            packageTides: ["tide_alpha"],
-          },
-        ],
-        resolvedPackagesByDreamcallerId: new Map([
-          [dreamcaller.id, resolvedPackage],
-        ]),
-      },
-    });
-
-    const { root } = mount(
-      <QuestApp
-        cardDatabase={new Map()}
-        runtimeConfig={{
-          battleMode: "auto",
-          seedOverride: null,
-          startInBattle: true,
-        }}
-      />,
-    );
-
-    expect(mutations.setDreamcallerSelection).not.toHaveBeenCalled();
-    expect(mutations.setScreen).not.toHaveBeenCalled();
-
-    act(() => {
-      root.unmount();
-    });
-  });
-
-  it("hides the shared HUD on playable battle sites so the battle dock stays usable", () => {
+  it("hides the shared HUD on battle sites so the battle dock stays usable", () => {
     setQuestState(
       makeState({
         atlas: {
@@ -390,7 +322,7 @@ describe("QuestApp", () => {
     const { container, root } = mount(
       <QuestApp
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 

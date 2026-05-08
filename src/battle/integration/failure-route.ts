@@ -1,7 +1,6 @@
 import { logEvent } from "../../logging";
 import type { QuestMutations } from "../../state/quest-context";
 import type {
-  BattleModeId,
   QuestFailureBattleResult,
   QuestFailureReason,
   QuestFailureSummary,
@@ -10,7 +9,6 @@ import type { BattleInit, BattleMutableState } from "../types";
 
 export interface FreezeQuestFailureSummaryInput {
   battleInit: Pick<BattleInit, "battleId" | "siteId" | "dreamscapeId">;
-  battleMode: BattleModeId;
   mutableState: Pick<BattleMutableState, "turnNumber" | "sides">;
   result: QuestFailureBattleResult;
   reason: QuestFailureReason;
@@ -26,7 +24,6 @@ export function freezeQuestFailureSummary(
 ): QuestFailureSummary {
   return {
     battleId: input.battleInit.battleId,
-    battleMode: input.battleMode,
     result: input.result,
     reason: input.reason,
     siteId: input.battleInit.siteId,
@@ -49,7 +46,6 @@ export function beginQuestFailureRoute(
   const summary = freezeQuestFailureSummary(input);
   logEvent("battle_proto_failure_route_begin", {
     battleId: summary.battleId,
-    battleMode: summary.battleMode,
     result: summary.result,
     reason: summary.reason,
     siteId: summary.siteId,

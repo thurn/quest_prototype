@@ -57,7 +57,6 @@ import { BattleStatusStrip } from "./BattleStatusStrip";
 import { BattlefieldGrid, resolveBattlefieldSelectionAnchor } from "./BattlefieldGrid";
 import { BattleZoneBrowser } from "./BattleZoneBrowser";
 
-const PLAYABLE_BATTLE_MODE = "playable" as const;
 const DESKTOP_INSPECTOR_WIDTH = 1280;
 
 type ZoneBrowserState = { side: BattleSide; zone: BrowseableZone } | null;
@@ -430,7 +429,6 @@ export function PlayableBattleScreen({
         siteId: battleInit.siteId,
         dreamscapeId: battleInit.dreamscapeId,
       },
-      battleMode: PLAYABLE_BATTLE_MODE,
       mutableState: {
         turnNumber: reducerState.mutable.turnNumber,
         sides: reducerState.mutable.sides,

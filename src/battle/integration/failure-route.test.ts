@@ -67,7 +67,6 @@ describe("freezeQuestFailureSummary", () => {
         siteId: "site-7",
         dreamscapeId: "dreamscape-2",
       },
-      battleMode: "playable",
       mutableState: makeMutableState(),
       result: "defeat",
       reason: "score_target_reached",
@@ -76,7 +75,6 @@ describe("freezeQuestFailureSummary", () => {
 
     expect(summary).toEqual({
       battleId: "battle-1",
-      battleMode: "playable",
       result: "defeat",
       reason: "score_target_reached",
       siteId: "site-7",
@@ -95,7 +93,6 @@ describe("freezeQuestFailureSummary", () => {
         siteId: "site-1",
         dreamscapeId: null,
       },
-      battleMode: "playable",
       mutableState: makeMutableState(),
       result: "draw",
       reason: "turn_limit_reached",
@@ -118,7 +115,6 @@ describe("beginQuestFailureRoute", () => {
         siteId: "site-9",
         dreamscapeId: "dreamscape-4",
       },
-      battleMode: "playable",
       mutableState: makeMutableState(),
       result: "defeat",
       reason: "forced_result",

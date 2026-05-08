@@ -2,7 +2,7 @@
 
 A standalone web prototype of the Dreamtides Quest Mode flow. The player picks
 a Dreamcaller, a fixed package resolves, and the run proceeds through draft
-sites, Dreamsign surfaces, auto-resolved battles, and atlas progression. All
+sites, Dreamsign surfaces, playable battles, and atlas progression. All
 state is in memory and resets on page load.
 
 ## Quick Start

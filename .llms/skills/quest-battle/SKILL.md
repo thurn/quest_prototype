@@ -1,6 +1,6 @@
 ---
 name: quest-battle
-description: Use when editing or testing battle mode in the quest prototype, including playable battle UI, battle debug tools, battle overlays, reward flow, and battle-specific browser QA. Triggers on quest battle, playable battle, battle prototype, battle UI, ?battle=playable, startInBattle, battle log, reward surface, side summary, battle inspector, or battle QA.
+description: Use when editing or testing battle mode in the quest prototype, including playable battle UI, battle debug tools, battle overlays, reward flow, and battle-specific browser QA. Triggers on quest battle, playable battle, battle prototype, battle UI, startInBattle, battle log, reward surface, side summary, battle inspector, or battle QA.
 ---
 
 # Quest Battle
@@ -126,15 +126,13 @@ agent-browser errors
 Primary playable-battle URL:
 
 ```bash
-http://localhost:5173/?battle=playable&startInBattle=1
+http://localhost:5173/?startInBattle=1
 ```
 
 This is the fastest path for battle-only QA.
 
 Important lesson from this session:
 
-- Do not trust `?battle=playable` alone; use
-  `?battle=playable&startInBattle=1`.
 - Even with `startInBattle=1`, a cold-start session may still land on the
   Dreamcaller picker instead of the battle. Treat that as a possible routing or
   bootstrap bug, not as expected behavior.

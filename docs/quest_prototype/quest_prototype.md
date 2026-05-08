@@ -4,7 +4,7 @@ A standalone web prototype of Dreamtides Quest Mode living in this repository
 (`~/quest_prototype/`). It reflects the hidden-tides package-based quest flow:
 the player chooses from 3 Dreamcallers, the selected Dreamcaller resolves a
 fixed package once at quest start, and the run proceeds through draft sites,
-Dreamsign surfaces, auto-resolved battles, and atlas progression. All state is
+Dreamsign surfaces, playable battles, and atlas progression. All state is
 in memory and resets on page load.
 
 ## Running The Prototype

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { act, StrictMode, useEffect, useRef, type ReactElement } from "react";
+import { act, StrictMode, type ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createRoot, type Root } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -18,8 +18,6 @@ import { useQuest } from "../state/quest-context";
 import type { CardSourceDebugState, Screen, SiteState } from "../types/quest";
 
 const routeLifecycle = vi.hoisted(() => ({
-  autoMountCount: 0,
-  autoUnmountCount: 0,
   battleInitCalls: 0,
   initialStateCalls: 0,
   playableStateSnapshots: [] as Array<{
@@ -207,37 +205,6 @@ vi.mock("../battle/state/create-initial-state", () => ({
   })),
 }));
 
-vi.mock("../screens/AutoBattleScreen", () => ({
-  AutoBattleScreen: ({
-    battleInit,
-  }: {
-    battleInit: { battleId: string };
-  }) => {
-    const mountId = useRef<number | null>(null);
-    if (mountId.current === null) {
-      routeLifecycle.autoMountCount += 1;
-      mountId.current = routeLifecycle.autoMountCount;
-    }
-
-    useEffect(
-      () => () => {
-        routeLifecycle.autoUnmountCount += 1;
-      },
-      [],
-    );
-
-    return (
-      <div
-        data-battle-id={battleInit.battleId}
-        data-mount-id={String(mountId.current)}
-        data-screen="auto"
-      >
-        {battleInit.battleId}
-      </div>
-    );
-  },
-}));
-
 vi.mock("../battle/components/PlayableBattleScreen", () => ({
   PlayableBattleScreen: ({
     battleInit,
@@ -371,8 +338,6 @@ function mount(element: ReactElement): {
 
 beforeEach(() => {
   vi.clearAllMocks();
-  routeLifecycle.autoMountCount = 0;
-  routeLifecycle.autoUnmountCount = 0;
   routeLifecycle.battleInitCalls = 0;
   routeLifecycle.initialStateCalls = 0;
   routeLifecycle.playableStateSnapshots = [];
@@ -396,28 +361,13 @@ describe("createBattleEntryKey", () => {
 });
 
 describe("BattleSiteRoute", () => {
-  it("renders the auto battle route by default", () => {
+  it("renders the playable battle screen for battle sites", () => {
     const html = renderToStaticMarkup(
       wrapWithCache(
         <BattleSiteRoute
           site={makeSite()}
           cardDatabase={new Map()}
-          runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
-        />,
-      ),
-    );
-
-    expect(html).toContain('data-screen="auto"');
-    expect(html).toContain("site-7::3::dreamscape-2");
-  });
-
-  it("renders the playable placeholder behind the runtime flag", () => {
-    const html = renderToStaticMarkup(
-      wrapWithCache(
-        <BattleSiteRoute
-          site={makeSite()}
-          cardDatabase={new Map()}
-          runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+          runtimeConfig={{ seedOverride: null, startInBattle: false }}
         />,
       ),
     );
@@ -434,15 +384,12 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
-    const initialScreen = container.querySelector('[data-screen="auto"]');
-    expect(initialScreen?.getAttribute("data-mount-id")).toBe("1");
-    expect(initialScreen?.getAttribute("data-battle-id")).toBe(
-      "site-7::3::dreamscape-2",
-    );
+    const initialScreen = container.querySelector('[data-screen="playable"]');
+    expect(initialScreen?.textContent).toBe("site-7::3::dreamscape-2");
 
     setQuestState({ completionLevel: 4 });
     act(() => {
@@ -451,24 +398,20 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false }}
           />,
         ),
       );
     });
 
-    const updatedScreen = container.querySelector('[data-screen="auto"]');
-    expect(updatedScreen?.getAttribute("data-mount-id")).toBe("2");
-    expect(updatedScreen?.getAttribute("data-battle-id")).toBe(
-      "site-7::4::dreamscape-2",
-    );
-    expect(routeLifecycle.autoMountCount).toBe(2);
-    expect(routeLifecycle.autoUnmountCount).toBe(1);
+    const updatedScreen = container.querySelector('[data-screen="playable"]');
+    expect(updatedScreen?.textContent).toBe("site-7::4::dreamscape-2");
+    expect(routeLifecycle.battleInitCalls).toBe(2);
+    expect(routeLifecycle.initialStateCalls).toBe(2);
 
     act(() => {
       root.unmount();
     });
-    expect(routeLifecycle.autoUnmountCount).toBe(2);
   });
 
   it("reuses cached playable battle bootstrap data across rerenders and remounts", () => {
@@ -477,7 +420,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -493,7 +436,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false }}
           />,
         ),
       );
@@ -510,7 +453,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -530,7 +473,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -554,7 +497,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false }}
           />,
         ),
       );
@@ -576,7 +519,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -592,7 +535,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={site}
             cardDatabase={new Map()}
-            runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false }}
           />,
         ),
       );
@@ -614,7 +557,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={firstSite}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -630,7 +573,7 @@ describe("BattleSiteRoute", () => {
           <BattleSiteRoute
             site={firstSite}
             cardDatabase={new Map()}
-            runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+            runtimeConfig={{ seedOverride: null, startInBattle: false }}
           />,
         ),
       );
@@ -653,7 +596,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -673,7 +616,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -694,7 +637,7 @@ describe("BattleSiteRoute", () => {
         <BattleSiteRoute
           site={site}
           cardDatabase={new Map()}
-          runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+          runtimeConfig={{ seedOverride: null, startInBattle: false }}
         />
       </StrictMode>,
     );
@@ -712,7 +655,7 @@ describe("BattleSiteRoute", () => {
             <BattleSiteRoute
               site={site}
               cardDatabase={new Map()}
-              runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+              runtimeConfig={{ seedOverride: null, startInBattle: false }}
             />
           </StrictMode>,
         ),
@@ -735,7 +678,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -753,7 +696,7 @@ describe("BattleSiteRoute", () => {
       <BattleSiteRoute
         site={site}
         cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
+        runtimeConfig={{ seedOverride: null, startInBattle: false }}
       />,
     );
 
@@ -764,79 +707,6 @@ describe("BattleSiteRoute", () => {
 
     act(() => {
       secondMount.root.unmount();
-    });
-  });
-
-  it("keeps the default auto-resolve route selected when runtimeConfig has no playable flag", () => {
-    const site = makeSite();
-    const { container, root } = mount(
-      <BattleSiteRoute
-        site={site}
-        cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
-      />,
-    );
-
-    expect(container.querySelector('[data-screen="auto"]')).not.toBeNull();
-    expect(container.querySelector('[data-screen="playable"]')).toBeNull();
-    // Auto mode now shares the seeded bootstrap with playable mode (bug-007)
-    // so `createBattleInit` is called once to produce the deterministic
-    // enemy descriptor and reward options.
-    expect(routeLifecycle.battleInitCalls).toBe(1);
-    expect(routeLifecycle.initialStateCalls).toBe(1);
-
-    act(() => {
-      root.unmount();
-    });
-  });
-
-  it("cycles runtimeConfig.battleMode auto → playable → auto without leakage (bug-025 / §M-20)", () => {
-    const site = makeSite();
-    const { container, root } = mount(
-      <BattleSiteRoute
-        site={site}
-        cardDatabase={new Map()}
-        runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
-      />,
-    );
-
-    expect(container.querySelector('[data-screen="auto"]')).not.toBeNull();
-    expect(container.querySelector('[data-screen="playable"]')).toBeNull();
-
-    act(() => {
-      root.render(
-        wrapWithCache(
-          <BattleSiteRoute
-            site={site}
-            cardDatabase={new Map()}
-            runtimeConfig={{ battleMode: "playable", seedOverride: null, startInBattle: false }}
-          />,
-        ),
-      );
-    });
-    expect(container.querySelector('[data-screen="auto"]')).toBeNull();
-    expect(container.querySelector('[data-screen="playable"]')).not.toBeNull();
-
-    act(() => {
-      root.render(
-        wrapWithCache(
-          <BattleSiteRoute
-            site={site}
-            cardDatabase={new Map()}
-            runtimeConfig={{ battleMode: "auto", seedOverride: null, startInBattle: false }}
-          />,
-        ),
-      );
-    });
-    expect(container.querySelector('[data-screen="auto"]')).not.toBeNull();
-    expect(container.querySelector('[data-screen="playable"]')).toBeNull();
-
-    // Both toggles share the cached bootstrap: one init, one initial state.
-    expect(routeLifecycle.battleInitCalls).toBe(1);
-    expect(routeLifecycle.initialStateCalls).toBe(1);
-
-    act(() => {
-      root.unmount();
     });
   });
 });
