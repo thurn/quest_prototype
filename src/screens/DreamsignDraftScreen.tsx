@@ -233,8 +233,10 @@ export function DreamsignDraftScreen({ site }: DreamsignDraftScreenProps) {
   );
 }
 
-/** Renders a dreamsign card with name and effect description. */
+/** Renders a dreamsign card with image, name and effect description. */
 function DreamsignCard({ dreamsign }: { dreamsign: Dreamsign }) {
+  const [imageBroken, setImageBroken] = useState(false);
+  const showImage = Boolean(dreamsign.imageName) && !imageBroken;
   return (
     <div
       className="flex w-52 flex-1 flex-col items-center gap-2 rounded-lg p-4"
@@ -245,6 +247,17 @@ function DreamsignCard({ dreamsign }: { dreamsign: Dreamsign }) {
         boxShadow: "0 0 12px rgba(168, 85, 247, 0.16)",
       }}
     >
+      {showImage && (
+        <img
+          src={`/dreamsigns/${String(dreamsign.imageName)}`}
+          alt={dreamsign.imageAlt ?? dreamsign.name}
+          className="h-20 w-20 object-contain"
+          style={{ filter: "drop-shadow(0 2px 6px rgba(168, 85, 247, 0.25))" }}
+          onError={() => {
+            setImageBroken(true);
+          }}
+        />
+      )}
       <span
         className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
         style={{
