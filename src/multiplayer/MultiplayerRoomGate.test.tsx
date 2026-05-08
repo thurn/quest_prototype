@@ -76,6 +76,34 @@ function subscribeWith(snapshot: RoomSubscriptionSnapshot): void {
   );
 }
 
+function subscribeManually(): {
+  emit: (snapshot: RoomSubscriptionSnapshot) => void;
+} {
+  let roomListener: RoomListener | null = null;
+
+  serviceMocks.subscribeToRoom.mockImplementation(
+    (_database: Database, _roomId: string, listener: RoomListener) => {
+      roomListener = listener;
+      return vi.fn();
+    },
+  );
+
+  return {
+    emit: (snapshot: RoomSubscriptionSnapshot) => {
+      if (roomListener === null) {
+        throw new Error("Missing room listener");
+      }
+
+      roomListener(snapshot);
+    },
+  };
+}
+
+async function flushEffects(): Promise<void> {
+  await Promise.resolve();
+  await Promise.resolve();
+}
+
 function createButton(container: HTMLElement): HTMLButtonElement {
   const button = container.querySelector<HTMLButtonElement>("[data-create-game]");
   if (!button) {
@@ -172,6 +200,91 @@ describe("MultiplayerRoomGate", () => {
       "ab12cd",
       "client-client-uuid",
       expect.any(String),
+    );
+  });
+
+  it("writes presence once for repeated ready snapshots in the same room", async () => {
+    const subscription = subscribeManually();
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId="ab12cd">
+        {(session) => <div>Room {session.roomId}</div>}
+      </MultiplayerRoomGate>,
+    );
+
+    await act(async () => {
+      subscription.emit({
+        status: "ready",
+        room: makeRoom({
+          presence: {
+            "client-a": { connected: true, lastSeenAt: "2026-05-08T12:00:00.000Z" },
+          },
+        }),
+      });
+      await flushEffects();
+    });
+
+    expect(serviceMocks.writePresence).toHaveBeenCalledOnce();
+    expect(container.textContent).toContain("1 connected");
+
+    await act(async () => {
+      subscription.emit({
+        status: "ready",
+        room: makeRoom({
+          presence: {
+            "client-a": { connected: true, lastSeenAt: "2026-05-08T12:00:00.000Z" },
+            "client-b": { connected: true, lastSeenAt: "2026-05-08T12:01:00.000Z" },
+          },
+        }),
+      });
+      await flushEffects();
+    });
+
+    expect(serviceMocks.writePresence).toHaveBeenCalledOnce();
+    expect(container.textContent).toContain("2 connected");
+    expect(container.textContent).toContain("Room ab12cd");
+  });
+
+  it("shows Firebase setup issue when presence cannot be written", async () => {
+    serviceMocks.writePresence.mockRejectedValue(new Error("Presence denied"));
+    const subscription = subscribeManually();
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId="ab12cd">
+        {() => <div>Quest App</div>}
+      </MultiplayerRoomGate>,
+    );
+
+    await act(async () => {
+      subscription.emit({ status: "ready", room: makeRoom() });
+      await flushEffects();
+    });
+
+    expect(container.textContent).toContain("Firebase setup issue");
+    expect(container.textContent).toContain("Presence denied");
+  });
+
+  it("creates a client id when crypto.randomUUID is unavailable", () => {
+    Object.defineProperty(globalThis, "crypto", {
+      configurable: true,
+      value: {
+        getRandomValues: vi.fn((bytes: Uint8Array) => {
+          bytes.set([
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c,
+            0x0d, 0x0e, 0x0f,
+          ]);
+          return bytes;
+        }),
+      },
+    });
+    subscribeWith({ status: "ready", room: makeRoom() });
+
+    const { container } = mount(
+      <MultiplayerRoomGate database={database} gameId="ab12cd">
+        {(session) => <div data-child-client={session.clientId}>Quest App</div>}
+      </MultiplayerRoomGate>,
+    );
+
+    expect(container.querySelector("[data-child-client]")?.getAttribute("data-child-client")).toBe(
+      "client-000102030405060708090a0b0c0d0e0f",
     );
   });
 

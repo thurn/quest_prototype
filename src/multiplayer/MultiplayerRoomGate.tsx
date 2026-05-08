@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Database, Unsubscribe } from "firebase/database";
 import { generateRoomId } from "./room-id";
 import { createRoom, subscribeToRoom, writePresence } from "./room-service";
@@ -19,7 +19,19 @@ type GateState =
   | { status: "error"; message: string };
 
 function createClientId(): string {
-  return `client-${crypto.randomUUID()}`;
+  const cryptoSource = globalThis.crypto;
+
+  if (typeof cryptoSource?.randomUUID === "function") {
+    return `client-${cryptoSource.randomUUID()}`;
+  }
+
+  if (typeof cryptoSource?.getRandomValues === "function") {
+    const bytes = new Uint8Array(16);
+    cryptoSource.getRandomValues(bytes);
+    return `client-${Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("")}`;
+  }
+
+  return `client-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
 function timestamp(): string {
@@ -42,10 +54,12 @@ export function MultiplayerRoomGate({
   children,
 }: MultiplayerRoomGateProps): ReactNode {
   const clientId = useMemo(createClientId, []);
+  const presenceKeys = useRef(new Set<string>());
   const [activeRoomId, setActiveRoomId] = useState<string | null>(gameId);
   const [gateState, setGateState] = useState<GateState>(
     gameId === null ? { status: "create" } : { status: "loading", roomId: gameId },
   );
+  const readyRoomId = gateState.status === "ready" ? gateState.roomId : null;
 
   useEffect(() => {
     setActiveRoomId(gameId);
@@ -62,7 +76,6 @@ export function MultiplayerRoomGate({
     return subscribeToRoom(database, activeRoomId, (snapshot) => {
       if (snapshot.status === "ready") {
         setGateState({ status: "ready", roomId: activeRoomId, room: snapshot.room });
-        void writePresence(database, activeRoomId, clientId, timestamp());
         return;
       }
 
@@ -73,7 +86,36 @@ export function MultiplayerRoomGate({
 
       setGateState({ status: "error", message: snapshot.message });
     });
-  }, [activeRoomId, clientId, database]);
+  }, [activeRoomId, database]);
+
+  useEffect(() => {
+    if (readyRoomId === null) {
+      return undefined;
+    }
+
+    const presenceKey = `${readyRoomId}:${clientId}`;
+    if (presenceKeys.current.has(presenceKey)) {
+      return undefined;
+    }
+
+    let isCurrent = true;
+    presenceKeys.current.add(presenceKey);
+    void writePresence(database, readyRoomId, clientId, timestamp()).catch((error: unknown) => {
+      if (!isCurrent) {
+        return;
+      }
+
+      presenceKeys.current.delete(presenceKey);
+      setGateState({
+        status: "error",
+        message: error instanceof Error ? error.message : "Failed to write presence.",
+      });
+    });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [clientId, database, readyRoomId]);
 
   const handleCreateGame = useCallback(async (): Promise<void> => {
     const roomId = generateRoomId();
