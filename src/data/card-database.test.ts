@@ -76,11 +76,8 @@ describe("cardImageUrl", () => {
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument */
 async function readCardDataJson(): Promise<CardData[] | null> {
   try {
-    // @ts-expect-error -- Node.js modules available at runtime in Vitest
     const fs = await import("node:fs");
-    // @ts-expect-error -- Node.js modules available at runtime in Vitest
     const url = await import("node:url");
-    // @ts-expect-error -- Node.js modules available at runtime in Vitest
     const path = await import("node:path");
     const dir = path.dirname(url.fileURLToPath(import.meta.url));
     const jsonPath = path.resolve(dir, "../../public/card-data.json");

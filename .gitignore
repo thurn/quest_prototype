@@ -8,3 +8,6 @@ public/card-data.json
 public/dreamcaller-data.json
 public/dreamsign-data.json
 logs/
+.env
+.env.local
+.env.*.local
