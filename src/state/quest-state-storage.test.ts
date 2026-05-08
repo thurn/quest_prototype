@@ -53,6 +53,17 @@ describe("loadQuestState", () => {
     expect(restored?.screen).toEqual({ type: "site", siteId: "site-99" });
     expect(restored?.currentDreamscape).toBe("dreamscape-7");
   });
+
+  it("normalizes legacy saved state to include site runtime", () => {
+    const legacyState = { ...createDefaultState() } as Partial<QuestState>;
+    delete legacyState.siteRuntime;
+    sessionStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ version: 1, state: legacyState }),
+    );
+
+    expect(loadQuestState()?.siteRuntime).toEqual({});
+  });
 });
 
 describe("clearPersistedQuestState", () => {

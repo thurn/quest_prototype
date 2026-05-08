@@ -8,6 +8,13 @@ interface StoredQuestState {
   state: QuestState;
 }
 
+function normalizeQuestState(state: QuestState): QuestState {
+  return {
+    ...state,
+    siteRuntime: state.siteRuntime ?? {},
+  };
+}
+
 /**
  * Loads a previously persisted `QuestState` from `sessionStorage`. Returns
  * `null` when no snapshot exists, the snapshot is malformed, the schema
@@ -31,7 +38,7 @@ export function loadQuestState(): QuestState | null {
       sessionStorage.removeItem(STORAGE_KEY);
       return null;
     }
-    return parsed.state;
+    return normalizeQuestState(parsed.state);
   } catch {
     return null;
   }

@@ -9,6 +9,7 @@ import {
   writePresence,
   writeRoomUpdate,
 } from "./room-service";
+import { createDefaultState } from "../state/quest-context";
 
 type SnapshotStub = {
   exists: () => boolean;
@@ -114,6 +115,35 @@ describe("room service", () => {
         questState: null,
         presence: {},
         actionLog: {},
+      },
+    });
+  });
+
+  it("normalizes legacy quest state snapshots to include site runtime", () => {
+    const listener = vi.fn();
+    const legacyQuestState = { ...createDefaultState() } as Partial<
+      ReturnType<typeof createDefaultState>
+    >;
+    delete legacyQuestState.siteRuntime;
+    const room = {
+      ...createRoomRecord(timestamp),
+      questState: legacyQuestState,
+    };
+    firebaseMocks.onValue.mockImplementation((_entryRef, next: SnapshotListener) => {
+      next({ exists: () => true, val: () => room });
+      return vi.fn();
+    });
+
+    subscribeToRoom(database, "ab12", listener);
+
+    expect(listener).toHaveBeenCalledWith({
+      status: "ready",
+      room: {
+        ...room,
+        questState: {
+          ...legacyQuestState,
+          siteRuntime: {},
+        },
       },
     });
   });

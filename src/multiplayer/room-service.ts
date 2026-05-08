@@ -15,16 +15,28 @@ import {
   type PresenceEntry,
   type RoomMetadata,
 } from "./room-types";
+import type { QuestState } from "../types/quest";
 
 export type RoomSubscriptionSnapshot =
   | { status: "ready"; room: MultiplayerRoom }
   | { status: "missing" }
   | { status: "error"; message: string };
 
+function normalizeQuestState(questState: QuestState | null | undefined): QuestState | null {
+  if (questState === null || questState === undefined) {
+    return null;
+  }
+
+  return {
+    ...questState,
+    siteRuntime: questState.siteRuntime ?? {},
+  };
+}
+
 function normalizeRoomSnapshot(room: MultiplayerRoom): MultiplayerRoom {
   return {
     ...room,
-    questState: room.questState ?? null,
+    questState: normalizeQuestState(room.questState),
     presence: room.presence ?? {},
     actionLog: room.actionLog ?? {},
   };
