@@ -1,0 +1,248 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { STARTER_CARD_NUMBERS } from "../data/starter-cards";
+import type { CardData } from "../types/cards";
+import type {
+  DreamcallerContent,
+  ResolvedDreamcallerPackage,
+} from "../types/content";
+import type { QuestContent } from "../data/quest-content";
+import type { DreamAtlas, QuestState } from "../types/quest";
+import { toQuestDreamcaller } from "../data/dreamcaller-selection";
+import { createDefaultState } from "./quest-context";
+import {
+  addCardToQuestState,
+  changeQuestEssence,
+  completeQuestSite,
+  startQuestFromDreamcaller,
+} from "./quest-state-actions";
+
+function makeCard(
+  cardNumber: number,
+  overrides: Partial<CardData> = {},
+): CardData {
+  return {
+    name: `Card ${String(cardNumber)}`,
+    id: `card-${String(cardNumber)}`,
+    cardNumber,
+    cardType: "Event",
+    subtype: "Test",
+    isStarter: false,
+    energyCost: 1,
+    spark: null,
+    isFast: false,
+    tides: ["core"],
+    renderedText: "Test card.",
+    imageNumber: cardNumber,
+    artOwned: true,
+    ...overrides,
+  };
+}
+
+function makeDreamcaller(): DreamcallerContent {
+  return {
+    id: "dreamcaller-1",
+    name: "Test Dreamcaller",
+    title: "State Witness",
+    awakening: 4,
+    renderedText: "Test ability.",
+    imageNumber: "0006",
+    mandatoryTides: ["core"],
+    optionalTides: ["support-a", "support-b", "support-c", "support-d"],
+  };
+}
+
+function makeResolvedPackage(
+  dreamcaller: DreamcallerContent = makeDreamcaller(),
+): ResolvedDreamcallerPackage {
+  return {
+    dreamcaller,
+    mandatoryTides: ["core"],
+    optionalSubset: ["support-a", "support-b", "support-c"],
+    selectedTides: ["core", "support-a", "support-b", "support-c"],
+    draftPoolCopiesByCard: {
+      "101": 2,
+      "202": 1,
+    },
+    dreamsignPoolIds: ["embers-whisper", "glacial-insight"],
+    mandatoryOnlyPoolSize: 120,
+    draftPoolSize: 210,
+    doubledCardCount: 1,
+    legalSubsetCount: 2,
+    preferredSubsetCount: 1,
+  };
+}
+
+function makeQuestContent(
+  resolvedPackage: ResolvedDreamcallerPackage = makeResolvedPackage(),
+): QuestContent {
+  const starterCards = STARTER_CARD_NUMBERS.map((cardNumber) =>
+    makeCard(cardNumber, { isStarter: true }),
+  );
+  const draftCards = [makeCard(101), makeCard(202)];
+  const cardDatabase = new Map<number, CardData>(
+    [...starterCards, ...draftCards].map((card) => [card.cardNumber, card]),
+  );
+
+  return {
+    cardDatabase,
+    cardsByPackageTide: new Map([["core", draftCards]]),
+    dreamcallers: [resolvedPackage.dreamcaller],
+    dreamsignTemplates: [],
+    resolvedPackagesByDreamcallerId: new Map([
+      [resolvedPackage.dreamcaller.id, resolvedPackage],
+    ]),
+  };
+}
+
+function makeAtlas(): DreamAtlas {
+  return {
+    nexusId: "nexus",
+    edges: [["nexus", "dreamscape-1"]],
+    nodes: {
+      nexus: {
+        id: "nexus",
+        biomeName: "Nexus",
+        biomeColor: "#7c3aed",
+        sites: [],
+        position: { x: 0, y: 0 },
+        status: "completed",
+        enhancedSiteType: null,
+      },
+      "dreamscape-1": {
+        id: "dreamscape-1",
+        biomeName: "Test Biome",
+        biomeColor: "#22c55e",
+        sites: [
+          {
+            id: "site-1",
+            type: "Draft",
+            isEnhanced: false,
+            isVisited: false,
+          },
+          {
+            id: "site-2",
+            type: "Battle",
+            isEnhanced: false,
+            isVisited: false,
+          },
+        ],
+        position: { x: 200, y: 0 },
+        status: "available",
+        enhancedSiteType: null,
+      },
+    },
+  };
+}
+
+beforeEach(() => {
+  vi.spyOn(console, "log").mockImplementation(() => {});
+});
+
+describe("quest state actions", () => {
+  it("changes quest essence without replacing the deck", () => {
+    const prev = createDefaultState();
+    const next = changeQuestEssence(prev, 25);
+
+    expect(next.essence).toBe(275);
+    expect(prev.essence).toBe(250);
+    expect(next.deck).toBe(prev.deck);
+  });
+
+  it("adds a card with the next stable deck id", () => {
+    const prev: QuestState = {
+      ...createDefaultState(),
+      deck: [
+        {
+          entryId: "deck-7",
+          cardNumber: 101,
+          transfiguration: null,
+          isBane: false,
+        },
+      ],
+    };
+
+    const next = addCardToQuestState(prev, 202, false);
+
+    expect(next.deck).toEqual([
+      prev.deck[0],
+      {
+        entryId: "deck-8",
+        cardNumber: 202,
+        transfiguration: null,
+        isBane: false,
+      },
+    ]);
+  });
+
+  it("starts a quest from a Dreamcaller in one state transition", () => {
+    const dreamcaller = makeDreamcaller();
+    const resolvedPackage = makeResolvedPackage(dreamcaller);
+    const questContent = makeQuestContent(resolvedPackage);
+    const prev = createDefaultState();
+
+    const next = startQuestFromDreamcaller({
+      prev,
+      dreamcaller,
+      questContent,
+    });
+    const firstAvailableNode = Object.values(next.atlas.nodes).find(
+      (node) => node.status === "available",
+    );
+
+    expect(next.dreamcaller).toEqual(toQuestDreamcaller(dreamcaller));
+    expect(next.resolvedPackage).toBe(resolvedPackage);
+    expect(next.remainingDreamsignPool).toEqual(
+      resolvedPackage.dreamsignPoolIds,
+    );
+    expect(next.remainingDreamsignPool).not.toBe(
+      resolvedPackage.dreamsignPoolIds,
+    );
+    expect(next.deck.map((entry) => entry.cardNumber)).toEqual(
+      STARTER_CARD_NUMBERS,
+    );
+    expect(next.deck.map((entry) => entry.entryId)).toEqual(
+      STARTER_CARD_NUMBERS.map((_, index) => `deck-${String(index + 1)}`),
+    );
+    expect(next.draftState).toEqual({
+      remainingCopiesByCard: {
+        "101": 2,
+        "202": 1,
+      },
+      currentOffer: [],
+      activeSiteId: null,
+      pickNumber: 1,
+      sitePicksCompleted: 0,
+    });
+    expect(firstAvailableNode).toBeDefined();
+    expect(next.currentDreamscape).toBe(firstAvailableNode?.id);
+    expect(next.visitedSites).toEqual([]);
+    expect(next.screen).toEqual({ type: "dreamscape" });
+    expect(next.activeSiteId).toBeNull();
+  });
+
+  it("completes a site while preserving unrelated site runtime", () => {
+    const runtime = {
+      kind: "essence" as const,
+      amount: 25,
+      accepted: false,
+    };
+    const prev: QuestState = {
+      ...createDefaultState(),
+      atlas: makeAtlas(),
+      siteRuntime: {
+        "site-2": runtime,
+      },
+    };
+
+    const next = completeQuestSite(prev, "site-1");
+
+    expect(next.visitedSites).toEqual(["site-1"]);
+    expect(next.atlas.nodes["dreamscape-1"].sites[0]).toEqual({
+      id: "site-1",
+      type: "Draft",
+      isEnhanced: false,
+      isVisited: true,
+    });
+    expect(next.siteRuntime["site-2"]).toBe(runtime);
+  });
+});
