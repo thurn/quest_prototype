@@ -2,7 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { CardData } from "./types/cards";
 import type { QuestContent } from "./data/quest-content";
 import { loadQuestContent } from "./data/quest-content";
-import { QuestProvider, useQuest } from "./state/quest-context";
+import { getFirebaseDatabase } from "./firebase/app-config";
+import { MultiplayerRoomGate } from "./multiplayer/MultiplayerRoomGate";
+import { useQuest } from "./state/quest-context";
+import { MultiplayerQuestProvider } from "./state/multiplayer-quest-context";
 import { ScreenRouter } from "./components/ScreenRouter";
 import { HUD } from "./components/HUD";
 import { DeckViewer } from "./components/DeckViewer";
@@ -225,16 +228,22 @@ export default function App({ runtimeConfig }: { runtimeConfig: RuntimeConfig })
     );
   }
 
+  const database = getFirebaseDatabase();
+
   return (
-    <QuestProvider
-      cardDatabase={questContent.cardDatabase}
-      questContent={questContent}
-      runtimeConfig={runtimeConfig}
-    >
-      <QuestApp
-        cardDatabase={questContent.cardDatabase}
-        runtimeConfig={runtimeConfig}
-      />
-    </QuestProvider>
+    <MultiplayerRoomGate database={database} gameId={runtimeConfig.gameId}>
+      {(session) => (
+        <MultiplayerQuestProvider
+          database={database}
+          session={session}
+          questContent={questContent}
+        >
+          <QuestApp
+            cardDatabase={questContent.cardDatabase}
+            runtimeConfig={runtimeConfig}
+          />
+        </MultiplayerQuestProvider>
+      )}
+    </MultiplayerRoomGate>
   );
 }

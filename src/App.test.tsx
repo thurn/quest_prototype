@@ -4,11 +4,60 @@ import { act } from "react";
 import type { ReactElement, ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { QuestContent } from "./data/quest-content";
+import { loadQuestContent } from "./data/quest-content";
 import type { CardData } from "./types/cards";
 import type { QuestMutations } from "./state/quest-context";
 import type { QuestState } from "./types/quest";
-import { QuestApp } from "./App";
+import type { RoomSession } from "./multiplayer/room-types";
+import App, { QuestApp } from "./App";
 import { useQuest } from "./state/quest-context";
+
+vi.mock("./data/quest-content", () => ({
+  loadQuestContent: vi.fn(),
+}));
+
+vi.mock("./firebase/app-config", () => ({
+  getFirebaseDatabase: vi.fn(() => ({})),
+}));
+
+vi.mock("./multiplayer/MultiplayerRoomGate", () => ({
+  MultiplayerRoomGate: ({
+    gameId,
+    children,
+  }: {
+    gameId: string | null;
+    children: (session: RoomSession) => ReactNode;
+  }) => {
+    const session: RoomSession = {
+      roomId: gameId ?? "created-room",
+      clientId: "client-test",
+      room: {
+        metadata: {
+          schemaVersion: 1,
+          createdAt: "2026-05-08T00:00:00.000Z",
+          updatedAt: "2026-05-08T00:00:00.000Z",
+        },
+        questState: null,
+        presence: {
+          "client-test": {
+            connected: true,
+            lastSeenAt: "2026-05-08T00:00:00.000Z",
+          },
+        },
+        actionLog: {},
+      },
+    };
+
+    return <div data-room-gate={gameId ?? "create"}>{children(session)}</div>;
+  },
+}));
+
+vi.mock("./state/multiplayer-quest-context", () => ({
+  MultiplayerQuestProvider: ({ children }: { children: ReactNode }) => (
+    <div data-multiplayer-provider>{children}</div>
+  ),
+}));
 
 vi.mock("./state/quest-context", () => ({
   useQuest: vi.fn(),
@@ -97,6 +146,16 @@ function makeState(overrides: Partial<QuestState> = {}): QuestState {
   };
 }
 
+function makeQuestContent(): QuestContent {
+  return {
+    cardDatabase: new Map<number, CardData>(),
+    cardsByPackageTide: new Map(),
+    dreamcallers: [],
+    dreamsignTemplates: [],
+    resolvedPackagesByDreamcallerId: new Map(),
+  };
+}
+
 function setQuestState(state: QuestState): void {
   vi.mocked(useQuest).mockReturnValue({
     state,
@@ -129,6 +188,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   vi.spyOn(console, "log").mockImplementation(() => {});
   vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null));
+  vi.mocked(loadQuestContent).mockResolvedValue(makeQuestContent());
   (
     globalThis as typeof globalThis & {
       IS_REACT_ACT_ENVIRONMENT?: boolean;
@@ -138,6 +198,34 @@ beforeEach(() => {
 
 afterEach(() => {
   document.body.innerHTML = "";
+});
+
+describe("App", () => {
+  it("routes loaded quest content through the multiplayer room gate", async () => {
+    setQuestState(makeState());
+
+    const { container, root } = mount(
+      <App
+        runtimeConfig={{
+          seedOverride: null,
+          startInBattle: false,
+          enableAi: false,
+          gameId: "ab12cd",
+        }}
+      />,
+    );
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    expect(container.querySelector("[data-room-gate='ab12cd']")).not.toBeNull();
+    expect(container.querySelector("[data-multiplayer-provider]")).not.toBeNull();
+
+    act(() => {
+      root.unmount();
+    });
+  });
 });
 
 describe("QuestApp", () => {
