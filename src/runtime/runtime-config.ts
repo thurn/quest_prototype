@@ -13,6 +13,7 @@ export interface RuntimeConfig {
   basicAutomation: boolean;
   gameId: string | null;
   databaseMode: DatabaseMode;
+  journeyVariant: "classic" | "v2";
   /**
    * Draft-pool construction strategy from `?algo=`, resolved to a registered
    * `PoolVariant`. An absent `?algo=` uses `DEFAULT_POOL_VARIANT`; a draft-mode
@@ -63,6 +64,7 @@ export function parseRuntimeConfig(search: string): RuntimeConfig {
     basicAutomation: params.get("automation") !== "0",
     gameId: normalizeRoomId(params.get("game")),
     databaseMode: parseDatabaseMode(params.get("realtime")),
+    journeyVariant: parseJourneyVariant(params.get("journey")),
     poolVariant,
     draftMode,
     fresh20PackSize: parsePackSize(params.get("packsize")),
@@ -91,6 +93,10 @@ function parsePackSize(rawPackSize: string | null): number | undefined {
 
 function parseDatabaseMode(rawRealtime: string | null): DatabaseMode {
   return rawRealtime === "1" ? "realtime" : "emulator";
+}
+
+function parseJourneyVariant(rawJourney: string | null): "classic" | "v2" {
+  return rawJourney === "v2" ? "v2" : "classic";
 }
 
 function parseDebugJourneyId(rawId: string | null): string | null {
