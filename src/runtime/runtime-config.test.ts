@@ -221,4 +221,19 @@ describe("parseRuntimeConfig", () => {
       expect(parseRuntimeConfig("?packsize=").fresh20PackSize).toBeUndefined();
     });
   });
+
+  describe("journeyVariant", () => {
+    it("defaults to classic when journey is absent or unrecognised", () => {
+      expect(parseRuntimeConfig("").journeyVariant).toBe("classic");
+      expect(parseRuntimeConfig("?journey=").journeyVariant).toBe("classic");
+      expect(parseRuntimeConfig("?journey=classic").journeyVariant).toBe(
+        "classic",
+      );
+      expect(parseRuntimeConfig("?journey=other").journeyVariant).toBe("classic");
+    });
+
+    it("returns v2 when journey=v2", () => {
+      expect(parseRuntimeConfig("?journey=v2").journeyVariant).toBe("v2");
+    });
+  });
 });
