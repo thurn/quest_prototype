@@ -121,7 +121,7 @@ describe("createBattleInit", () => {
     expect(first.turnLimit).toBe(50);
     expect(first.scoreToWin).toBe(25);
     expect(first.openingHandSize).toBe(5);
-    expect(first.maxEnergyCap).toBe(10);
+    expect(first.maxEnergyCap).toBe(20);
     expect(first.startingSide).toBe("player");
     expect(first.playerDrawSkipsTurnOne).toBe(true);
   });

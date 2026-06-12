@@ -611,11 +611,11 @@ describe("Autumn Glade builder", () => {
 });
 
 describe("Twilight Radiance builder", () => {
-  it("produces ADJUST_CURRENT_ENERGY +1 for the active side", () => {
+  it("produces ADJUST_CURRENT_ENERGY +2 for the active side", () => {
     const state = makeState();
     const build = getFirstEditsBuild("de98477c-e216-4618-bff1-0e24bd982fdb");
     const edits = build(makeCtx(state, "player"));
-    expect(edits).toEqual([{ kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 1 }]);
+    expect(edits).toEqual([{ kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 2 }]);
   });
 });
 
@@ -647,15 +647,15 @@ describe("Wellspring Commons builder", () => {
 });
 
 describe("The Brimming Well builder", () => {
-  it("produces ADJUST_MAX_ENERGY +1 targeting the OPPONENT", () => {
+  it("produces ADJUST_MAX_ENERGY +2 targeting the OPPONENT", () => {
     const state = makeState();
     const build = getFirstEditsBuild("a9c254c4-8448-40ea-bb1a-08c0ef8c7bdf");
     // Active side is player — opponent is enemy
     const edits = build(makeCtx(state, "player"));
-    expect(edits).toEqual([{ kind: "ADJUST_MAX_ENERGY", side: "enemy", amount: 1 }]);
+    expect(edits).toEqual([{ kind: "ADJUST_MAX_ENERGY", side: "enemy", amount: 2 }]);
     // Active side is enemy — opponent is player
     const edits2 = build(makeCtx(state, "enemy"));
-    expect(edits2).toEqual([{ kind: "ADJUST_MAX_ENERGY", side: "player", amount: 1 }]);
+    expect(edits2).toEqual([{ kind: "ADJUST_MAX_ENERGY", side: "player", amount: 2 }]);
   });
 });
 
@@ -885,7 +885,7 @@ describe("Astral Interface (ee1ef770) — draw then discard", () => {
   });
 });
 
-// The Crossroads — choice: draw / gain 2● (swapped option mapping)
+// The Crossroads — choice: draw / gain 4● (swapped option mapping)
 describe("The Crossroads (af2ef62f) — choice draw / gain energy", () => {
   const UUID = "af2ef62f-d31b-4544-a2b0-f5aab03c2d7c";
 
@@ -909,13 +909,13 @@ describe("The Crossroads (af2ef62f) — choice draw / gain energy", () => {
     expect(edits).toEqual([{ kind: "DRAW_CARD", side: "player" }]);
   });
 
-  it("options[1].build → ADJUST_CURRENT_ENERGY +2", () => {
+  it("options[1].build → ADJUST_CURRENT_ENERGY +4", () => {
     const prompt = getFirstPromptStep(UUID);
     if (prompt.kind !== "choice") throw new Error();
     const opt1 = prompt.options[1];
     if (opt1 === undefined) throw new Error("missing option 1");
     const edits = opt1.build(makeCtx(makeState()));
-    expect(edits).toEqual([{ kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 2 }]);
+    expect(edits).toEqual([{ kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 4 }]);
   });
 });
 

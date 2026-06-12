@@ -3,7 +3,7 @@ id = "C706D0BA-2F41-4B14-95D8-DB168AC6246C"
 name = "Amplified Acorn"
 image_name = "acorn_gold.png"
 tides = ["discard_velocity", "hand_cycling", "cost_reduction", "resource_burst", "discard_outlets"]
-rendered-text = "Once per turn, when you discard a card, your next card this turn costs 2● less."
+rendered-text = "Once per turn, when you discard a card, your next card this turn costs 4● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -11,7 +11,7 @@ id = "278EC1AB-F532-4862-84AE-63DF5E49548C"
 name = "Pyramid Relic"
 image_name = "aertfact.png"
 tides = ["character_chain", "character_curve", "cost_reduction", "big_energy"]
-rendered-text = "The second character you play each turn costs 1● less."
+rendered-text = "The second character you play each turn costs 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -19,28 +19,28 @@ id = "6E20E6C7-295A-48B1-B252-B8B00D6902C9"
 name = "Amanita"
 image_name = "amanita.png"
 tides = ["leave_play_enablers", "cost_reduction", "big_energy", "finishers"]
-rendered-text = "Once per turn, when an ally leaves play, your next character this turn costs 2● less."
+rendered-text = "Once per turn, when an ally leaves play, your next character this turn costs 4● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
 id = "49990864-1DB0-4C08-91AE-40A1F04223E4"
 name = "Algae"
 image_name = "algae.png"
-rendered-text = "Once per turn, when you draw a character, reduce its cost by 1● until end of turn."
+rendered-text = "Once per turn, when you draw a character, reduce its cost by 2● until end of turn."
 tags = ["Tag OK"]
 
 [[dreamsign]]
 id = "3DD05E97-1AF8-4AE9-8E1F-954EAA63E112"
 name = "Worm Apple"
 image_name = "apple.png"
-rendered-text = "The first character you play each turn costs 2● less and has 0✦."
+rendered-text = "The first character you play each turn costs 4● less and has 0✦."
 tags = ["Tag OK"]
 
 [[dreamsign]]
 id = "A42C99B2-F480-4F63-91A0-BD556120427D"
 name = "Green Amulet"
 image_name = "amulet_2.png"
-rendered-text = "The second card you draw each turn costs 2● less."
+rendered-text = "The second card you draw each turn costs 4● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -48,7 +48,7 @@ id = "3FD8861D-FC4C-4097-9E28-89CC37F5B3F4"
 name = "Cloud Lens"
 image_name = "amulet_3.png"
 tides = ["event_chain", "cost_reduction", "event_setup", "resource_burst"]
-rendered-text = "The second event you play each turn costs 1● less."
+rendered-text = "The second event you play each turn costs 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -56,7 +56,7 @@ id = "8778BF17-4E0A-4CE7-B23C-4DAF49A782A7"
 name = "Wolf Sigil"
 image_name = "amulet_4.png"
 tides = ["discard_velocity", "hand_cycling", "cost_reduction", "resource_burst"]
-rendered-text = "Reclaim abilities cost you 1● less."
+rendered-text = "Reclaim abilities cost you 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -64,7 +64,7 @@ id = "12EC9625-CBFB-4056-9C3E-98ED8C8BEA70"
 name = "Trinket Necklace"
 image_name = "amulet_5.png"
 tides = ["materialize_tempo", "bounce_blink_tools", "leave_play_enablers", "materialized_staples", "cost_reduction"]
-rendered-text = "Once per turn, when you return an ally to hand, your next character this turn costs 1● less."
+rendered-text = "Once per turn, when you return an ally to hand, your next character this turn costs 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -80,7 +80,7 @@ id = "553D2317-32F9-47BC-BAE0-5018CA26D56A"
 name = "Eye Amulet"
 image_name = "amulet_7.png"
 tides = ["fast_tempo", "fast_interaction", "fast_setup", "cost_reduction"]
-rendered-text = "The first ❖ card you play during the opponent's turn costs 1● less."
+rendered-text = "The first ❖ card you play during the opponent's turn costs 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -88,7 +88,7 @@ id = "0D668E16-1729-4289-AD1D-0FB3C1374EE9"
 name = "Skull Pendant"
 image_name = "amulet_8.png"
 tides = ["materialize_value", "materialize_tempo", "materialized_staples", "cost_reduction", "big_energy"]
-rendered-text = "Characters with ▸Materialized abilities cost you 1● less."
+rendered-text = "Characters with ▸Materialized abilities cost you 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -152,7 +152,7 @@ id = "00CC7E7F-4245-4447-B9DC-F647DC6241A2"
 name = "Berries"
 image_name = "berries.png"
 tides = ["materialize_value", "trigger_reuse", "spark_growth", "materialized_staples"]
-rendered-text = "Characters in your deck with cost ≤2● have +1✦."
+rendered-text = "Characters in your deck with cost ≤4● have +1✦."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -160,7 +160,7 @@ id = "47081BDE-F35D-4B5C-BA17-53E5DBF5B419"
 name = "Green Beetle"
 image_name = "bettle.png"
 tides = ["big_energy", "finishers", "spark_tall", "character_curve"]
-rendered-text = "Characters in your deck with cost ≥4● have awakened."
+rendered-text = "Characters in your deck with cost ≥8● have awakened."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -200,7 +200,7 @@ id = "1DFA4D90-8270-4B7C-87BE-D95AB6201E00"
 name = "Blue Feather"
 image_name = "blue_feather.png"
 tides = ["warrior_pressure", "warrior_bastion", "topdeck_setup", "judgment_engines"]
-rendered-text = "If the first card you draw during your turn is a warrior, reduce its cost by 1● and it gains +2✦."
+rendered-text = "If the first card you draw during your turn is a warrior, reduce its cost by 2● and it gains +2✦."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -216,7 +216,7 @@ id = "DBBADE86-9FB6-4283-B2DC-9C1EF66FD531"
 name = "Skull Drum"
 image_name = "drum.png"
 tides = ["warrior_pressure", "warrior_bastion", "event_chain", "cost_reduction", "resource_burst"]
-rendered-text = "When you play an event with ≥3 allied spirit animals, it costs 1● less."
+rendered-text = "When you play an event with ≥3 allied spirit animals, it costs 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -240,7 +240,7 @@ id = "246AC924-74DD-4387-9FD6-5BC8E563907A"
 name = "Curved Blade"
 image_name = "knife.png"
 tides = ["warrior_pressure", "warrior_bastion", "cost_reduction", "spark_growth"]
-rendered-text = "Allied warriors cost 1● less."
+rendered-text = "Allied warriors cost 2● less."
 tags = ["Tag OK"]
 
 [[dreamsign]]
@@ -272,7 +272,7 @@ id = "4DC47625-73BD-4518-A4EF-29DDA2171594"
 name = "Rune Sack"
 image_name = "runes.png"
 tides = ["figment_swarm", "judgment_engines", "big_energy", "ally_wide"]
-rendered-text = "▸Dawn: With ≥3 allied figments, gain 2●."
+rendered-text = "▸Dawn: With ≥3 allied figments, gain 4●."
 tags = ["J10", "Tag OK"]
 
 [[dreamsign]]
@@ -287,14 +287,14 @@ tags = ["J10", "Tag OK"]
 id = "26786698-FDF2-493D-905B-4273A20586C9"
 name = "Potion Mortar"
 image_name = "bowl.png"
-rendered-text = "▸Dawn: A random card in your hand costs 1● this turn."
+rendered-text = "▸Dawn: A random card in your hand costs 2● this turn."
 tags = ["J10", "Tag OK"]
 
 [[dreamsign]]
 id = "B7F8A4EA-C067-47ED-B251-2876B609108C"
 name = "Broomstick"
 image_name = "broomstick.png"
-rendered-text = "▸Dawn: Lose 1●. Draw a card."
+rendered-text = "▸Dawn: Lose 2●. Draw a card."
 tags = ["J10", "Tag OK"]
 
 [[dreamsign]]
@@ -320,7 +320,7 @@ rendered-text = '''
 When drafting cards, see 1 fewer choice.
 
 
-▸Dawn: Gain 1●.'''
+▸Dawn: Gain 2●.'''
 tags = ["J10", "Tag OK"]
 
 [[dreamsign]]
@@ -328,7 +328,7 @@ id = "1A524712-EF7E-43D9-BD79-5DEA5250BF08"
 name = "Rainbow Horn"
 image_name = "horn_rainbow .png"
 tides = ["fast_setup", "fast_tempo", "card_flow", "judgment_engines"]
-rendered-text = "▸Dawn: Add a random ≤2● cost event from the card pool to your hand."
+rendered-text = "▸Dawn: Add a random ≤4● cost event from the card pool to your hand."
 tags = ["J10", "Tag OK"]
 
 [[dreamsign]]
@@ -400,7 +400,7 @@ id = "49F216A2-0596-4124-BB40-60AC9AFE6E0B"
 name = "Storm Tome"
 image_name = "book_2.png"
 tides = ["copy_effects", "event_chain", "event_setup", "cost_reduction", "finishers"]
-rendered-text = "Once per turn, when you play a ≤2● cost event, copy it."
+rendered-text = "Once per turn, when you play a ≤4● cost event, copy it."
 tags = ["J10", "Tag OK"]
 
 [[dreamsign]]
@@ -416,7 +416,7 @@ id = "6DAC6BFF-AF3A-4749-8547-01FDED1C81C9"
 name = "Flaming Button"
 image_name = "damned_button.png"
 tides = ["copy_effects", "event_chain", "resource_burst", "event_setup"]
-rendered-text = "Once per turn, when you copy an event, gain 1●."
+rendered-text = "Once per turn, when you copy an event, gain 2●."
 tags = ["J10", "Tag OK"]
 
 [[dreamsign]]
@@ -456,7 +456,7 @@ id = "B2626645-827C-46EC-8204-017862D1A398"
 name = "Eyeball Plant"
 image_name = "creepy_plant.png"
 tides = ["reclaim_characters", "void_recursion", "void_threshold", "big_energy"]
-rendered-text = "Characters in your void with ≥3● cost have reclaim."
+rendered-text = "Characters in your void with ≥6● cost have reclaim."
 tags = ["J11", "Tag OK"]
 
 [[dreamsign]]
@@ -488,7 +488,7 @@ id = "D2A916C1-321A-4AE3-9A50-0B7F13C5EFF6"
 name = "Flash Powder"
 image_name = "Alchemical_Powder.png"
 tides = ["fast_setup", "fast_tempo", "cost_reduction", "event_chain"]
-rendered-text = "You may play ❖ and ❖❖ events for 1●."
+rendered-text = "You may play ❖ and ❖❖ events for 2●."
 tags = ["J11", "Tag OK"]
 
 [[dreamsign]]
@@ -592,7 +592,7 @@ id = "9AAED05A-2223-42F2-9B9D-81A53EAB811C"
 name = "Honeycombs"
 image_name = "honeycombs.png"
 tides = ["discard_velocity", "resource_burst", "hand_cycling", "discard_outlets"]
-rendered-text = "Once per turn, when you discard a card, gain 1●."
+rendered-text = "Once per turn, when you discard a card, gain 2●."
 tags = ["J11", "Tag OK"]
 
 [[dreamsign]]
@@ -600,7 +600,7 @@ id = "5190A8B8-25A0-4C60-A4DE-2E2C5A73AF77"
 name = "Cactus"
 image_name = "cactus .png"
 tides = ["discard_velocity", "void_recursion", "cost_reduction", "hand_cycling"]
-rendered-text = "If you have discarded a card this turn, the first card you play from your void costs 1● less."
+rendered-text = "If you have discarded a card this turn, the first card you play from your void costs 2● less."
 tags = ["J11", "Tag OK"]
 
 [[dreamsign]]
@@ -608,7 +608,7 @@ id = "86F64A29-7338-4759-81DA-4C7656E543D2"
 name = "Spice Blossoms"
 image_name = "cinnamon.png"
 tides = ["discard_velocity", "event_chain", "cost_reduction", "hand_cycling"]
-rendered-text = "When you play an event, it costs 1● less for each card you have discarded this turn."
+rendered-text = "When you play an event, it costs 2● less for each card you have discarded this turn."
 tags = ["J11", "Tag OK"]
 
 [[dreamsign]]
@@ -664,7 +664,7 @@ id = "15FD5A22-A786-48E3-99B0-919E810B3EBA"
 name = "Opal"
 image_name = "opal.png"
 tides = ["spark_tall", "spark_growth", "big_energy", "finishers"]
-rendered-text = "Your ≥5● cost characters have +2✦."
+rendered-text = "Your ≥10● cost characters have +2✦."
 tags = ["J12"]
 
 [[dreamsign]]
@@ -749,7 +749,7 @@ id = "C92438FC-8E1F-4F97-9DCF-8CA0EDAA8607"
 name = "Black Horn"
 image_name = "leech.png"
 tides = ["cheap_removal", "premium_removal", "resource_burst", "card_flow"]
-rendered-text = "When you dissolve or banish an enemy character, gain 2●."
+rendered-text = "When you dissolve or banish an enemy character, gain 4●."
 tags = ["J12"]
 
 [[dreamsign]]
@@ -757,7 +757,7 @@ id = "9DD7D53F-D4DB-4EEC-919D-D701774AF359"
 name = "Poison Bottle"
 image_name = "poison.png"
 tides = ["leave_play_enablers", "resource_burst", "premium_removal"]
-rendered-text = "When you banish a character, gain 1●."
+rendered-text = "When you banish a character, gain 2●."
 tags = ["J12"]
 
 [[dreamsign]]
@@ -805,7 +805,7 @@ id = "72EF4B11-5366-4798-AAB0-09E5FFBB1ED8"
 name = "Clam Shell"
 image_name = "mollusk.png"
 tides = ["big_energy", "hand_cycling", "card_flow", "resource_burst"]
-rendered-text = "When you draw your second card each turn, gain 1 maximum ●."
+rendered-text = "When you draw your second card each turn, gain 2 maximum ●."
 tags = ["J12"]
 
 [[dreamsign]]
@@ -829,7 +829,7 @@ id = "206049AE-9F28-4A90-9F75-63D9EE5F4A27"
 name = "Gold Key"
 image_name = "key_3.png"
 tides = ["character_chain", "character_curve", "big_energy", "cost_reduction", "resource_burst"]
-rendered-text = "When you play your third character each turn, gain 2●."
+rendered-text = "When you play your third character each turn, gain 4●."
 tags = ["J12"]
 
 [[dreamsign]]
@@ -837,7 +837,7 @@ id = "9204FBC8-BA40-4E33-9FBC-F62CCC4A43D1"
 name = "Powder Bowl"
 image_name = "powder_magic.png"
 tides = ["point_pressure", "cost_rfeduction", "character_curve", "finishers"]
-rendered-text = "Characters cost you 1● less if an ally scored ⍟ last turn."
+rendered-text = "Characters cost you 2● less if an ally scored ⍟ last turn."
 tags = ["J12"]
 
 [[dreamsign]]
@@ -845,7 +845,7 @@ id = "FB87262C-5BDE-409E-92F1-58CC7A4E5491"
 name = "Purple Potion"
 image_name = "potion.png"
 tides = ["big_energy", "cost_reduction", "resource_burst", "finishers", "spark_tall"]
-rendered-text = "≥5● cost characters cost you 2● less."
+rendered-text = "≥10● cost characters cost you 4● less."
 tags = ["J12"]
 
 [[dreamsign]]
@@ -853,7 +853,7 @@ id = "62E1A588-F719-415C-9434-80AA08CE2E6A"
 name = "Crystal Wand"
 image_name = "magic_stick_2.png"
 tides = ["big_energy", "card_flow", "resource_burst", "finishers"]
-rendered-text = "When you play a ≥5● cost card, draw a card."
+rendered-text = "When you play a ≥10● cost card, draw a card."
 tags = ["J15"]
 
 [[dreamsign]]
@@ -1175,7 +1175,7 @@ id = "1CD25B9A-B176-4C51-8349-BB4DF35CBF05"
 name = "Twisted Herbs"
 image_name = "twisting_herbs.png"
 tides = ["big_energy", "cost_reduction", "finishers"]
-rendered-text = "When you gain this dreamsign, add 2 Bane cards to your deck. ≥4● cost cards cost you 1● less."
+rendered-text = "When you gain this dreamsign, add 2 Bane cards to your deck. ≥8● cost cards cost you 2● less."
 tags = ["J16"]
 
 [[dreamsign]]

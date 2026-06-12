@@ -54,7 +54,7 @@ function makeHandoffState(opts: MakeHandoffStateOptions = {}): BattleMutableStat
 const DEFAULT_CONFIG = {
   scoreToWin: 25,
   turnLimit: 50,
-  maxEnergyCap: 10,
+  maxEnergyCap: 20,
 };
 
 describe("planHandoff", () => {

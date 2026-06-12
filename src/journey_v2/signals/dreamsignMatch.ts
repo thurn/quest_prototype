@@ -26,16 +26,16 @@ function qualityWeight(quality: 1 | 2 | 3): number {
 
 /**
  * Returns true if the card matches the given cost band.
- * cheap: energyCost <= 1, mid: energyCost 2–3, big: energyCost >= 4.
+ * cheap: energyCost <= 2, mid: energyCost 4–6, big: energyCost >= 8.
  * Cards with null energyCost (variable cost) are excluded from band matching.
  */
 function matchesCostBand(card: CardData, band: "cheap" | "mid" | "big"): boolean {
   const cost = card.energyCost;
   if (cost === null) return false;
-  if (band === "cheap") return cost <= 1;
-  if (band === "mid") return cost >= 2 && cost <= 3;
+  if (band === "cheap") return cost <= 2;
+  if (band === "mid") return cost >= 4 && cost <= 6;
   // big
-  return cost >= 4;
+  return cost >= 8;
 }
 
 /**

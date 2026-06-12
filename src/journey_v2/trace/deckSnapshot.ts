@@ -34,7 +34,7 @@ export interface MerchantDeckFeatureTallies {
   cardType: Record<string, number>;
   /** Count of deck cards per subtype (Warrior, Spirit Animal, …). */
   subtype: Record<string, number>;
-  /** Count of deck cards per cost band: cheap (<=1), mid (2-3), big (>=4), variable. */
+  /** Count of deck cards per cost band: cheap (<=2), mid (4-6), big (>=8), variable. */
   costBand: Record<string, number>;
   /** Count of deck cards carrying each keyword: reclaim, fast. */
   keyword: Record<string, number>;
@@ -43,8 +43,8 @@ export interface MerchantDeckFeatureTallies {
 function costBandOf(card: CardData): string {
   const cost = card.energyCost;
   if (cost === null) return "variable";
-  if (cost <= 1) return "cheap";
-  if (cost <= 3) return "mid";
+  if (cost <= 2) return "cheap";
+  if (cost <= 6) return "mid";
   return "big";
 }
 

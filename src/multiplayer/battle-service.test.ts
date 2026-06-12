@@ -60,7 +60,7 @@ function makeRawSnapshot(overrides: Record<string, unknown>) {
       openingHandSize: 5,
       scoreToWin: 25,
       turnLimit: 50,
-      maxEnergyCap: 10,
+      maxEnergyCap: 20,
       startingSide: "player",
       playerDrawSkipsTurnOne: true,
       questDeckEntries: [],

@@ -15,7 +15,7 @@ name = "Drusus Calvus"
 title = "Triumphator"
 id = "BDD3A3A7-242C-4D2B-8071-EBE56891A340"
 image-number = "0083"
-rendered-text = "At the start of your first turn, gain 1●."
+rendered-text = "At the start of your first turn, gain 2●."
 
 [[dreamcaller]]
 name = "Threxan"
@@ -29,7 +29,7 @@ name = "Vethran"
 title = "Whisperer of Wraiths"
 id = "F0F5449E-01C2-4635-BCE1-76B179FC2108"
 image-number = "0061"
-rendered-text = "3●, X●, ☪: Discover a card with cost X●."
+rendered-text = "6●, X●, ☪: Discover a card with cost X●."
 
 [[dreamcaller]]
 name = "Seld Rakor"
@@ -43,35 +43,35 @@ name = "Ossian"
 title = "the Reckoning Blade"
 id = "B9BF6D4B-907C-4750-B51C-811AFF29DE59"
 image-number = "0022"
-rendered-text = "2●, ☪, Abandon an ally with 1✦: Draw a card."
+rendered-text = "4●, ☪, Abandon an ally with 1✦: Draw a card."
 
 [[dreamcaller]]
 name = "Kaleth"
 title = "The Dreaming"
 id = "3C4773E4-F8E1-4686-86CB-B407A42489D4"
 image-number = "0026"
-rendered-text = "2●, ☪: Awaken an ally."
+rendered-text = "4●, ☪: Awaken an ally."
 
 [[dreamcaller]]
 name = "Calloway Flint"
 title = "Cutthroat Admiral"
 id = "8A2FCD65-BBA7-459C-A6B0-F0391B9293FD"
 image-number = "0052"
-rendered-text = "❖❖ – 4●, ☪: Draw a card."
+rendered-text = "❖❖ – 8●, ☪: Draw a card."
 
 [[dreamcaller]]
 name = "Senemhet"
 title = "Lord of the Radiant Court"
 id = "1CC5A88A-134F-42F7-A0AE-95ACE44B3745"
 image-number = "0035"
-rendered-text = "▸Dawn: If you have 5●, gain 1●."
+rendered-text = "▸Dawn: If you have 10●, gain 2●."
 
 [[dreamcaller]]
 name = "Karev Soltis"
 title = "Breach Respondent"
 id = "9E4862FD-E18C-463E-9D5F-E5D73C29A66F"
 image-number = "0037"
-rendered-text = "Once per turn, when the opponent scores ⍟, draw a card unless the opponent pays 1●."
+rendered-text = "Once per turn, when the opponent scores ⍟, draw a card unless the opponent pays 2●."
 
 [[dreamcaller]]
 name = "Tessa"
@@ -85,7 +85,7 @@ name = "Serenath Veyl"
 title = "Cantor of the Unreal"
 id = "9E19B3D1-12F2-43C1-9CB1-08DE7CD32E32"
 image-number = "0098"
-rendered-text = "1●, ☪: If you materialized a figment this turn, draw a card."
+rendered-text = "2●, ☪: If you materialized a figment this turn, draw a card."
 
 [[dreamcaller]]
 name = "Korrax"
@@ -114,7 +114,7 @@ name = "Caedryn"
 title = "Shrouded Inquisitor"
 id = "9D64A4A2-3DC7-456E-9EB2-5FE3A48883C4"
 image-number = "0112"
-rendered-text = "2●, ☪, Abandon an ally: Materialize a random character with cost 1● higher from your deck."
+rendered-text = "4●, ☪, Abandon an ally: Materialize a random character with cost 2● higher from your deck."
 signature-cards = [
   "4644db03-fbcd-4af5-a229-17962ce093d5", # Duskreaper
   "a30a5fdc-a6ec-4289-89cf-40f5cbe6fbaa", # Kindred Sparks
@@ -128,7 +128,7 @@ name = "Kragg"
 title = "Spent-Blood Chieftain"
 id = "16B579FE-C15B-4DF6-8262-D45CE44732AE"
 image-number = "0064"
-rendered-text = "Once per turn, when you abandon an ally, the next character you play this turn costs 2● less."
+rendered-text = "Once per turn, when you abandon an ally, the next character you play this turn costs 4● less."
 signature-cards = [
   "cf173b05-7bf2-465b-91e2-41f213c536d1", # Phantasmal Recruiter
   "9adbe3db-d872-4b75-92b5-d7f2798c22ce", # Titan of Forgotten Echoes
@@ -160,7 +160,7 @@ name = "Seraveth"
 title = "Twice-Mourned"
 id = "6488452D-4E9E-466C-96DF-716D4EC646B1"
 image-number = "0017"
-rendered-text = "When you play your second character in a turn, a character in your void gains reclaim 2● until end of turn."
+rendered-text = "When you play your second character in a turn, a character in your void gains reclaim 4● until end of turn."
 signature-cards = [
   "06a4709d-fbef-4ea2-aa5e-caa2beac80ab", # Ridge Vortex Explorer
   "01298848-1ebb-48a1-b00b-d7e0af890870", # Ashfront Lieutenant
@@ -190,7 +190,7 @@ name = "Kael Voss"
 title = "Recon Commander"
 id = "81954CA0-DA36-49DD-915C-1CCB1B2D7B05"
 image-number = "0007"
-rendered-text = "2●, ☪, Discard a card: Materialize a 1✦ survivor figment."
+rendered-text = "4●, ☪, Discard a card: Materialize a 1✦ survivor figment."
 signature-cards = [
   "9495f501-f627-4b74-a848-b3d928641229", # Emberwatch Veteran
   "d55d9fd8-ad2d-41f4-aa7f-5958432f00aa", # Vessel of Echoes
@@ -220,7 +220,7 @@ name = "Edran"
 title = "the Invocant"
 id = "5E28154D-770A-4B84-8AAC-9DE44F5D7D02"
 image-number = "0080"
-rendered-text = "❖ – 4●, ☪: Materialize a 1✦ outsider figment."
+rendered-text = "❖ – 8●, ☪: Materialize a 1✦ outsider figment."
 signature-cards = [
   "cebcd591-dbd6-40b1-813d-f7f01e1b7fdb", # Thronebound Arbiter
   "87aba308-00b4-40d8-a46f-4e6f58a664a8", # Breach Artist
@@ -235,7 +235,7 @@ name = "Zeva"
 title = "the Dredger"
 id = "4D5E3933-7DD6-406B-922D-DD78ACFA044A"
 image-number = "0005"
-rendered-text = "❖❖ – 2●, ☪, Discard a card: An event in your void gains reclaim until end of turn."
+rendered-text = "❖❖ – 4●, ☪, Discard a card: An event in your void gains reclaim until end of turn."
 signature-cards = [
   "954e8d50-d494-4fb2-b4c7-74979083b774", # Driftrider
   "8cb543d7-e70b-4526-b473-bb17dcaee2a7", # Planetgazer
@@ -250,7 +250,7 @@ name = "Kasane"
 title = "Wearer of the Stolen Face"
 id = "2B7E921D-0CD7-4C20-A415-9E7EEDE7B477"
 image-number = "0060"
-rendered-text = "4●, ☪: Copy the next event you play this turn."
+rendered-text = "8●, ☪: Copy the next event you play this turn."
 signature-cards = [
   "4d4618bd-4779-4953-b446-dab05e1da5db", # Nebula's Wake
   "4752fc43-6696-4bc3-88d0-4d5b97622fa8", # From the Barrow
@@ -278,7 +278,7 @@ name = "Ovanel"
 title = "Lector of the Receding Rite"
 id = "F6208407-C4E9-42AC-B533-346704F5E39E"
 image-number = "0078"
-rendered-text = "2●, ☪: If you played an event this turn, draw an event."
+rendered-text = "4●, ☪: If you played an event this turn, draw an event."
 signature-cards = [
   "3811a0a2-66af-4c06-b179-948dfa9b2ee3", # Weblight Waif
   "95711262-8510-475c-a572-c1cd144d54cb", # Somber Flockmaster
@@ -291,7 +291,7 @@ name = "Yveth Coravel"
 title = "Scion of the Returning Tide"
 id = "FE2510D9-BFEE-4C35-97F9-30E0CD2E2851"
 image-number = "0084"
-rendered-text = "2●, ☪: Return an ally to hand. Its cost is reduced by 1●."
+rendered-text = "4●, ☪: Return an ally to hand. Its cost is reduced by 2●."
 signature-cards = [
   "caaee8a9-0c22-41b4-950f-4c1131b98221", # Celestial Reverie
   "a424b91a-8c3c-4f96-8ac9-8bbbbbbd28b5", # Ambush Operative
@@ -305,7 +305,7 @@ name = "Grath"
 title = "Packmaster"
 id = "94E7C651-25E9-4A62-9DE4-EAF5BA20542C"
 image-number = "0095"
-rendered-text = "4●, ☪: Gain 1● for each allied spirit animal."
+rendered-text = "8●, ☪: Gain 2● for each allied spirit animal."
 signature-cards = [
   "61060827-8bed-4b63-b63d-6c3b0536e941", # Sunshadow Eagle
   "c8579b20-95ff-4b1d-b4c6-6bd049fc4760", # Ghostlight Wolves
@@ -320,7 +320,7 @@ name = "Radulf"
 title = "Hegemon of Shattered Thrones"
 id = "3EBABA62-9000-429D-B203-2A5A9724389A"
 image-number = "0045"
-rendered-text = "With 3 or more allied characters, the first character you play each turn costs 1● less."
+rendered-text = "With 3 or more allied characters, the first character you play each turn costs 2● less."
 signature-cards = [
   "f38ab9b6-bea7-4c6e-b5db-2609796ba46b", # Dawnprowler Panther
   "d30bd488-f921-49cb-a44f-353c54cb6548", # Starrunner
@@ -348,7 +348,7 @@ name = "Gunnar Deepforge"
 title = "The Hammer's Echo"
 id = "BF72ADFF-7D74-4BE8-9B93-1DB7BA13A1DB"
 image-number = "0108"
-rendered-text = "2●, ☪: Materialize a 0✦ figment copy of the last warrior you played this turn."
+rendered-text = "4●, ☪: Materialize a 0✦ figment copy of the last warrior you played this turn."
 signature-cards = [
   "41044897-b70a-4e2b-8eb6-baf843a14a43", # Spellweaver
   "a9b5afaa-e149-4bf4-9007-077e8e9f12e6", # Starshot Gunner
@@ -363,7 +363,7 @@ name = "Tensho"
 title = "Daimyo of Lacquered Fury"
 id = "BFC40414-5264-41BF-86E1-A0F41EE4F5B5"
 image-number = "0029"
-rendered-text = "When the first card you draw in a turn is a warrior, reduce its cost by 1●."
+rendered-text = "When the first card you draw in a turn is a warrior, reduce its cost by 2●."
 signature-cards = [
   "426825c7-7259-41af-ac1c-c042b878d69b", # Burning Revenant
   "81074582-dfb3-497c-8c04-f97a24d6b1d4", # Pit Descender
@@ -377,7 +377,7 @@ name = "Valdren"
 title = "Warhost Exemplar"
 id = "91D4C3B5-FD63-480B-9ED5-979109A227BB"
 image-number = "0056"
-rendered-text = "2●, ☪: A warrior in your void gains reclaim until end of turn."
+rendered-text = "4●, ☪: A warrior in your void gains reclaim until end of turn."
 signature-cards = [
   "b977afaf-f583-45ec-8e34-99fbfa4e9190", # Grim Reclaimer
   "90a6a7a0-b739-475e-8379-647741aab423", # Voidsire

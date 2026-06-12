@@ -5,7 +5,7 @@ import type { BattleSide } from "../types";
  * Energy a side holds on turn 1 (its Dreamwell opening). The ramp schedule is
  * anchored to this value: turn 1 produces exactly `OPENING_ENERGY` energy.
  */
-export const OPENING_ENERGY = 2;
+export const OPENING_ENERGY = 4;
 
 /**
  * A Dreamwell ramp schedule: a named, documented mapping from turn number to the
@@ -25,18 +25,18 @@ export interface EnergyRampSchedule {
 
 /**
  * The standard Dreamwell ramp: each turn the side's Dreamwell raises its maximum
- * by one over the previous turn, starting from `OPENING_ENERGY` on turn 1, and
+ * by two over the previous turn, starting from `OPENING_ENERGY` on turn 1, and
  * never exceeding `maxEnergyCap`:
  *
- *   target(turn) = min(openingValue + (turn - 1), maxEnergyCap)
+ *   target(turn) = min(openingValue + (turn - 1) * 2, maxEnergyCap)
  *
- * This preserves the game's effective curve: 2 on turn 1, 3 on turn 2, and so on
+ * This preserves the game's effective curve: 4 on turn 1, 6 on turn 2, and so on
  * up to the cap.
  */
 export const STANDARD_ENERGY_RAMP: EnergyRampSchedule = {
   openingValue: OPENING_ENERGY,
   target(turnNumber: number, maxEnergyCap: number): number {
-    return Math.min(OPENING_ENERGY + (turnNumber - 1), maxEnergyCap);
+    return Math.min(OPENING_ENERGY + (turnNumber - 1) * 2, maxEnergyCap);
   },
 };
 

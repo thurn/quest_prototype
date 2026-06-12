@@ -62,108 +62,108 @@ export interface BattleCardEffectScript {
  * grants to the front-rank allies it supports.
  */
 export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
-  // Driftcaller Sovereign — "▸Dawn: Gain 1●.\n\n4●, ☪: This character gains +1✦."
+  // Driftcaller Sovereign — "▸Dawn: Gain 2●.\n\n8●, ☪: This character gains +1✦."
   // The script automates only the ▸Dawn energy gain; the activated ability is
   // resolved manually.
   "9b9c2743-75b3-499d-b5fb-c3429c92d420": {
     id: "9b9c2743-75b3-499d-b5fb-c3429c92d420",
     trigger: "dawn",
-    textHash: "71765292",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "63d9f64b",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Nightmare Manifest — "▸Dawn: Gain 1●.\n\n☪, Abandon a character: Gain 1●."
+  // Nightmare Manifest — "▸Dawn: Gain 2●.\n\n☪, Abandon a character: Gain 2●."
   // The script automates only the ▸Dawn energy gain; the activated ability is
   // resolved manually.
   "0458658d-7e02-4286-9249-93674d16620b": {
     id: "0458658d-7e02-4286-9249-93674d16620b",
     trigger: "dawn",
-    textHash: "450f3832",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "f09e4032",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Sky Voyager — "This character has all character types.\n\n▸Dawn: Gain 1●."
+  // Sky Voyager — "This character has all character types.\n\n▸Dawn: Gain 2●."
   // The script automates only the ▸Dawn energy gain; the all-types clause is a
   // passive resolved manually.
   "3d1fadf6-42e5-4d03-9a72-9bc25968c2b9": {
     id: "3d1fadf6-42e5-4d03-9a72-9bc25968c2b9",
     trigger: "dawn",
-    textHash: "89d15de8",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "d3c8230d",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Ethereal Trailblazer — "▸Dawn: Gain 1●." The script automates the ▸Dawn
+  // Ethereal Trailblazer — "▸Dawn: Gain 2●." The script automates the ▸Dawn
   // energy gain.
   "48257e3e-9600-4edf-a905-e73a41ab5ec1": {
     id: "48257e3e-9600-4edf-a905-e73a41ab5ec1",
     trigger: "dawn",
-    textHash: "1e9baa12",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "2fed7043",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Hallowed Stag — "Vengeful\n\n▸Dawn: Gain 1●." The script automates only the
+  // Hallowed Stag — "Vengeful\n\n▸Dawn: Gain 2●." The script automates only the
   // ▸Dawn energy gain; the Vengeful keyword is resolved manually.
   "7dd2214f-8d16-453a-9f28-62712e64eae1": {
     id: "7dd2214f-8d16-453a-9f28-62712e64eae1",
     trigger: "dawn",
-    textHash: "3958be2a",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "4110923b",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Cloudmantle Ray — "▸Dawn: Gain 1●.\n\nReclaim 3●" The script automates only
+  // Cloudmantle Ray — "▸Dawn: Gain 2●.\n\nReclaim 6●" The script automates only
   // the ▸Dawn energy gain; Reclaim is resolved manually.
   "86fd585b-e9d0-4dc1-bce9-488014b9316d": {
     id: "86fd585b-e9d0-4dc1-bce9-488014b9316d",
     trigger: "dawn",
-    textHash: "5fc5d2a1",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "5c5bc121",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Worldsong Behemoth — "▸Dawn: Gain 1●." The script automates the ▸Dawn
+  // Worldsong Behemoth — "▸Dawn: Gain 2●." The script automates the ▸Dawn
   // energy gain.
   "b5fbff03-f850-4627-94eb-12ed4dc15334": {
     id: "b5fbff03-f850-4627-94eb-12ed4dc15334",
     trigger: "dawn",
-    textHash: "1e9baa12",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "2fed7043",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Starchaser — "Veil 2●\n\n▸Dawn: Gain 1●." The script automates only the
+  // Starchaser — "Veil 4●\n\n▸Dawn: Gain 2●." The script automates only the
   // ▸Dawn energy gain; the Veil keyword is resolved manually.
   "cea847ef-2d1f-45d2-a0e0-fe9ce3fec55c": {
     id: "cea847ef-2d1f-45d2-a0e0-fe9ce3fec55c",
     trigger: "dawn",
-    textHash: "25db0d09",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "e5050e5a",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Starrunner — "▸Dawn: Gain 1●.\n\nAbandon this character: Gain 1●.\n\nReclaim
+  // Starrunner — "▸Dawn: Gain 2●.\n\nAbandon this character: Gain 2●.\n\nReclaim
   // 0●" The script automates only the ▸Dawn energy gain; the activated abandon
   // ability and Reclaim are resolved manually.
   "d30bd488-f921-49cb-a44f-353c54cb6548": {
     id: "d30bd488-f921-49cb-a44f-353c54cb6548",
     trigger: "dawn",
-    textHash: "c63ad125",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "b2a3acf9",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Blazebound Sentinel — "▸Dawn: Gain 1●.\n\n▸Dissolved: Gain 1●." The script
+  // Blazebound Sentinel — "▸Dawn: Gain 2●.\n\n▸Dissolved: Gain 2●." The script
   // automates only the ▸Dawn energy gain; the ▸Dissolved trigger is resolved
   // manually.
   "f0165a60-df1c-41db-87bb-a784c26835a5": {
     id: "f0165a60-df1c-41db-87bb-a784c26835a5",
     trigger: "dawn",
-    textHash: "a2d358e4",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "29dd1430",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
-  // Fern Treader — "Awakened\n\n▸Dawn: Gain 1●." The script automates only the
+  // Fern Treader — "Awakened\n\n▸Dawn: Gain 2●." The script automates only the
   // ▸Dawn energy gain; the Awakened keyword is resolved manually.
   "f256a0e7-e396-492b-8881-284ecd36025b": {
     id: "f256a0e7-e396-492b-8881-284ecd36025b",
     trigger: "dawn",
-    textHash: "099dc114",
-    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) }],
+    textHash: "32b7c959",
+    steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
   // Runebound Champion — "▸Dawn: Gain 1⍟." The script automates the ▸Dawn score
@@ -227,12 +227,12 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
   },
 
   // Pit Descender — "▸Materialized: Erode 3.\n\n☪, Abandon a warrior: Materialize
-  // a ≤2● cost warrior from your void." The script automates only the
+  // a ≤4● cost warrior from your void." The script automates only the
   // ▸Materialized Erode; the activated ability is resolved manually.
   "81074582-dfb3-497c-8c04-f97a24d6b1d4": {
     id: "81074582-dfb3-497c-8c04-f97a24d6b1d4",
     trigger: "materialized",
-    textHash: "df9a14d1",
+    textHash: "6cb61eeb",
     steps: [{ kind: "edits", build: (ctx) => erodeEdits(ctx.side, 3) }],
   },
 
@@ -246,13 +246,13 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
     steps: [{ kind: "edits", build: (ctx) => erodeEdits(ctx.side, 4) }],
   },
 
-  // Veilseeker — "▸Materialized: Erode 3.\n\n5●, ☪, Abandon this character:
-  // Return all ≤2● cost characters from your void to play." The script automates
+  // Veilseeker — "▸Materialized: Erode 3.\n\n10●, ☪, Abandon this character:
+  // Return all ≤4● cost characters from your void to play." The script automates
   // only the ▸Materialized Erode; the activated ability is resolved manually.
   "d8c90a33-a581-469a-9fd3-9a80d1cc5315": {
     id: "d8c90a33-a581-469a-9fd3-9a80d1cc5315",
     trigger: "materialized",
-    textHash: "1318518f",
+    textHash: "f892c277",
     steps: [{ kind: "edits", build: (ctx) => erodeEdits(ctx.side, 3) }],
   },
 
@@ -275,23 +275,23 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
     steps: [{ kind: "edits", build: (ctx) => drawEdits(ctx.side, 1) }],
   },
 
-  // Looming Oracle — "Veil 2●\n\n▸Materialized: Draw a card." The script
+  // Looming Oracle — "Veil 4●\n\n▸Materialized: Draw a card." The script
   // automates only the ▸Materialized draw; the Veil keyword is resolved
   // manually.
   "4b20e66e-2466-4518-8ef9-67f580bd6f14": {
     id: "4b20e66e-2466-4518-8ef9-67f580bd6f14",
     trigger: "materialized",
-    textHash: "ef3b6d38",
+    textHash: "4cd88b4e",
     steps: [{ kind: "edits", build: (ctx) => drawEdits(ctx.side, 1) }],
   },
 
-  // Verdant Wayfarer — "▸Materialized: Draw 2 cards.\n\nReclaim – 3●, Banish 7
+  // Verdant Wayfarer — "▸Materialized: Draw 2 cards.\n\nReclaim – 6●, Banish 7
   // cards from your void." The script automates only the ▸Materialized draw;
   // Reclaim is resolved manually.
   "713b9f42-b0a0-4c0a-bc2e-89e0ac8a2dbc": {
     id: "713b9f42-b0a0-4c0a-bc2e-89e0ac8a2dbc",
     trigger: "materialized",
-    textHash: "f7d16dbb",
+    textHash: "cf389bde",
     steps: [{ kind: "edits", build: (ctx) => drawEdits(ctx.side, 2) }],
   },
 
@@ -366,24 +366,24 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
     steps: [{ kind: "prompt", prompt: { kind: "foresee", count: 1 } }],
   },
 
-  // Planetgazer — "▸Materialized: Foresee 2.\n\n❖ – 1●: Move this character to
+  // Planetgazer — "▸Materialized: Foresee 2.\n\n❖ – 2●: Move this character to
   // an unoccupied character position." The script automates only the
   // ▸Materialized Foresee (the runner pauses on the prompt step and surfaces the
   // foresee overlay); the ❖ move ability is resolved manually.
   "8cb543d7-e70b-4526-b473-bb17dcaee2a7": {
     id: "8cb543d7-e70b-4526-b473-bb17dcaee2a7",
     trigger: "materialized",
-    textHash: "86e1b469",
+    textHash: "05d5b722",
     steps: [{ kind: "prompt", prompt: { kind: "foresee", count: 2 } }],
   },
 
-  // Eternal Stag — "Support – Supported spirit animals have +1✦.\n\n2●, ☪: Draw
+  // Eternal Stag — "Support – Supported spirit animals have +1✦.\n\n4●, ☪: Draw
   // a spirit animal." Supported front-rank allies whose subtype is "Spirit
   // Animal" gain +1 spark.
   "4e3c04a9-1cdd-468a-b42a-40157ed9c9d6": {
     id: "4e3c04a9-1cdd-468a-b42a-40157ed9c9d6",
     trigger: "support",
-    textHash: "77e9432c",
+    textHash: "de9f34c6",
     support: {
       bonus: () => 1,
       applies: (ally) => ally.definition.subtype === "Spirit Animal",
@@ -391,13 +391,13 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
   },
 
   // Woodland Apparition — "Support – Supported allies have +2✦ and have
-  // unstoppable.\n\nReclaim – 3●, Banish 3 cards from your void." The script
+  // unstoppable.\n\nReclaim – 6●, Banish 3 cards from your void." The script
   // grants the +2 spark to every supported ally; the unstoppable grant is
   // resolved manually.
   "1268a899-b209-46bb-bce4-6def1dcd0404": {
     id: "1268a899-b209-46bb-bce4-6def1dcd0404",
     trigger: "support",
-    textHash: "efc84b0a",
+    textHash: "52431dd7",
     support: {
       bonus: () => 2,
     },
@@ -414,14 +414,14 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
     },
   },
 
-  // Dreadmount Sovereign — "This character costs 1● less for each allied
+  // Dreadmount Sovereign — "This character costs 2● less for each allied
   // warrior.\n\nSupport – Supported warriors have +3✦." The script grants +3
   // spark to supported front-rank "Warrior" allies; the cost-reduction clause
   // is resolved manually.
   "6497d8b1-85b8-486d-99e2-5c141486d508": {
     id: "6497d8b1-85b8-486d-99e2-5c141486d508",
     trigger: "support",
-    textHash: "6a53a8c1",
+    textHash: "d35a131e",
     support: {
       bonus: () => 3,
       applies: (ally) => ally.definition.subtype === "Warrior",
@@ -441,27 +441,27 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
     },
   },
 
-  // Battlefield Medic — "❖ – 1●: Move this character to an unoccupied character
+  // Battlefield Medic — "❖ – 2●: Move this character to an unoccupied character
   // position.\n\nSupport – Supported characters have +2✦." The script grants +2
   // spark to every supported front-rank ally; the ❖ activated ability is
   // resolved manually.
   "c61c8b29-6911-4bbf-b1c4-0c18b22ed33f": {
     id: "c61c8b29-6911-4bbf-b1c4-0c18b22ed33f",
     trigger: "support",
-    textHash: "0e53771a",
+    textHash: "1306ac45",
     support: {
       bonus: () => 2,
     },
   },
 
-  // Ghostlight Wolves — "☪: Gain 1● for each allied spirit animal.\n\nSupport –
+  // Ghostlight Wolves — "☪: Gain 2● for each allied spirit animal.\n\nSupport –
   // Supported spirit animals have +2✦." The script grants +2 spark to supported
   // front-rank "Spirit Animal" allies; the ☪ activated ability is resolved
   // manually.
   "c8579b20-95ff-4b1d-b4c6-6bd049fc4760": {
     id: "c8579b20-95ff-4b1d-b4c6-6bd049fc4760",
     trigger: "support",
-    textHash: "6744fe3d",
+    textHash: "57a97784",
     support: {
       bonus: () => 2,
       applies: (ally) => ally.definition.subtype === "Spirit Animal",

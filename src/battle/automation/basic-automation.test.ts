@@ -13,7 +13,7 @@ import { FRONT_RANK_SLOT_IDS, BACK_RANK_SLOT_IDS } from "../types";
 import { createDefaultBattleCardStatus } from "../state/create-initial-state";
 import { planBasicAutomationCommands } from "./basic-automation";
 
-const CAPS = { maxEnergyCap: 10, scoreToWin: 25, dreamwellDeck: [] };
+const CAPS = { maxEnergyCap: 20, scoreToWin: 25, dreamwellDeck: [] };
 
 function makeInstance(
   battleCardId: string,
@@ -708,7 +708,7 @@ describe("planBasicAutomationCommands — Dreamwell reveal", () => {
     expect(result).toContainEqual({
       kind: "ADJUST_CURRENT_ENERGY",
       side: "player",
-      amount: 1,
+      amount: 2,
     });
   });
 

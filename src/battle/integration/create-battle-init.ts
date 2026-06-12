@@ -222,7 +222,7 @@ export function createBattleInit(input: CreateBattleInitInput): BattleInit {
     // introduction won at 10 points; every later dreamscape is played to 25.
     scoreToWin: completionLevelAtStart === 0 ? 10 : 25,
     turnLimit: 50,
-    maxEnergyCap: 10,
+    maxEnergyCap: 20,
     startingSide,
     playerDrawSkipsTurnOne,
     questDeckEntries,

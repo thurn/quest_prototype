@@ -106,9 +106,9 @@ describe("STANDARD_ENERGY_RAMP schedule", () => {
     expect(STANDARD_ENERGY_RAMP.target(1, 10)).toBe(OPENING_ENERGY);
   });
 
-  it("ramps by one per turn until clamped", () => {
-    expect(STANDARD_ENERGY_RAMP.target(2, 10)).toBe(OPENING_ENERGY + 1);
-    expect(STANDARD_ENERGY_RAMP.target(3, 10)).toBe(OPENING_ENERGY + 2);
+  it("ramps by two per turn until clamped", () => {
+    expect(STANDARD_ENERGY_RAMP.target(2, 10)).toBe(OPENING_ENERGY + 2);
+    expect(STANDARD_ENERGY_RAMP.target(3, 10)).toBe(OPENING_ENERGY + 4);
   });
 });
 

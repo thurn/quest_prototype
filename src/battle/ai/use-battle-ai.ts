@@ -45,7 +45,7 @@ const PLAN_BUDGET_MS = 100;
 /** Defaults for the win/turn/energy caps when the init is unavailable. */
 const DEFAULT_SCORE_TO_WIN = 25;
 const DEFAULT_TURN_LIMIT = 50;
-const DEFAULT_MAX_ENERGY_CAP = 10;
+const DEFAULT_MAX_ENERGY_CAP = 20;
 
 /** Worlds Await (#519) grants +3✦ to the chosen ally. */
 const WORLDS_AWAIT_CARD_NUMBER = 519;

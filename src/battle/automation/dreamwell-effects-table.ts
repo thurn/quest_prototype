@@ -55,19 +55,19 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
     ],
   },
 
-  // Twilight Radiance — +1● current energy.
+  // Twilight Radiance — +2● current energy.
   "de98477c-e216-4618-bff1-0e24bd982fdb": {
     id: "de98477c-e216-4618-bff1-0e24bd982fdb",
     steps: [
-      { kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 1) },
+      { kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) },
     ],
   },
 
-  // Prismatic Pastures — +3● current energy.
+  // Prismatic Pastures — +6● current energy.
   "d585b78a-dfe3-4e12-95ac-432c3c880540": {
     id: "d585b78a-dfe3-4e12-95ac-432c3c880540",
     steps: [
-      { kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 3) },
+      { kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 6) },
     ],
   },
 
@@ -93,11 +93,11 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
     ],
   },
 
-  // The Brimming Well — Opponent +1 max ● (ADJUST_MAX_ENERGY +1 on opponent).
+  // The Brimming Well — Opponent +2 max ● (ADJUST_MAX_ENERGY +2 on opponent).
   "a9c254c4-8448-40ea-bb1a-08c0ef8c7bdf": {
     id: "a9c254c4-8448-40ea-bb1a-08c0ef8c7bdf",
     steps: [
-      { kind: "edits", build: (ctx) => [{ kind: "ADJUST_MAX_ENERGY", side: opponentOf(ctx.side), amount: 1 }] },
+      { kind: "edits", build: (ctx) => [{ kind: "ADJUST_MAX_ENERGY", side: opponentOf(ctx.side), amount: 2 }] },
     ],
   },
 
@@ -176,7 +176,7 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
     ],
   },
 
-  // Twin Moons — Draw a card; if it is a character, +1●. Two steps so the
+  // Twin Moons — Draw a card; if it is a character, +2●. Two steps so the
   // second sees the post-draw hand (drawn card is last hand entry).
   "120ec4c2-aa7b-48f4-be9f-f39820e565ca": {
     id: "120ec4c2-aa7b-48f4-be9f-f39820e565ca",
@@ -188,7 +188,7 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
           const hand = ctx.state.sides[ctx.side].hand;
           const drawnId = hand[hand.length - 1];
           const drawn = selectBattleCardInstance(ctx.state, drawnId ?? null);
-          return drawn?.definition.battleCardKind === "character" ? gainEnergyEdits(ctx.side, 1) : [];
+          return drawn?.definition.battleCardKind === "character" ? gainEnergyEdits(ctx.side, 2) : [];
         },
       },
     ],
@@ -240,11 +240,11 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
     ],
   },
 
-  // Emberwake Flats — +2●, then discard 1.
+  // Emberwake Flats — +4●, then discard 1.
   "91deefd2-0400-4c78-ab9f-f6db864ff7e2": {
     id: "91deefd2-0400-4c78-ab9f-f6db864ff7e2",
     steps: [
-      { kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) },
+      { kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 4) },
       {
         kind: "prompt",
         prompt: {
@@ -456,7 +456,7 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
     ],
   },
 
-  // The Crossroads — Choose: draw a card / gain 2●.
+  // The Crossroads — Choose: draw a card / gain 4●.
   "af2ef62f-d31b-4544-a2b0-f5aab03c2d7c": {
     id: "af2ef62f-d31b-4544-a2b0-f5aab03c2d7c",
     steps: [
@@ -467,7 +467,7 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
           label: "Choose one",
           options: [
             { label: "Draw a card", build: (ctx) => drawEdits(ctx.side, 1) },
-            { label: "Gain 2●", build: (ctx) => gainEnergyEdits(ctx.side, 2) },
+            { label: "Gain 4●", build: (ctx) => gainEnergyEdits(ctx.side, 4) },
           ],
         },
       },
@@ -508,7 +508,7 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
     ],
   },
 
-  // Ruin Tree — You may play a ≤2● character from your void.
+  // Ruin Tree — You may play a ≤4● character from your void.
   // No energy is charged (the Dreamwell grants the play). The played card's own
   // ability is left for the operator to resolve, consistent with planCardPlay.
   "fcce7aa2-1cb4-4a80-bda9-959f2eeb8bf5": {
@@ -527,7 +527,7 @@ export const DREAMWELL_EFFECTS: Record<string, DreamwellEffectScript> = {
                 label: "Choose a character to play",
                 count: 1,
                 optional: false,
-                candidates: (ctx) => charactersInVoid(ctx.state, ctx.side, 2),
+                candidates: (ctx) => charactersInVoid(ctx.state, ctx.side, 4),
                 resolve: ([id], ctx) => {
                   const slot = selectDefaultCharacterPlaySlot(ctx.state, ctx.side);
                   return id !== undefined && slot !== null

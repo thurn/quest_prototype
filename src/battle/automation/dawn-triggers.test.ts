@@ -96,7 +96,7 @@ describe("collectDawnTriggerEdits", () => {
     });
 
     expect(collectDawnTriggerEdits(state, "player", 0)).toEqual([
-      { kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 1 },
+      { kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 2 },
     ]);
   });
 
@@ -120,7 +120,7 @@ describe("collectDawnTriggerEdits", () => {
     expect(collectDawnTriggerEdits(state, "player", 0)).toEqual([]);
     // The enemy's own Dawn would gain it energy.
     expect(collectDawnTriggerEdits(state, "enemy", 0)).toEqual([
-      { kind: "ADJUST_CURRENT_ENERGY", side: "enemy", amount: 1 },
+      { kind: "ADJUST_CURRENT_ENERGY", side: "enemy", amount: 2 },
     ]);
   });
 
@@ -130,7 +130,7 @@ describe("collectDawnTriggerEdits", () => {
     });
 
     expect(collectDawnTriggerEdits(state, "player", 0)).toEqual([
-      { kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 1 },
+      { kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 2 },
     ]);
   });
 
@@ -175,7 +175,7 @@ describe("collectDawnTriggerEdits", () => {
       // Only Driftcaller's deterministic +1 energy survives; the interactive
       // card contributes nothing.
       expect(collectDawnTriggerEdits(state, "player", 0)).toEqual([
-        { kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 1 },
+        { kind: "ADJUST_CURRENT_ENERGY", side: "player", amount: 2 },
       ]);
     });
   });

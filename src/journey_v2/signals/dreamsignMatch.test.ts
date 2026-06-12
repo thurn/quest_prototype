@@ -186,9 +186,9 @@ describe("dreamsignMatchScore — cost band features", () => {
   it("big feature partially covered by 2 big cards (2/3)", () => {
     const profile = makeProfile({ quality: 2, costBands: ["big"] });
     const deck = [
-      makeCard("c1", 1, { energyCost: 4 }),
-      makeCard("c2", 2, { energyCost: 5 }),
-      makeCard("c3", 3, { energyCost: 2 }),
+      makeCard("c1", 1, { energyCost: 8 }),
+      makeCard("c2", 2, { energyCost: 10 }),
+      makeCard("c3", 3, { energyCost: 4 }),
     ];
     expect(dreamsignMatchScore(profile, deck)).toBeCloseTo(2 / 3);
   });

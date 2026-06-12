@@ -18,8 +18,8 @@ type CostBand = "cheap" | "mid" | "big";
 function costBandOf(card: CardData): CostBand | null {
   const cost = card.energyCost;
   if (cost === null) return null;
-  if (cost <= 1) return "cheap";
-  if (cost <= 3) return "mid";
+  if (cost <= 2) return "cheap";
+  if (cost <= 6) return "mid";
   return "big";
 }
 
@@ -36,7 +36,7 @@ const COST_BAND_LABELS: Readonly<Record<CostBand, string>> = {
  * Sources:
  *  - card types (Character, Event);
  *  - subtypes with >= `subtypeMinPoolCards` non-starter pool cards;
- *  - cost bands cheap (<= 1) / mid (2–3) / big (>= 4);
+ *  - cost bands cheap (<= 2) / mid (4–6) / big (>= 8);
  *  - fast cards (when >= `subtypeMinPoolCards` exist);
  *  - one category per retained corpus cluster, labelled by its flagship's
  *    display name.
