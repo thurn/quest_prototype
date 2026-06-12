@@ -68,7 +68,7 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
   "9b9c2743-75b3-499d-b5fb-c3429c92d420": {
     id: "9b9c2743-75b3-499d-b5fb-c3429c92d420",
     trigger: "dawn",
-    textHash: "63d9f64b",
+    textHash: "6860a6ed",
     steps: [{ kind: "edits", build: (ctx) => gainEnergyEdits(ctx.side, 2) }],
   },
 
@@ -252,7 +252,7 @@ export const BATTLE_CARD_EFFECTS: Record<string, BattleCardEffectScript> = {
   "d8c90a33-a581-469a-9fd3-9a80d1cc5315": {
     id: "d8c90a33-a581-469a-9fd3-9a80d1cc5315",
     trigger: "materialized",
-    textHash: "f892c277",
+    textHash: "04703b28",
     steps: [{ kind: "edits", build: (ctx) => erodeEdits(ctx.side, 3) }],
   },
 

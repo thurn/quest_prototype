@@ -43,7 +43,7 @@ name = "Ossian"
 title = "the Reckoning Blade"
 id = "B9BF6D4B-907C-4750-B51C-811AFF29DE59"
 image-number = "0022"
-rendered-text = "4●, ☪, Abandon an ally with 1✦: Draw a card."
+rendered-text = "3●, ☪, Abandon an ally with 1✦: Draw a card."
 
 [[dreamcaller]]
 name = "Kaleth"
@@ -57,7 +57,7 @@ name = "Calloway Flint"
 title = "Cutthroat Admiral"
 id = "8A2FCD65-BBA7-459C-A6B0-F0391B9293FD"
 image-number = "0052"
-rendered-text = "❖❖ – 8●, ☪: Draw a card."
+rendered-text = "❖❖ – 7●, ☪: Draw a card."
 
 [[dreamcaller]]
 name = "Senemhet"
@@ -85,7 +85,7 @@ name = "Serenath Veyl"
 title = "Cantor of the Unreal"
 id = "9E19B3D1-12F2-43C1-9CB1-08DE7CD32E32"
 image-number = "0098"
-rendered-text = "2●, ☪: If you materialized a figment this turn, draw a card."
+rendered-text = "3●, ☪: If you materialized a figment this turn, draw a card."
 
 [[dreamcaller]]
 name = "Korrax"
@@ -114,7 +114,7 @@ name = "Caedryn"
 title = "Shrouded Inquisitor"
 id = "9D64A4A2-3DC7-456E-9EB2-5FE3A48883C4"
 image-number = "0112"
-rendered-text = "4●, ☪, Abandon an ally: Materialize a random character with cost 2● higher from your deck."
+rendered-text = "5●, ☪, Abandon an ally: Materialize a random character with cost 2● higher from your deck."
 signature-cards = [
   "4644db03-fbcd-4af5-a229-17962ce093d5", # Duskreaper
   "a30a5fdc-a6ec-4289-89cf-40f5cbe6fbaa", # Kindred Sparks
@@ -190,7 +190,7 @@ name = "Kael Voss"
 title = "Recon Commander"
 id = "81954CA0-DA36-49DD-915C-1CCB1B2D7B05"
 image-number = "0007"
-rendered-text = "4●, ☪, Discard a card: Materialize a 1✦ survivor figment."
+rendered-text = "3●, ☪, Discard a card: Materialize a 1✦ survivor figment."
 signature-cards = [
   "9495f501-f627-4b74-a848-b3d928641229", # Emberwatch Veteran
   "d55d9fd8-ad2d-41f4-aa7f-5958432f00aa", # Vessel of Echoes
@@ -250,7 +250,7 @@ name = "Kasane"
 title = "Wearer of the Stolen Face"
 id = "2B7E921D-0CD7-4C20-A415-9E7EEDE7B477"
 image-number = "0060"
-rendered-text = "8●, ☪: Copy the next event you play this turn."
+rendered-text = "9●, ☪: Copy the next event you play this turn."
 signature-cards = [
   "4d4618bd-4779-4953-b446-dab05e1da5db", # Nebula's Wake
   "4752fc43-6696-4bc3-88d0-4d5b97622fa8", # From the Barrow
@@ -305,7 +305,7 @@ name = "Grath"
 title = "Packmaster"
 id = "94E7C651-25E9-4A62-9DE4-EAF5BA20542C"
 image-number = "0095"
-rendered-text = "8●, ☪: Gain 2● for each allied spirit animal."
+rendered-text = "9●, ☪: Gain 2● for each allied spirit animal."
 signature-cards = [
   "61060827-8bed-4b63-b63d-6c3b0536e941", # Sunshadow Eagle
   "c8579b20-95ff-4b1d-b4c6-6bd049fc4760", # Ghostlight Wolves
@@ -348,7 +348,7 @@ name = "Gunnar Deepforge"
 title = "The Hammer's Echo"
 id = "BF72ADFF-7D74-4BE8-9B93-1DB7BA13A1DB"
 image-number = "0108"
-rendered-text = "4●, ☪: Materialize a 0✦ figment copy of the last warrior you played this turn."
+rendered-text = "3●, ☪: Materialize a 0✦ figment copy of the last warrior you played this turn."
 signature-cards = [
   "41044897-b70a-4e2b-8eb6-baf843a14a43", # Spellweaver
   "a9b5afaa-e149-4bf4-9007-077e8e9f12e6", # Starshot Gunner

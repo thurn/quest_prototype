@@ -1,0 +1,1819 @@
+{
+  "generated": "phase2 ±1 power tuning",
+  "summary": {
+    "cardCostChanges": 235,
+    "cardAbilityEdits": 10,
+    "dreamcallerAbilityEdits": 8,
+    "dreamwellSet": 35,
+    "warnings": 1
+  },
+  "cardCostChanges": [
+    {
+      "id": "b56ef7e8-c634-4d40-ac08-fab591dfbc4a",
+      "from": 8,
+      "to": 7,
+      "delta": -1
+    },
+    {
+      "id": "967c714f-40c5-4a77-8e22-40691a2755d4",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "3a59cd3d-08a9-4a75-a5ab-c91b19d2d8c1",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "68978d92-aa8b-4873-bb0b-6e52f12b0849",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "be72bd04-21a6-4035-a117-2b7213ad1a34",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "f8678d24-f18b-4c94-a6c2-50efb8193b7f",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "3cda9dd7-cb81-43c1-9db5-1444d7363e13",
+      "from": 14,
+      "to": 13,
+      "delta": -1
+    },
+    {
+      "id": "8a6fc6ea-9a88-441e-bdc2-d40dfec37481",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "12bb1efa-463b-4ac8-b9bd-e5bd135c3eb4",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "181b4924-743b-49c3-8056-6afd08ebde1d",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "34ef6c0c-1a23-4870-a52c-90d34e9769be",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "5e1b943f-9fa2-4055-b613-5dd09a048c99",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "d26d31c0-7bd2-4d58-bed9-444e032a1087",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "448abb34-d77d-40ac-8292-58db03176247",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "29c4c45d-33df-42ac-bf28-387eb00264aa",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "6044f6da-cf71-4dbb-9feb-f71ae66a4f5b",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "bbf316f6-1fd4-40f5-aacd-d9ed8a5c58ea",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "78673e2b-a6d1-43de-8850-3d3327de5cc6",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "1268a899-b209-46bb-bce4-6def1dcd0404",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "a911ef71-799c-4240-ad13-8fabd3caeafa",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "b78d776b-15dd-4d0c-ad12-68b97b8d9fb6",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "47b1d6b7-0388-4bb9-abfc-ed832d902e9f",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "8d35aec1-29ad-432c-9c23-25a52804cbae",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "89c0d03c-2199-415a-bc66-89e451034328",
+      "from": 8,
+      "to": 7,
+      "delta": -1
+    },
+    {
+      "id": "44ae8838-4714-43a5-a7bd-e9f806f35ca9",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "cbabe603-1333-42bd-85c0-555c664b60b3",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "648237c5-ceff-4a28-aaf8-4aa099eae80d",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "c61c8b29-6911-4bbf-b1c4-0c18b22ed33f",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "8adfa141-6864-4f5f-a9ca-59306eaf5432",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "16d2e85d-f940-43dd-9867-784b3a5ec5d7",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "d30bd488-f921-49cb-a44f-353c54cb6548",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "3811a0a2-66af-4c06-b179-948dfa9b2ee3",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "2a230602-a39b-4ec2-a467-97b92b389aff",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "f7ffe999-685d-4ea2-85de-2e567eb2a042",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "86881031-393f-4359-96f5-3adde6bdd74d",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "a6866438-3632-408d-b464-c10f8a43a5c2",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "2f5cc27f-db6e-4bc8-bfa2-eeacebae57f7",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "ffec9fdd-d948-4756-b7df-39b9e982613e",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "2931e20b-1a80-4ddd-8944-20e68d182886",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "c7c95f67-a838-4e39-879c-cfbf0591540c",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "cebcd591-dbd6-40b1-813d-f7f01e1b7fdb",
+      "from": 8,
+      "to": 7,
+      "delta": -1
+    },
+    {
+      "id": "97bc4b48-9ea1-40e9-94bb-a88ae4f55d83",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "f3f97e2c-3bb6-4a20-9880-f59c50e5af93",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "b977afaf-f583-45ec-8e34-99fbfa4e9190",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "7530e916-e4b9-4988-b3ac-0e400c7a04ff",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "120ea441-f6ff-434b-973c-bde459f65368",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "8896c178-757e-4775-b117-a4357ebfe30f",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "c86c1364-6ac4-4c90-8053-4e49441a2c83",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "6e2188f8-580e-4a66-a3e3-267d509de903",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "5ce69085-aa75-4654-8abe-f9e773931e63",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "5a27e236-86d7-442f-81d2-fb29a2b7f12a",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "3a4ee059-4b6a-4a85-b3b8-a472834ea843",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "09332e5b-3b4e-458f-9df0-3fc0419f65c3",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "f82c7407-b642-4ab1-8878-171f9121b3eb",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "7992dbb5-ca45-4066-aca3-ff1d6d87619e",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "8c117d3f-09af-4312-9897-694a76bd23c6",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "f3985df4-0867-4fd6-8312-6b358dc26883",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "d95533f4-7809-44a8-a882-7675c61cee1c",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "6a3bb4ae-a537-4b79-8bdd-5093f05ec07a",
+      "from": 8,
+      "to": 7,
+      "delta": -1
+    },
+    {
+      "id": "0fde04ac-8552-45ce-83a3-5ab2384b36da",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "ea118471-164b-4d7f-bb02-044c862ed07e",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "bbf83d18-81b6-48c8-886f-4b9f0feb599f",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "a42fbd1b-7629-48c9-90da-e9a4246867d7",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "006e2f95-59a2-4cda-a777-e64f4aa31060",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "16f4962d-2950-4360-8f55-bc47428480ef",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "8a971ba7-9dfb-45be-bfbb-bf5e4f11974a",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "8571d7b3-5401-4678-9e81-e14538c8c46e",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "2c9711c7-800c-4e55-a488-17ea5a6813c6",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "98f16d26-be71-49ad-9034-5fafb5d3f053",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "b8ecc46d-bd92-4826-a416-7ce177e69cbf",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "19aeffa6-fd1b-4b8f-bb0c-c35659521976",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "6af8cf81-9e9e-481f-b518-f5dadad99b27",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "eed92573-8052-494c-adae-9838de5375a1",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "a952f833-825a-435f-82b1-8d85f872d274",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "c430ed7b-523e-4580-9a53-d43d11265633",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "0458658d-7e02-4286-9249-93674d16620b",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "13c45db4-ebab-4364-a14a-59a2e9c52bb5",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "965ce3b2-a722-475c-99c5-5b35685d2404",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "3d1fadf6-42e5-4d03-9a72-9bc25968c2b9",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "40b44ed7-d737-455b-bd42-e617a263b110",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "5c5e316f-c499-4991-9733-bb6e3d826d7e",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "e4e8d3b9-3463-4b92-8fbe-35064f72402d",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "88994286-96db-4ba6-a660-b30ae9b52cff",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "7f90d17b-9146-4550-a372-a9d77e814ce6",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "23a7aca4-3c64-4963-a9a0-d3638822df48",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "acefcfcf-cba5-46ec-913e-32f1091afbda",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "50267984-eaa3-415e-a23f-581c54b0ad2d",
+      "from": 10,
+      "to": 9,
+      "delta": -1
+    },
+    {
+      "id": "e2f542eb-090f-4a22-a42c-a120eb6caaa3",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "a75c22ac-e343-4757-964e-a0bb981b5a28",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "a7c2ee76-48c9-4587-8f01-81d00ae280cb",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "6da831c8-6fda-4078-9f2b-873db2416aad",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "f46490a5-7030-4ade-93e9-bedb5813f590",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "d1b7d5c6-cde9-48c6-80ba-642ddc9f35ad",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "9adbe3db-d872-4b75-92b5-d7f2798c22ce",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "ecf77f27-df0f-47c4-99c2-48d7fa46a137",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "b56b3411-50c7-4cc9-90e0-d4ffcaec73c6",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "d24ea640-638d-4ce2-b15d-b3f4588bda6b",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "aba40bc6-3e9e-4874-be8a-6984cbf13146",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "ed02e610-2e68-4457-95a6-c7c6db60ca40",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "7947e9db-a85e-4277-a42a-8d45f7475295",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "cfa78375-85b7-47e9-95f5-b31e6d112c52",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "516dbd2d-dae4-4873-937e-adfeeee4444d",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "dbd014b1-1ec8-4762-bd96-48a2a4824de2",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "caaee8a9-0c22-41b4-950f-4c1131b98221",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "470bbf9d-a73c-4e00-bc66-cb0fa767c8de",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "7ea13d02-9d97-492e-9edb-f326eb3b4d1c",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "747859fb-6fca-49fc-a653-08011a9bb44c",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "742a376f-68db-466a-b087-405188634ba4",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "3cc9253a-4db6-4b02-92d6-a37805d192fb",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "e7c93c3b-14db-4131-ab50-71d152331777",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "dcaba429-6fbc-4ea5-b063-871134ccd03b",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "cd2d4eaf-6295-451d-aaa2-ea74188bac3b",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "3b4ec013-0e07-4bf8-9879-5fbe3bf318b2",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "70306382-ac0d-4b08-843a-23efb3835c94",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "72debe2e-1f47-4a66-83c3-71bb72876663",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "6f0b709d-0f57-46de-bfba-6a8b4df2b991",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "8e003d04-e489-4c55-9c72-fc5612909d07",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "99ca2635-a91a-46ba-a9d3-4d2581c354f3",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "fc4b06d6-3b30-4769-af98-88fcea5b54dd",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "4644db03-fbcd-4af5-a229-17962ce093d5",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "c06b993d-a1f4-42ad-85a9-ebf611d9a129",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "15b63630-d9f8-473b-9717-15ad91ff2f16",
+      "from": 10,
+      "to": 11,
+      "delta": 1
+    },
+    {
+      "id": "245b49b9-e1e5-4dd0-ae18-718c437b8eb0",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "2305722e-59c1-47d7-9e05-dc1c32c946a2",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "18ff6a45-148a-40bf-85ae-4a51f32f406a",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "795a7b54-40d5-42f9-bc3a-9e92bc938c2d",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "f9c66b3e-4771-4a3c-8577-9d2f1c987bc7",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "87f075b1-b058-4570-a75f-c4f8f544e192",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "128d1878-a505-4766-91a2-e5a29498bc4e",
+      "from": 10,
+      "to": 9,
+      "delta": -1
+    },
+    {
+      "id": "fbf725ca-8837-46d4-970c-922153e27b6e",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "73fc1b7f-3c2b-4993-9590-924240515c2f",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "bbdc6ee7-e9b1-488b-90b9-19337b65fee6",
+      "from": 10,
+      "to": 11,
+      "delta": 1
+    },
+    {
+      "id": "cd3d8e4a-618e-4c2f-be60-0363b81887f1",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "96e2c30c-930c-47af-abb0-d4fbab454d56",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "d09a6760-6630-4964-9c77-decc641df713",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "ae90a3e1-c650-4f21-83af-de3208151b11",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "db4618f6-121b-4c97-98d3-c29849c5824e",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "b4754e5a-29e6-418c-bdfa-8e0230a21b7b",
+      "from": 8,
+      "to": 7,
+      "delta": -1
+    },
+    {
+      "id": "f38ab9b6-bea7-4c6e-b5db-2609796ba46b",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "f95cae7b-6502-4dbe-ae26-16853959d9a3",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "fed69d6e-acb5-40fb-b416-e6ef6c0e63fb",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "d2a3d344-613c-449e-9a87-0f720a85585d",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "1dc8f23e-58bd-47e5-9510-b48315fba1df",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "890970bd-475f-4da4-b835-2fb75882a84d",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "6fa9c440-3912-4b1e-868c-840ae772fe1c",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "b049ba66-9334-4dd1-a7d8-6d8b32d9a0a9",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "848b41b3-9f87-45fb-b86f-b52fc913d201",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "ce0c8dc8-67ab-4a1f-8c4c-50b211e07b0b",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "625fe37e-8059-481c-99fd-109fd02ceedd",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "f256a0e7-e396-492b-8881-284ecd36025b",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "f79c63f6-7cf1-4030-be39-217fd3c2fb7f",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "41d0aa36-f15a-487d-b97c-7fd765973921",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "8b7883ee-a235-4793-aa56-086fb1e28d36",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "ca37f80e-8474-4d40-b793-7a900f6ca467",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "fd5b3e85-ad7b-4d87-b4db-cd6ba0e6d277",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "cb2d9f1e-8888-44c7-9918-57b2ec8c78e1",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "cc21a902-e482-46c0-bf07-e04035f39190",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "fa036c27-2234-4f76-8857-c242530627ce",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "3fab0780-59d4-45f1-8aac-a870ad8729ac",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "48257e3e-9600-4edf-a905-e73a41ab5ec1",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "acbc1ace-4f6d-45a3-8bf5-a560d1c8485b",
+      "from": 10,
+      "to": 9,
+      "delta": -1
+    },
+    {
+      "id": "31ecf933-c897-41a5-ab94-822ea65898d8",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "a7820b34-9fdc-46cc-8357-53c8caa056b1",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "31501d09-5dde-44f4-a938-7ca95ad988a0",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "8904714c-38a9-491f-92ce-5cb5ece26ab1",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "ec4c1ea2-067d-49e4-9d21-9de3f64a05e3",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "7def28c4-d75a-47e1-ae86-5b7093cc0419",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "8951e112-92d2-4246-9859-39320620231b",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "1bae969b-0bc4-4777-86f3-1e860d601c5c",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "d3eb9472-f3e1-4b4c-a32f-b05c49ea4a1d",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "374ec185-b0f7-40e6-9988-09e96abccebe",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "4dc2a049-d326-463b-85c7-117d5fd5ba72",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "2ce84a16-1295-4738-9e2d-1f57590b2269",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "1cbbfd57-f510-4a02-a4b3-f043a4fb99d6",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "c6ae1899-c94c-464f-8edb-4a0b1ec2c981",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "7697da0e-d759-4c75-8c9c-477e9058b035",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "b5a5c1ba-4784-4829-aa08-af9f8f41ebb7",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "f07dfe42-566c-4e91-a250-9e2781e9d06f",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "8367b757-c3d2-4c22-9043-8baadee1c5ba",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "1654d50f-815d-4172-b46b-8baa34a124db",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "475fcc5b-c82d-4ef7-8020-90a8aeb2df53",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "86fd585b-e9d0-4dc1-bce9-488014b9316d",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "7709ea42-d73a-4d6b-b8b3-e3f66f44e9ea",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "0f1ac858-a28a-489b-9dd4-4d28f8f1abf5",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "1b341984-d32e-42a7-ae56-b22059c59737",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "d55d9fd8-ad2d-41f4-aa7f-5958432f00aa",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "99101fce-f2b4-4032-b999-317ce3e4a6dd",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "4b20e66e-2466-4518-8ef9-67f580bd6f14",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "4f7cb174-6324-46a8-9973-44adfa7fef9f",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "491e4233-0911-46ed-bced-0498e69b5bba",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "691883df-63d8-4664-a1fe-d5f3b5becd11",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "680abf68-d7bb-47cf-885a-d808dc0a8e09",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "b957466e-f748-4a95-89b2-8509dc762223",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "91d9afed-ea29-43af-9021-0f3ecbdc252e",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "06f8cfff-92ec-4668-afbc-f33a274c3b1a",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "cc1c1acd-f0ff-46cc-94d9-401b9daf253f",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "57bb1572-6075-4efd-a592-102b134132fd",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "ad76c77a-e456-4e59-bbf7-6bcb56f892ee",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "69d9e550-eacc-49f2-8cc5-30b8940c9eed",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "af739e3d-bc61-4fab-bf81-a22e78d7e524",
+      "from": 8,
+      "to": 7,
+      "delta": -1
+    },
+    {
+      "id": "9a18d375-1b6d-4df4-95ec-c7c5c3f36379",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "54471b31-4449-453d-9a6e-814d6225520a",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "2d180bd7-4cc7-49fb-b76c-0990656cedc0",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "5aaf13de-25bc-467f-a4a0-fe2c4373cc9f",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "37d9165f-2b3a-44a2-848b-401cf4466a7c",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "d1c25546-dcf2-481e-8f00-9afef3adf24b",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "95d37f76-eb3d-4bcd-a8af-0ae37feabd4d",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "06a4709d-fbef-4ea2-aa5e-caa2beac80ab",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "8451340c-02c5-465a-8c25-51efb2dc857a",
+      "from": 20,
+      "to": 19,
+      "delta": -1
+    },
+    {
+      "id": "4e1c0192-2649-489f-aad3-75ff2887c0a7",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "881e3a5f-280f-413a-b927-352aeb3bda71",
+      "from": 0,
+      "to": 1,
+      "delta": 1
+    },
+    {
+      "id": "cd4d689d-1442-4a19-8e6a-182b425d066d",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "a424b91a-8c3c-4f96-8ac9-8bbbbbbd28b5",
+      "from": 10,
+      "to": 9,
+      "delta": -1
+    },
+    {
+      "id": "1d92e103-8415-433d-97d6-ac8a83660b34",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "cf173b05-7bf2-465b-91e2-41f213c536d1",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "409147ec-d959-4f66-b126-564702e2cd4a",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "29088c75-c2c9-40dc-a77a-65360e464b45",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "0bddeb19-ff49-4a77-bc06-955377ba3ed1",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "7e2f2ac0-4e3c-4520-80c6-c830581b40de",
+      "from": 8,
+      "to": 9,
+      "delta": 1
+    },
+    {
+      "id": "0d848dc8-a1a2-410b-b19a-b5f65375e141",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "97b359ee-5a7a-4f54-bd65-e6221a893208",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "831bc7cf-e8c9-4943-8156-91b7397ef849",
+      "from": 6,
+      "to": 7,
+      "delta": 1
+    },
+    {
+      "id": "1b4d2adc-64ab-4020-bae6-b35321898bf0",
+      "from": 10,
+      "to": 11,
+      "delta": 1
+    },
+    {
+      "id": "a56e0f68-30b6-404e-9b83-a7584177f21e",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "7b55efd1-6d9f-4156-9de7-1c71ccc410cb",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "eae700c9-5005-4627-b8d6-a5c2c273e61a",
+      "from": 4,
+      "to": 5,
+      "delta": 1
+    },
+    {
+      "id": "75bf1aab-dce0-4bbc-8ab0-a3c84b66ae9a",
+      "from": 4,
+      "to": 3,
+      "delta": -1
+    },
+    {
+      "id": "9e9efbc0-d438-48a9-9551-85c93fb33f3e",
+      "from": 2,
+      "to": 1,
+      "delta": -1
+    },
+    {
+      "id": "647f5150-b2e0-424b-9480-27557642524e",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "e83014d3-9d35-4e80-a1b3-9b25360ad2af",
+      "from": 8,
+      "to": 7,
+      "delta": -1
+    },
+    {
+      "id": "a28ad36d-fa74-4190-a463-7efd3a6233d0",
+      "from": 10,
+      "to": 9,
+      "delta": -1
+    },
+    {
+      "id": "a526fa7b-5cef-4da9-a3f2-27ee0bd9b481",
+      "from": 6,
+      "to": 5,
+      "delta": -1
+    },
+    {
+      "id": "5ab11bef-5dcd-49f5-be49-ae2ccde76e70",
+      "from": 12,
+      "to": 13,
+      "delta": 1
+    },
+    {
+      "id": "2162742c-09d0-4e62-ae49-0f8f79b45adc",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    },
+    {
+      "id": "944e15d2-d680-4ebe-8d18-36826f4b1535",
+      "from": 2,
+      "to": 3,
+      "delta": 1
+    }
+  ],
+  "cardAbilityEdits": [
+    {
+      "id": "9b9c2743-75b3-499d-b5fb-c3429c92d420",
+      "find": "8●, ☪: This character gains +1✦.",
+      "replace": "6●, ☪: This character gains +1✦.",
+      "reason": "8● for +1 spark is too expensive; 6● is more playable"
+    },
+    {
+      "id": "a75c22ac-e343-4757-964e-a0bb981b5a28",
+      "find": "❖ – 10●: Allied spirit animals gain +3✦ and vengeful until end of turn.",
+      "replace": "❖ – 9●: Allied spirit animals gain +3✦ and vengeful until end of turn.",
+      "reason": "10● activation is prohibitively expensive for a 6-cost character; dropping to 9● keeps it costly but functional."
+    },
+    {
+      "id": "7e4cca36-5134-415a-b30a-c4876b58976c",
+      "find": "10●: Erode 1. That card gains reclaim 0●.",
+      "replace": "9●: Erode 1. That card gains reclaim 0●.",
+      "reason": "10● is prohibitively expensive for granting a single card reclaim 0●; reducing to 9● makes the ability occasionally usable while still being expensive."
+    },
+    {
+      "id": "a5056a4c-542b-4a7c-8fe6-895126c7d4c8",
+      "find": "8●: Abandon a ≤4● cost character.",
+      "replace": "9●: Abandon a ≤4● cost character.",
+      "reason": "The 8● activated ability is the engine that triggers the main passive (materialize 4✦ figment) on demand; at cost 12 the ability should also scale up by 1."
+    },
+    {
+      "id": "ed4d5342-0690-40b7-ab48-6b76035466f2",
+      "find": "8●, Abandon this character: Return a character from",
+      "replace": "9●, Abandon this character: Return a character from",
+      "reason": "The 8● + abandon ability to return a character from void is strong recursion at a relatively low cost; bumping to 9● brings it in line with the overall cost scaling."
+    },
+    {
+      "id": "764b62f6-6af9-40ad-8d1f-653cc1a11030",
+      "find": "6●: Store 1⧗.",
+      "replace": "7●: Store 1⧗.",
+      "reason": "Eclipse Herald's counter-storage ability is the engine that fuels its X⧗ dissolve. Storing counters for 6● is efficient given the dissolve payoff; bumping to 7● keeps the engine functional but slightly less efficient, consistent with the card's moderate power level at 6● cost. The dissolve ability (X⧗: Dissolve ≤X✦ enemy) is already gated by counter accumulation."
+    },
+    {
+      "id": "ec4c1ea2-067d-49e4-9d21-9de3f64a05e3",
+      "find": "8●: Gain 1⍟. This character gains +1✦.",
+      "replace": "7●: Gain 1⍟. This character gains +1✦.",
+      "reason": "Gleamshield Knight's activated ability costs 8● (the current maximum of early-game energy) to gain 1 VP and +1✦. This is prohibitively expensive for the effect. Reducing to 7● is still expensive but makes the ability usable. The card cost is being reduced by 1 as well (weak-for-cost), so keeping the ability cheaper aligns with the overall adjustment."
+    },
+    {
+      "id": "d8c90a33-a581-469a-9fd3-9a80d1cc5315",
+      "find": "10●, ☪, Abandon this character: Return all ≤4● cost characters from your void to play.",
+      "replace": "11●, ☪, Abandon this character: Return all ≤4● cost characters from your void to play.",
+      "reason": "Veilseeker's ultimate ability mass-reanimates all ≤4● characters from void — an exceptionally powerful effect that can flood the board. At 10● it is already very expensive, but given it also requires abandoning itself (Veilseeker leaves play as payment), bumping to 11● ensures the board-flood effect remains a true late-game desperation play. The card's base cost is already being judged fair at 6●."
+    },
+    {
+      "id": "0637b453-4362-4f01-b3e6-07c27af9c847",
+      "find": "6●, Abandon a character: Draw a card.",
+      "replace": "7●, Abandon a character: Draw a card.",
+      "reason": "Herald of the Last Light: the activated ability (6●, abandon a character: draw a card) is somewhat cheap for card draw that also combos with the passive +1✦ trigger. Nudging the ability cost up by 1 to 7● keeps it from being too efficient."
+    },
+    {
+      "id": "cf173b05-7bf2-465b-91e2-41f213c536d1",
+      "find": "4●, 2⧗: Materialize two 1✦ warrior figments.",
+      "replace": "5●, 2⧗: Materialize two 1✦ warrior figments.",
+      "reason": "Phantasmal Recruiter activated ability +1; hand-applied after agent find used wrong glyph (2◗ vs 2⧗)"
+    }
+  ],
+  "dreamcallerAbilityEdits": [
+    {
+      "id": "9E19B3D1-12F2-43C1-9CB1-08DE7CD32E32",
+      "find": "2●, ☪: If you materialized a figment this turn, draw a card.",
+      "replace": "3●, ☪: If you materialized a figment this turn, draw a card.",
+      "reason": "Conditional draw-1 for only 2● is extremely cheap; 3● is more appropriate."
+    },
+    {
+      "id": "9D64A4A2-3DC7-456E-9EB2-5FE3A48883C4",
+      "find": "4●, ☪, Abandon an ally: Materialize a random character with cost 2● higher from your deck.",
+      "replace": "5●, ☪, Abandon an ally: Materialize a random character with cost 2● higher from your deck.",
+      "reason": "Free tutoring and materializing a higher-cost character is powerful; 4● underprices this."
+    },
+    {
+      "id": "2B7E921D-0CD7-4C20-A415-9E7EEDE7B477",
+      "find": "8●, ☪: Copy the next event you play this turn.",
+      "replace": "9●, ☪: Copy the next event you play this turn.",
+      "reason": "Copying an event doubles its effect; can be game-winning with expensive events."
+    },
+    {
+      "id": "94E7C651-25E9-4A62-9DE4-EAF5BA20542C",
+      "find": "8●, ☪: Gain 2● for each allied spirit animal.",
+      "replace": "9●, ☪: Gain 2● for each allied spirit animal.",
+      "reason": "With 5+ spirit animals this nets positive energy; 8● makes it too easy to profit."
+    },
+    {
+      "id": "B9BF6D4B-907C-4750-B51C-811AFF29DE59",
+      "find": "4●, ☪, Abandon an ally with 1✦: Draw a card.",
+      "replace": "3●, ☪, Abandon an ally with 1✦: Draw a card.",
+      "reason": "Paying 4● plus sacrificing an ally with 1✦ just to draw one card is too costly."
+    },
+    {
+      "id": "8A2FCD65-BBA7-459C-A6B0-F0391B9293FD",
+      "find": "❖❖ – 8●, ☪: Draw a card.",
+      "replace": "❖❖ – 7●, ☪: Draw a card.",
+      "reason": "8● Interrupt for a single draw is prohibitively expensive even at late game energy levels."
+    },
+    {
+      "id": "81954CA0-DA36-49DD-915C-1CCB1B2D7B05",
+      "find": "4●, ☪, Discard a card: Materialize a 1✦ survivor figment.",
+      "replace": "3●, ☪, Discard a card: Materialize a 1✦ survivor figment.",
+      "reason": "Paying 4● plus discarding a card to create a 1✦ figment is very poor value."
+    },
+    {
+      "id": "BF72ADFF-7D74-4BE8-9B93-1DB7BA13A1DB",
+      "find": "4●, ☪: Materialize a 0✦ figment copy of the last warrior you played this turn.",
+      "replace": "3●, ☪: Materialize a 0✦ figment copy of the last warrior you played this turn.",
+      "reason": "A 0✦ figment copy is nearly worthless in challenges; paying 4● is too much."
+    }
+  ],
+  "dreamwell": [
+    {
+      "id": "32d64cb6-9856-43a2-9451-fcb14007a9a6",
+      "name": "Dawning Horizon",
+      "order": 0,
+      "from": 4,
+      "to": 5,
+      "rationale": "opening"
+    },
+    {
+      "id": "5e17dc4b-b654-4962-ba5a-7b042852a980",
+      "name": "Sunrise Cavern",
+      "order": 0,
+      "from": 4,
+      "to": 5,
+      "rationale": "opening"
+    },
+    {
+      "id": "f9b479cf-02cb-40e1-bb64-70b29977bf15",
+      "name": "Skypath",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "02e8ea92-1218-413c-9f0b-4c865a3921d3",
+      "name": "Autumn Glade",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "de98477c-e216-4618-bff1-0e24bd982fdb",
+      "name": "Twilight Radiance",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "ee1ef770-29ea-4a63-a1f9-7e97b5b8870d",
+      "name": "Astral Interface",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "03e4e701-4720-4278-8198-9b7e0514d4cf",
+      "name": "Shadow Passage",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "51caf26d-83bf-45a9-bc80-010d353277db",
+      "name": "Foxfire Thicket",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "eae99eb2-0fa8-4d12-b7b2-3f5387cb6d3a",
+      "name": "Stillwater Mirror",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "91deefd2-0400-4c78-ab9f-f6db864ff7e2",
+      "name": "Emberwake Flats",
+      "order": 1,
+      "from": 2,
+      "to": 2,
+      "rationale": "early ramp"
+    },
+    {
+      "id": "5ec17498-9028-4a01-80a0-67c91b03d505",
+      "name": "Meteor Meadow",
+      "order": 2,
+      "from": 2,
+      "to": 2,
+      "rationale": "unconditional draw one card, moderate effect"
+    },
+    {
+      "id": "cf0f0a05-2a94-407c-8c22-e41b925f9c03",
+      "name": "Glimmering Horizon",
+      "order": 2,
+      "from": 2,
+      "to": 3,
+      "rationale": "conditional draw only when hand near empty, weak"
+    },
+    {
+      "id": "14dec460-3ec6-40c1-978f-67e70cb0b227",
+      "name": "Firmament Mirror",
+      "order": 2,
+      "from": 2,
+      "to": 3,
+      "rationale": "situational reclaim; requires void card, often low impact"
+    },
+    {
+      "id": "662b7393-751c-4aa9-8150-5f20b4d176a4",
+      "name": "Summer Blossom",
+      "order": 2,
+      "from": 4,
+      "to": 3,
+      "rationale": "no ability, pure ramp"
+    },
+    {
+      "id": "f61431f3-33bd-42ff-a229-b4013582e86e",
+      "name": "Forest Trailhead",
+      "order": 2,
+      "from": 2,
+      "to": 1,
+      "rationale": "Discover tutor effect is strong, card selection advantage"
+    },
+    {
+      "id": "a0fbcbd9-96ee-4392-add7-e1d436f99553",
+      "name": "Verdant Hollow",
+      "order": 2,
+      "from": 2,
+      "to": 2,
+      "rationale": "event recursion from void, solid but event-type limited"
+    },
+    {
+      "id": "fcce7aa2-1cb4-4a80-bda9-959f2eeb8bf5",
+      "name": "Ruin Tree",
+      "order": 3,
+      "from": 2,
+      "to": 1,
+      "rationale": "free character from void is strong tempo and resource gain"
+    },
+    {
+      "id": "558a1f1b-7dc1-4d83-9f00-c6af2187a954",
+      "name": "Lily Lake",
+      "order": 3,
+      "from": 2,
+      "to": 0,
+      "rationale": "extra Dreamwell card means extra energy ramp and extra effect, very strong"
+    },
+    {
+      "id": "7171ff89-ebe4-42d0-8863-9b4b0531cad2",
+      "name": "The Voltsurge",
+      "order": 3,
+      "from": 2,
+      "to": 3,
+      "rationale": "each player draws 2, symmetric refill; opponent benefits equally"
+    },
+    {
+      "id": "fa8704fe-759f-408d-992d-d8f9d5ffd760",
+      "name": "Sunset's Last Gaze",
+      "order": 3,
+      "from": 2,
+      "to": 2,
+      "rationale": "optional loot 2 for 2, useful but costly to activate"
+    },
+    {
+      "id": "2b23a60c-209c-4c75-b63c-b7f73b2e1a56",
+      "name": "Leaf Light Canopy",
+      "order": 3,
+      "from": 2,
+      "to": 2,
+      "rationale": "basic void recursion, any card type, moderate value"
+    },
+    {
+      "id": "9954cede-8a16-4053-b6e9-da745f4540f5",
+      "name": "Silent Winter",
+      "order": 3,
+      "from": 0,
+      "to": 1,
+      "rationale": "banish enemy until end of turn removes threat for full turn"
+    },
+    {
+      "id": "3a4293da-55a1-4094-898a-df402ffa1c92",
+      "name": "Shining Beacon",
+      "order": 3,
+      "from": 0,
+      "to": 2,
+      "rationale": "selective look-at-2 foresee hybrid, moderate card selection"
+    },
+    {
+      "id": "a9c254c4-8448-40ea-bb1a-08c0ef8c7bdf",
+      "name": "The Brimming Well",
+      "order": 3,
+      "from": 4,
+      "to": 3,
+      "rationale": "gives opponent 2 max energy, purely anti-self, symmetric negative"
+    },
+    {
+      "id": "2ad68489-044a-40d1-9be6-e62497a4e1fd",
+      "name": "Echo Cascade",
+      "order": 3,
+      "from": 2,
+      "to": 2,
+      "rationale": "rematerialize ally re-triggers materialized, solid combo enabler"
+    },
+    {
+      "id": "8f5f2e26-44b5-447b-90d0-eaf22ab29fed",
+      "name": "Sunlit Archive",
+      "order": 3,
+      "from": 0,
+      "to": 1,
+      "rationale": "Discover a character is targeted tutor, strong card selection"
+    },
+    {
+      "id": "06e62e45-53f9-4264-9aa6-2575b445332a",
+      "name": "Wellspring Commons",
+      "order": 3,
+      "from": 2,
+      "to": 3,
+      "rationale": "symmetric draw-to-3, each player benefits equally, weak asymmetry"
+    },
+    {
+      "id": "120ec4c2-aa7b-48f4-be9f-f39820e565ca",
+      "name": "Twin Moons",
+      "order": 3,
+      "from": 2,
+      "to": 2,
+      "rationale": "draw a card plus conditional 2 energy bonus, moderate"
+    },
+    {
+      "id": "d585b78a-dfe3-4e12-95ac-432c3c880540",
+      "name": "Prismatic Pastures",
+      "order": 4,
+      "from": 0,
+      "to": 1,
+      "rationale": "Gain 6 current energy is very strong burst; text handles the power"
+    },
+    {
+      "id": "a3033051-8eb7-4fbf-93d6-f947ed68974d",
+      "name": "Celestial Gateway",
+      "order": 4,
+      "from": 2,
+      "to": 2,
+      "rationale": "random character return for both players, power offset by randomness and symmetry"
+    },
+    {
+      "id": "556057bb-b134-497e-86c2-c6f30049e9e3",
+      "name": "Luminous Enigma",
+      "order": 4,
+      "from": 2,
+      "to": 3,
+      "rationale": "optional void-to-top-of-deck, mild and situational recursion"
+    },
+    {
+      "id": "20be0fdd-d691-40a9-b4f8-15689ea7ebaa",
+      "name": "The Bastion",
+      "order": 4,
+      "from": 0,
+      "to": 1,
+      "rationale": "abandon ally for 2 cards trades board presence for hand, strong late"
+    },
+    {
+      "id": "a57f1276-3fb6-4527-b538-953fbace35cf",
+      "name": "Eternal Horizon",
+      "order": 4,
+      "from": 0,
+      "to": 0,
+      "rationale": "board-wide +1 spark to all allies is massive with even 3+ characters"
+    },
+    {
+      "id": "af2ef62f-d31b-4544-a2b0-f5aab03c2d7c",
+      "name": "The Crossroads",
+      "order": 4,
+      "from": 0,
+      "to": 2,
+      "rationale": "modal choice draw or gain 4 energy, flexible but neither option dominates"
+    },
+    {
+      "id": "446095b1-ec4d-40d7-8eed-a8221d339ea2",
+      "name": "Fortune's Wheel",
+      "order": 4,
+      "from": 0,
+      "to": 1,
+      "rationale": "optional full hand refresh is powerful with large hand sizes"
+    }
+  ],
+  "warnings": [
+    "Phantasmal Recruiter (cf173b05) agent abilityEdit find used glyph 2◗ instead of 2⧗; corrected and hand-applied as 4●→5●."
+  ]
+}
