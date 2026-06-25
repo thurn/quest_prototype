@@ -398,6 +398,40 @@ describe("BattleSiteRoute", () => {
     expect(battleService.ensureBattleSession).not.toHaveBeenCalled();
   });
 
+  it("skips the Battle Start reveal and resumes the playable surface when the battle is already underway", () => {
+    // A mid-battle reload: the shared session has had at least one command
+    // applied (`commandSerial > 0`). Even though this client never clicked
+    // "Begin Battle" on this mount, the reveal must not reappear.
+    const fakeBattleState = makeFakeBattleState();
+    const inProgress: SharedBattleState = {
+      ...fakeBattleState,
+      reducer: { ...fakeBattleState.reducer, commandSerial: 1 },
+    };
+    const { container } = mount(
+      <BattleSiteRoute
+        site={makeSite()}
+        cardDatabase={makeBattleTestCardDatabase()}
+        runtimeConfig={{
+          seedOverride: null,
+          startInBattle: false,
+          aiMode: false,
+          basicAutomation: false,
+          gameId: null,
+          databaseMode: "emulator",
+          journeyVariant: "classic",
+        }}
+      />,
+      inProgress,
+    );
+
+    expect(
+      container.querySelector('[data-screen="battle-start"]'),
+    ).toBeNull();
+    const screen = container.querySelector('[data-screen="playable"]');
+    expect(screen).not.toBeNull();
+    expect(screen?.textContent).toBe("site-7::3::dreamscape-2");
+  });
+
   it("rerenders the screen with the updated battleEntryKey when quest state changes", () => {
     const fakeBattleState = makeFakeBattleState();
     const { container, root } = mount(

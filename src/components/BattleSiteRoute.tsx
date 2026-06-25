@@ -45,6 +45,8 @@ export function BattleSiteRoute({
   // reveal and clicks through independently; the shared battle session already
   // exists, so dismissing only mounts the playable surface locally. Keyed by
   // `battleEntryKey` so a fresh battle at the same route shows the reveal again.
+  // Note this gate is intentionally not persisted; persistence of "the battle
+  // is underway" comes from the shared `commandSerial` below, not this flag.
   const [begunEntryKey, setBegunEntryKey] = useState<string | null>(null);
   useEffect(() => {
     setBegunEntryKey(null);
@@ -83,10 +85,14 @@ export function BattleSiteRoute({
     );
   }
 
-  // The opposing Dreamcaller is revealed before hands are dealt. Once the player
-  // clicks "Begin Battle", the playable surface mounts against the same shared
-  // session.
-  if (begunEntryKey !== battleEntryKey) {
+  // The opposing Dreamcaller is revealed before the battle is underway. Once any
+  // command has been applied to the shared session (`commandSerial > 0`) the
+  // battle is in progress: skip the reveal on every client and on reload so a
+  // mid-battle refresh resumes the playable surface instead of dropping back to
+  // the Battle Start screen. A genuinely fresh battle (`commandSerial === 0`)
+  // still shows the reveal until this client clicks "Begin Battle".
+  const battleHasBegun = battleState.reducer.commandSerial > 0;
+  if (!battleHasBegun && begunEntryKey !== battleEntryKey) {
     return (
       <BattleStartScreen
         init={battleState.init}
