@@ -30,13 +30,13 @@ import {
 } from "./InfoCard";
 
 describe("InfoCard shell treatment", () => {
-  it("uses the shared GroupPanel liquid-glass material", () => {
+  it("uses the GroupPanel liquid-glass treatment with a stronger InfoCard fill", () => {
     const html = renderToStaticMarkup(
       React.createElement(InfoCard, { title: "Essence" }),
     );
     const glass = groupPanelStyle();
 
-    expect(html).toContain(`background:${String(glass.background)}`);
+    expect(html).toContain("rgba(18,14,28,0.82)");
     expect(html).toContain(
       `-webkit-backdrop-filter:${String(glass.WebkitBackdropFilter)}`,
     );

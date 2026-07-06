@@ -5,7 +5,7 @@
 //
 // The shell is fixed and shared (a liquid-glass pane, not a scrim):
 //   - no colored border, no arrow / caret pointing back at the origin
-//   - one glass material       — GroupPanel's translucent chrome recipe
+//   - one glass material       — GroupPanel's chrome recipe with a stronger fill
 //   - one corner radius         — --radius-popover
 //   - one shadow/rim treatment  — GroupPanel's layered glass edge
 //   - one type scale            — headline (serif) / body (rules) / meta (mono)
@@ -59,7 +59,8 @@ const GAP_PX = 14; // uniform distance from the pressed object
 const CLICK_WINDOW_MS = 300; // release within this → still counts as a tap/click
 const PADX = 15;
 const PADY = 14;
-const HERO_GLASS_FILL = "rgba(18,14,28,0.58)";
+const INFO_CARD_GLASS_FILL = "rgba(18,14,28,0.82)";
+const INFO_CARD_GLASS_BACKGROUND = `linear-gradient(150deg, rgba(255,255,255,0.07), rgba(255,255,255,0) 42%), ${INFO_CARD_GLASS_FILL}`;
 
 /** Screen inset (px): the popover is clamped to never come within this of any
  * viewport edge. Exported for the clamp tests. */
@@ -87,6 +88,7 @@ export function setRevealDelay(ms: number): void {
 /* ---- the shared shell + type scale (the coherent vocabulary) ---- */
 const shell: React.CSSProperties = {
   ...groupPanelStyle(),
+  background: INFO_CARD_GLASS_BACKGROUND,
   width: CARD_W,
   boxSizing: "border-box",
   textAlign: "left",
@@ -254,8 +256,8 @@ export type InfoCardProps =
    ================================================================ */
 /**
  * InfoCard — the one press-to-reveal information card. Four media variants on
- * one fixed liquid-glass shell (no caret, one GroupPanel material + type
- * scale). The placement/timing engine is attached as statics:
+ * one fixed liquid-glass shell (no caret, one GroupPanel material with a
+ * stronger fill + type scale). The placement/timing engine is attached as statics:
  * `InfoCard.PressPopover / PressInfo / usePressReveal / anchorRect /
  * setRevealDelay / SITE_DISC`.
  */
@@ -383,7 +385,7 @@ function InfoCardComponent(props: InfoCardProps): React.ReactElement {
               height: 120,
               // The hero image fades into the same translucent chrome fill as
               // the GroupPanel glass recipe, preserving the liquid material.
-              background: `linear-gradient(to bottom, rgba(34,26,49,0) 0%, rgba(34,26,49,0.7) 60%, ${HERO_GLASS_FILL} 100%)`,
+              background: `linear-gradient(to bottom, rgba(34,26,49,0) 0%, rgba(34,26,49,0.7) 60%, ${INFO_CARD_GLASS_FILL} 100%)`,
             }}
           />
         </div>
