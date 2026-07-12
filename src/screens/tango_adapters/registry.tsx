@@ -20,6 +20,7 @@ import { DraftSiteScreenAdapter } from "./DraftSiteScreenAdapter";
 import { DreamsignRevelationScreenAdapter } from "./DreamsignRevelationScreenAdapter";
 import { PurgeSiteScreenAdapter } from "./PurgeSiteScreenAdapter";
 import { CardShopSiteScreenAdapter } from "./CardShopSiteScreenAdapter";
+import { TransfigurationSiteScreenAdapter } from "./TransfigurationSiteScreenAdapter";
 
 /**
  * App-level actions a Tango screen may trigger that live outside quest state —
@@ -97,6 +98,10 @@ export function tangoSiteScreenFor(
           siteId={site.id}
           onViewDeck={handlers.onViewDeck}
         />
+      );
+    case "Transfiguration":
+      return site.isEnhanced ? null : (
+        <TransfigurationSiteScreenAdapter siteId={site.id} onViewDeck={handlers.onViewDeck} />
       );
     default:
       return null;

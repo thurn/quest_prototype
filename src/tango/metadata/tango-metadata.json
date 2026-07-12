@@ -2148,6 +2148,101 @@
       "description": "Stacking order within the positioned parent."
     }
   ],
+  "OptionListItem": [
+    {
+      "name": "optionId",
+      "tsType": "string",
+      "unionMembers": [],
+      "required": true,
+      "defaultValue": null,
+      "description": "Stable id exposed to browser QA and screen tests."
+    },
+    {
+      "name": "title",
+      "tsType": "string",
+      "unionMembers": [],
+      "required": true,
+      "defaultValue": null,
+      "description": "Short option name."
+    },
+    {
+      "name": "description",
+      "tsType": "string",
+      "unionMembers": [],
+      "required": true,
+      "defaultValue": null,
+      "description": "One-line explanation of the option's effect."
+    },
+    {
+      "name": "accent",
+      "tsType": "TangoColor",
+      "unionMembers": [
+        "danger",
+        "accent",
+        "accent-bright",
+        "accent-strong",
+        "essence",
+        "energy",
+        "energy-bright",
+        "spark",
+        "points",
+        "positive",
+        "selected",
+        "sale",
+        "gold",
+        "gold-light",
+        "text-primary",
+        "text-secondary",
+        "text-muted",
+        "text-faint",
+        "text-on-accent",
+        "white"
+      ],
+      "required": true,
+      "defaultValue": null,
+      "description": "Semantic or data-driven accent attached to this option."
+    },
+    {
+      "name": "glyph",
+      "tsType": "Glyph",
+      "unionMembers": [],
+      "required": true,
+      "defaultValue": null,
+      "description": "Glyph that identifies the option family."
+    },
+    {
+      "name": "cost",
+      "tsType": "number",
+      "unionMembers": [],
+      "required": true,
+      "defaultValue": null,
+      "description": "Essence paid when this option is committed."
+    },
+    {
+      "name": "selected",
+      "tsType": "boolean",
+      "unionMembers": [],
+      "required": false,
+      "defaultValue": "false",
+      "description": "Whether this option is the current choice."
+    },
+    {
+      "name": "disabled",
+      "tsType": "boolean",
+      "unionMembers": [],
+      "required": false,
+      "defaultValue": "false",
+      "description": "Whether this option cannot be chosen."
+    },
+    {
+      "name": "onSelect",
+      "tsType": "(optionId: string) => void",
+      "unionMembers": [],
+      "required": true,
+      "defaultValue": null,
+      "description": "Called with the stable option id when activated."
+    }
+  ],
   "PipBadge": [
     {
       "name": "variant",

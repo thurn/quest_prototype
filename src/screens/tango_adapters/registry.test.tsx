@@ -42,6 +42,11 @@ describe("tangoSiteScreenFor", () => {
     ).not.toBeNull();
   });
 
+  it("resolves standard Transfiguration and preserves enhanced fallback", () => {
+    expect(tangoSiteScreenFor({ type: "Transfiguration", id: "site-1", isEnhanced: false } as SiteState)).not.toBeNull();
+    expect(tangoSiteScreenFor({ type: "Transfiguration", id: "site-1", isEnhanced: true } as SiteState)).toBeNull();
+  });
+
   it("accepts router-owned site context needed by future site migrations", () => {
     expect(
       tangoSiteScreenFor(
