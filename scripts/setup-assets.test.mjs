@@ -25,6 +25,7 @@ import {
   transformExplorationData,
   validateDreamAvatarMapping,
 } from "./setup-assets.mjs";
+import { EXPLORATION_EFFECT_KINDS } from "./exploration-effect-kinds.mjs";
 
 describe("removeLegacyDraftPoolArtifacts", () => {
   it("clears stale browser data for legacy pool algorithms", () => {
@@ -79,8 +80,8 @@ describe("transformExplorationData", () => {
       ),
     );
     const compiled = transformExplorationData(source);
-    expect(compiled.schemaVersion).toBe(1);
-    expect(compiled.effectKinds).toHaveLength(34);
+    expect(compiled.schemaVersion).toBe(2);
+    expect(compiled).not.toHaveProperty("effectKinds");
     expect(compiled.foldHash).toBe(compiled.contentHash);
     const actions = compiled.encounters.flatMap(
       (encounter) => encounter.action,
@@ -96,8 +97,8 @@ describe("transformExplorationData", () => {
     );
     expect(
       actions
-        .filter((action) => action.effectText.includes("$DECK_CARD"))
-        .every((action) => action.specialVariables.includes("$DECK_CARD")),
+        .filter((action) => action.effectText.includes("{deck_card}"))
+        .every((action) => action.deckTarget === "offered"),
     ).toBe(true);
     expect(actions.map((action) => action.effectKind)).toEqual(
       expect.arrayContaining([
@@ -129,6 +130,7 @@ describe("transformExplorationData", () => {
     encounters[0].action[0] = {
       ...encounters[0].action[0],
       "effect-kind": "gain-offered-card",
+      "effect-text": "Gain {offered_card}",
       predicate: "character",
     };
     encounters[0].action[1] = {
@@ -141,7 +143,12 @@ describe("transformExplorationData", () => {
       "effect-kind": "increase-spark-all",
       "spark-bonus": 1,
     };
-    return { encounter: encounters };
+    return {
+      "schema-version": 2,
+      "effect-kinds": [...EXPLORATION_EFFECT_KINDS],
+      encounters: { "actions-per-encounter": 2 },
+      encounter: encounters,
+    };
   }
 
   it("compiles the redesigned encounter effect kinds", () => {
@@ -159,6 +166,15 @@ describe("transformExplorationData", () => {
     const source = syntheticExplorationSource();
     source.encounters = { "actions-per-encounter": 3 };
     expect(() => transformExplorationData(source)).toThrow(/must be 2/u);
+  });
+
+  it("rejects drift between compiler, runtime, and editor effect kinds", () => {
+    const source = syntheticExplorationSource();
+    source["effect-kinds"] = source["effect-kinds"].slice(1);
+
+    expect(() => transformExplorationData(source)).toThrow(
+      /compiler, runtime, and editor effect kinds must match/u,
+    );
   });
 
   it("compiles custom Dreamsigns as canonical collectible data", () => {
@@ -187,7 +203,9 @@ describe("transformExplorationData", () => {
     const countSource = syntheticExplorationSource();
     countSource.encounter[0].action[0] = {
       ...countSource.encounter[0].action[0],
+      "effect-text": "Synthetic effect",
       "effect-kind": "copy-selected-card",
+      "deck-target": "chosen",
       count: 0,
     };
     expect(() => transformExplorationData(countSource)).toThrow(
@@ -197,6 +215,7 @@ describe("transformExplorationData", () => {
     const offerSource = syntheticExplorationSource();
     offerSource.encounter[0].action[0] = {
       ...offerSource.encounter[0].action[0],
+      "effect-text": "Synthetic effect",
       "effect-kind": "choose-dream-avatar",
       "offer-count": 0,
     };
@@ -209,6 +228,7 @@ describe("transformExplorationData", () => {
     const source = syntheticExplorationSource();
     source.encounter[0].action[0] = {
       ...source.encounter[0].action[0],
+      "effect-text": "Synthetic effect",
       "effect-kind": "purge-for-essence",
       "essence-per-spark": 0,
     };
@@ -222,6 +242,7 @@ describe("transformExplorationData", () => {
     const source = syntheticExplorationSource();
     source.encounter[0].action[0] = {
       ...source.encounter[0].action[0],
+      "effect-text": "Synthetic effect",
       "effect-kind": "copy-selected-cards",
       count: 2,
     };
@@ -242,7 +263,9 @@ describe("transformExplorationData", () => {
     const source = syntheticExplorationSource();
     source.encounter[0].action[0] = {
       ...source.encounter[0].action[0],
+      "effect-text": "Synthetic effect",
       "effect-kind": "change-subtype-selected",
+      "deck-target": "chosen",
       predicate: "cheap-character",
       subtype: "",
     };
@@ -257,7 +280,7 @@ describe("transformExplorationData", () => {
     offered.encounter[0].action[0] = {
       ...offered.encounter[0].action[0],
       "effect-kind": "gain-offered-card",
-      "template-id": 12,
+      "effect-text": "Gain {offered_card}",
       predicate: "spirit-animal",
       count: 3,
     };
@@ -269,6 +292,7 @@ describe("transformExplorationData", () => {
     offered.encounter[1].action[0] = {
       ...offered.encounter[1].action[0],
       "effect-kind": "transfigure-fixed-selected",
+      "deck-target": "chosen",
       transfiguration: "Empowered",
     };
     expect(() => transformExplorationData(offered)).not.toThrow();

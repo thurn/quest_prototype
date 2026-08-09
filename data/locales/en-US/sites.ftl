@@ -212,7 +212,7 @@ random-site-title = Choose a Site
 dreamsign-bazaar-replacement-title = Choose a Dreamsign to Replace
 dreamsign-bazaar-replacement-full = Your collection is full at { $count } Dreamsigns.
 dreamsign-bazaar-replacement-cancel = Cancel
-# Exploration effect fallback that replaces the special $DECK_CARD token when
+# Exploration effect fallback that replaces the authored {deck_card} slot when
 # the persisted offer has no resolvable target. $before and $after are opaque
 # authored effect-text fragments; the complete sentence and inserted noun stay
 # together here so the adapter never supplies English grammar.
